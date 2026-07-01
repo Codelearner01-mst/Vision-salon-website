@@ -1,0 +1,175 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- Minimal Page Header -->
+<div class="page-header text-center reveal">
+  <div class="container">
+    <span class="story-badge">{{ member.role }}</span>
+    <h1 class="page-title">{{ member.name }}</h1>
+    <p class="text-muted mx-auto mb-0" style="max-width: 600px">
+      Mastering hair artistry with over {{ member.years_exp }} years of industry
+      experience.
+    </p>
+  </div>
+</div>
+
+<!-- Team Detail Section -->
+<div class="container pb-5">
+  <div class="row g-5 align-items-start mb-5">
+    <!-- Left Column: Portrait & Details -->
+    <div class="col-lg-5 reveal">
+      <div class="card border-0 shadow-sm p-4 bg-theme-light rounded-4">
+        <div class="text-center mb-4">
+          <img
+            src="{{ member.image }}"
+            alt="{{ member.name }}"
+            class="rounded-circle border border-5 border-white shadow-sm"
+            style="width: 220px; height: 220px; object-fit: cover"
+          />
+        </div>
+
+        <h5 class="font-serif mb-3 text-center">Stylist Details</h5>
+
+        <div
+          class="mb-3 d-flex justify-content-between border-bottom border-secondary-subtle pb-2"
+        >
+          <span class="text-muted small">Experience</span>
+          <span class="small fw-semibold text-theme-dark"
+            >{{ member.years_exp }} Years</span
+          >
+        </div>
+
+        <div
+          class="mb-3 d-flex justify-content-between border-bottom border-secondary-subtle pb-2"
+        >
+          <span class="text-muted small">Designation</span>
+          <span class="small fw-semibold text-theme-dark"
+            >{{ member.role }}</span
+          >
+        </div>
+
+        <div class="mb-4">
+          <span class="text-muted small d-block mb-1">Weekly Schedule</span>
+          <span class="small fw-semibold text-theme-dark"
+            ><i class="far fa-clock text-pink me-1"></i> {{ member.hours
+            }}</span
+          >
+        </div>
+
+        <div class="d-flex justify-content-center gap-3">
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Biography & Specialties -->
+    <div class="col-lg-7 detail-content-side reveal reveal-delay-1">
+      <h2 class="font-serif mb-4">About {{ member.name.split(' ')[0] }}</h2>
+      <p
+        class="text-secondary mb-4"
+        style="font-size: 1.1rem; line-height: 1.8"
+      >
+        {{ member.bio }}
+      </p>
+
+      <p class="text-secondary mb-4">
+        In addition to client work in-salon, Sarah coordinates seasonal style
+        guides and is a regular guest stylist at regional styling masterclasses.
+        Their approach revolves around building structural integrity in cuts
+        that require minimal everyday product manipulation.
+      </p>
+
+      <div class="mb-5">
+        <h4 class="font-serif mb-3">Areas of Specialization</h4>
+        <div class="d-flex flex-wrap gap-2">
+          {% for spec in member.specialties %}
+          <span class="sub-work-tag px-3 py-2" style="font-size: 0.9rem"
+            >{{ spec }}</span
+          >
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="d-flex gap-3 align-items-center">
+        <a
+          href="{{ url_for('book', stylist_id=member.id) }}"
+          class="btn btn-pink btn-lg px-5 py-3 rounded-pill shadow-sm"
+          >Book with {{ member.name.split(' ')[0] }}</a
+        >
+        <a
+          href="{{ url_for('team') }}"
+          class="btn btn-outline-dark btn-lg px-4 py-3 rounded-pill"
+          >Back to Stylists</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <hr class="border-light my-5" />
+
+  <!-- Portfolio Showcase (Visual design only) -->
+  <div class="my-5 reveal">
+    <div class="text-center mb-5">
+      <span class="story-badge">CREATIVE WORKS</span>
+      <h2 class="font-serif display-6">Recent Work & Looks</h2>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div
+          class="gallery-item rounded-4 overflow-hidden"
+          style="height: 250px"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=400"
+            alt="Work 1"
+            class="w-100 h-100"
+            style="object-fit: cover"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div
+          class="gallery-item rounded-4 overflow-hidden"
+          style="height: 250px"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?q=80&w=400"
+            alt="Work 2"
+            class="w-100 h-100"
+            style="object-fit: cover"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div
+          class="gallery-item rounded-4 overflow-hidden"
+          style="height: 250px"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1605497746444-ac9da58d7d9b?q=80&w=400"
+            alt="Work 3"
+            class="w-100 h-100"
+            style="object-fit: cover"
+          />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div
+          class="gallery-item rounded-4 overflow-hidden"
+          style="height: 250px"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=400"
+            alt="Work 4"
+            class="w-100 h-100"
+            style="object-fit: cover"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

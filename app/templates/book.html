@@ -1,0 +1,414 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- Minimal Page Header -->
+<div class="page-header text-center reveal">
+  <div class="container">
+    <span class="story-badge">Reservation</span>
+    <h1 class="page-title">Book an Appointment</h1>
+    <p class="text-muted mx-auto mb-0" style="max-width: 600px">
+      Schedule a personalized styling or color session with our master stylists
+      in a few simple steps.
+    </p>
+  </div>
+</div>
+
+<!-- Booking Wizard Container -->
+<div class="container pb-5">
+  <div class="row g-4 align-items-start">
+    <!-- Left Column: Booking Steps -->
+    <div class="col-lg-8">
+      <!-- Step 1: Select Service -->
+      <div class="booking-step-card reveal">
+        <div class="booking-header">
+          <h4 class="font-serif mb-1">
+            <span class="text-pink me-2">01.</span> Select Salon Service
+          </h4>
+          <p class="text-muted small mb-0">
+            Choose your premium treatment or hair design.
+          </p>
+        </div>
+
+        <div class="row g-3">
+          {% for service in services %}
+          <div class="col-md-6">
+            <div
+              class="card p-3 border-secondary-subtle select-service-card cursor-pointer transition"
+              data-service-id="{{ service.id }}"
+              data-service-name="{{ service.name }}"
+              data-service-price="{{ service.price }}"
+              style="border-radius: 12px; border: 2px solid #e9ecef"
+            >
+              <div
+                class="d-flex justify-content-between align-items-center mb-2"
+              >
+                <h6 class="mb-0 fw-bold">{{ service.name }}</h6>
+                <span class="text-pink fw-bold">${{ service.price }}</span>
+              </div>
+              <p class="text-muted small mb-0">
+                {{ service.desc | truncate(80) }}
+              </p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Step 2: Select Stylist -->
+      <div class="booking-step-card reveal reveal-delay-1">
+        <div class="booking-header">
+          <h4 class="font-serif mb-1">
+            <span class="text-pink me-2">02.</span> Choose Your Stylist
+          </h4>
+          <p class="text-muted small mb-0">
+            Select your preferred beauty artisan.
+          </p>
+        </div>
+
+        <div class="stylist-grid-picker">
+          <!-- Any Stylist option -->
+          <div
+            class="stylist-pick-card selected"
+            data-stylist-id="any"
+            data-stylist-name="Any Available Stylist"
+          >
+            <div
+              class="d-flex justify-content-center align-items-center bg-pink text-white rounded-circle border border-3 border-white shadow-sm mx-auto mb-2"
+              style="width: 80px; height: 80px; font-size: 1.5rem"
+            >
+              <i class="fas fa-users"></i>
+            </div>
+            <h6 class="mb-0 small fw-bold">First Available</h6>
+            <span class="text-muted" style="font-size: 0.75rem"
+              >Stylist Team</span
+            >
+          </div>
+
+          {% for member in team %}
+          <div
+            class="stylist-pick-card"
+            data-stylist-id="{{ member.id }}"
+            data-stylist-name="{{ member.name }}"
+          >
+            <img src="{{ member.image }}" alt="{{ member.name }}" />
+            <h6 class="mb-0 small fw-bold">{{ member.name }}</h6>
+            <span class="text-muted" style="font-size: 0.75rem"
+              >{{ member.role.split(' ')[-1] }}</span
+            >
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Step 3: Date & Time -->
+      <div class="booking-step-card reveal reveal-delay-2">
+        <div class="booking-header">
+          <h4 class="font-serif mb-1">
+            <span class="text-pink me-2">03.</span> Date & Time
+          </h4>
+          <p class="text-muted small mb-0">
+            Select your date and preferred appointment slot.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6">
+            <label for="booking-date" class="form-label small fw-semibold"
+              >Choose Date</label
+            >
+            <input
+              type="date"
+              class="form-control rounded-pill bg-light border-0 px-3 py-2.5"
+              id="booking-date"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label small fw-semibold">Select Time Slot</label>
+            <div class="time-grid-picker">
+              <div class="time-slot-btn" data-time="09:00 AM">09:00 AM</div>
+              <div class="time-slot-btn" data-time="10:30 AM">10:30 AM</div>
+              <div class="time-slot-btn" data-time="12:00 PM">12:00 PM</div>
+              <div class="time-slot-btn" data-time="01:30 PM">01:30 PM</div>
+              <div class="time-slot-btn" data-time="03:00 PM">03:00 PM</div>
+              <div class="time-slot-btn" data-time="04:30 PM">04:30 PM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Personal Details -->
+      <div class="booking-step-card reveal reveal-delay-3">
+        <div class="booking-header">
+          <h4 class="font-serif mb-1">
+            <span class="text-pink me-2">04.</span> Guest Details
+          </h4>
+          <p class="text-muted small mb-0">
+            Confirm your name, email and special requests.
+          </p>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="book-name" class="form-label small fw-semibold"
+              >Your Name</label
+            >
+            <input
+              type="text"
+              class="form-control rounded-pill bg-light border-0 px-3 py-2.5"
+              id="book-name"
+              placeholder="John Doe"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="book-phone" class="form-label small fw-semibold"
+              >Phone Number</label
+            >
+            <input
+              type="tel"
+              class="form-control rounded-pill bg-light border-0 px-3 py-2.5"
+              id="book-phone"
+              placeholder="(310) 555-0199"
+              required
+            />
+          </div>
+          <div class="col-md-12">
+            <label for="book-email" class="form-label small fw-semibold"
+              >Email Address</label
+            >
+            <input
+              type="email"
+              class="form-control rounded-pill bg-light border-0 px-3 py-2.5"
+              id="book-email"
+              placeholder="john@example.com"
+              required
+            />
+          </div>
+          <div class="col-md-12">
+            <label for="book-notes" class="form-label small fw-semibold"
+              >Notes / Special Instructions</label
+            >
+            <textarea
+              class="form-control bg-light border-0 px-3 py-2.5"
+              id="book-notes"
+              rows="3"
+              placeholder="Tell us if you have any sensitivities or specific requests..."
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Sticky Summary Widget -->
+    <div
+      class="col-lg-4 sticky-lg-top reveal reveal-delay-2"
+      style="top: 100px; z-index: 10"
+    >
+      <div class="book-summary-widget text-white">
+        <h4
+          class="font-serif border-bottom border-secondary pb-3 mb-4 text-white"
+        >
+          Booking Summary
+        </h4>
+
+        <div class="mb-3">
+          <span class="text-light-grey small d-block mb-1">SERVICE</span>
+          <h6 class="mb-0 text-white" id="summary-service-name">
+            None Selected
+          </h6>
+          <span class="text-pink fw-bold" id="summary-service-price">-</span>
+        </div>
+
+        <div class="mb-3">
+          <span class="text-light-grey small d-block mb-1">STYLIST</span>
+          <h6 class="mb-0 text-white" id="summary-stylist-name">
+            Any Available Stylist
+          </h6>
+        </div>
+
+        <div class="mb-4">
+          <span class="text-light-grey small d-block mb-1">DATE & TIME</span>
+          <h6 class="mb-0 text-white" id="summary-datetime">
+            Not Scheduled Yet
+          </h6>
+        </div>
+
+        <div
+          class="border-top border-secondary pt-3 mb-4 d-flex justify-content-between align-items-center"
+        >
+          <span class="text-light-grey">Total Cost</span>
+          <span class="fs-3 fw-bold text-pink" id="summary-total-price"
+            >$0</span
+          >
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-pink w-100 py-3 rounded-pill shadow-sm"
+          id="confirm-booking-btn"
+        >
+          Confirm Reservation
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Interactive Booking Script (Vanilla JS) -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Selection state variables
+    let selectedService = null;
+    let selectedStylist = "any";
+    let selectedStylistName = "Any Available Stylist";
+    let selectedDate = null;
+    let selectedTime = null;
+
+    // Check URL parameters for pre-selections
+    const urlParams = new URLSearchParams(window.location.search);
+    const preServiceId = urlParams.get("service_id");
+    const preStylistId = urlParams.get("stylist_id");
+
+    // Service select logic
+    const serviceCards = document.querySelectorAll(".select-service-card");
+    serviceCards.forEach((card) => {
+      card.addEventListener("click", function () {
+        serviceCards.forEach((c) => (c.style.borderColor = "#e9ecef"));
+        this.style.borderColor = "#ff4a8b";
+
+        selectedService = {
+          id: this.getAttribute("data-service-id"),
+          name: this.getAttribute("data-service-name"),
+          price: this.getAttribute("data-service-price"),
+        };
+        updateSummary();
+      });
+
+      // Auto-select if passed in URL
+      if (
+        preServiceId &&
+        card.getAttribute("data-service-id") === preServiceId
+      ) {
+        card.click();
+      }
+    });
+
+    // Stylist select logic
+    const stylistCards = document.querySelectorAll(".stylist-pick-card");
+    stylistCards.forEach((card) => {
+      card.addEventListener("click", function () {
+        stylistCards.forEach((c) => c.classList.remove("selected"));
+        this.classList.add("selected");
+
+        selectedStylist = this.getAttribute("data-stylist-id");
+        selectedStylistName = this.getAttribute("data-stylist-name");
+        updateSummary();
+      });
+
+      // Auto-select if passed in URL
+      if (
+        preStylistId &&
+        card.getAttribute("data-stylist-id") === preStylistId
+      ) {
+        card.click();
+      }
+    });
+
+    // Date picker logic
+    const dateInput = document.getElementById("booking-date");
+
+    // Prevent selecting past dates
+    const today = new Date().toISOString().split("T")[0];
+    dateInput.setAttribute("min", today);
+
+    dateInput.addEventListener("change", function () {
+      selectedDate = this.value;
+      updateSummary();
+    });
+
+    // Time slot picker logic
+    const timeSlots = document.querySelectorAll(".time-slot-btn");
+    timeSlots.forEach((slot) => {
+      slot.addEventListener("click", function () {
+        timeSlots.forEach((s) => s.classList.remove("selected"));
+        this.classList.add("selected");
+
+        selectedTime = this.getAttribute("data-time");
+        updateSummary();
+      });
+    });
+
+    // Update summary widget
+    function updateSummary() {
+      // Service details
+      if (selectedService) {
+        document.getElementById("summary-service-name").textContent =
+          selectedService.name;
+        document.getElementById("summary-service-price").textContent =
+          `$${selectedService.price}`;
+        document.getElementById("summary-total-price").textContent =
+          `$${selectedService.price}`;
+      } else {
+        document.getElementById("summary-service-name").textContent =
+          "None Selected";
+        document.getElementById("summary-service-price").textContent = "-";
+        document.getElementById("summary-total-price").textContent = "$0";
+      }
+
+      // Stylist details
+      document.getElementById("summary-stylist-name").textContent =
+        selectedStylistName;
+
+      // Date and Time details
+      if (selectedDate || selectedTime) {
+        let dateStr = selectedDate ? formatDate(selectedDate) : "Not Set";
+        let timeStr = selectedTime ? ` at ${selectedTime}` : "";
+        document.getElementById("summary-datetime").textContent =
+          `${dateStr}${timeStr}`;
+      } else {
+        document.getElementById("summary-datetime").textContent =
+          "Not Scheduled Yet";
+      }
+    }
+
+    // Helper to format date nicely
+    function formatDate(dateStr) {
+      const options = { month: "short", day: "numeric", year: "numeric" };
+      return new Date(dateStr + "T00:00:00").toLocaleDateString(
+        "en-US",
+        options,
+      );
+    }
+
+    // Submit booking alerts
+    document
+      .getElementById("confirm-booking-btn")
+      .addEventListener("click", function (e) {
+        e.preventDefault();
+
+        const bookName = document.getElementById("book-name").value;
+        const bookPhone = document.getElementById("book-phone").value;
+        const bookEmail = document.getElementById("book-email").value;
+
+        if (!selectedService) {
+          alert("Please select a Salon Service.");
+          return;
+        }
+        if (!selectedDate || !selectedTime) {
+          alert("Please select appointment Date and Time.");
+          return;
+        }
+        if (!bookName || !bookPhone || !bookEmail) {
+          alert("Please fill in your Name, Phone Number, and Email.");
+          return;
+        }
+
+        alert(
+          `Thank you, ${bookName}! Your appointment for ${selectedService.name} with ${selectedStylistName} on ${formatDate(selectedDate)} at ${selectedTime} has been successfully requested. We will email confirmation details to ${bookEmail}.`,
+        );
+        window.location.href = "/";
+      });
+  });
+</script>
+
+{% endblock %}

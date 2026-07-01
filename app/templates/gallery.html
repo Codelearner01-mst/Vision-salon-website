@@ -1,0 +1,220 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- Minimal Page Header -->
+<div class="page-header text-center reveal">
+  <div class="container">
+    <span class="story-badge">Visual Portfolio</span>
+    <h1 class="page-title">Salon Gallery</h1>
+    <p class="text-muted mx-auto mb-0" style="max-width: 600px">
+      Browse our collection of recent style designs, color transformations,
+      precision cuts, and blowouts.
+    </p>
+  </div>
+</div>
+
+<!-- Filter System & Gallery Grid -->
+<div class="container pb-5">
+  <!-- Filter Pills -->
+  <div class="filter-pills reveal">
+    <button class="filter-btn active" data-filter="all">All Styles</button>
+    <button class="filter-btn" data-filter="cuts">Cuts</button>
+    <button class="filter-btn" data-filter="color">Color</button>
+    <button class="filter-btn" data-filter="styling">Styling</button>
+    <button class="filter-btn" data-filter="treatments">Treatments</button>
+  </div>
+
+  <!-- Expanded Grid (Repeating the Landing Page Mosaic Pattern) -->
+  <div class="gallery-container">
+    <!-- Pattern Block 1 (Left Split, Right Tall) -->
+    <div class="row g-0 mb-4 reveal">
+      <div class="col-md-6 gallery-col d-flex flex-column">
+        <!-- Top Image (Color) -->
+        <div
+          class="gallery-item gallery-left-top gallery-grid-item"
+          data-category="color"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=800"
+            alt="Balayage Artistry"
+            class="gallery-img"
+          />
+          <div class="gallery-overlay">
+            <h4 class="font-serif">Balayage Highlights</h4>
+            <p>Soft hand-painted blonde blend</p>
+          </div>
+        </div>
+        <!-- Bottom Image (Cuts) -->
+        <div
+          class="gallery-item gallery-left-bottom gallery-grid-item"
+          data-category="cuts"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?q=80&w=800"
+            alt="Precision Bob Cut"
+            class="gallery-img"
+          />
+          <div class="gallery-overlay">
+            <h4 class="font-serif">Precision Bob</h4>
+            <p>Sleek symmetry and blunt finish</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 gallery-col">
+        <!-- Right Tall (Styling) -->
+        <div
+          class="gallery-item gallery-right-tall gallery-grid-item"
+          data-category="styling"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1605497746444-ac9da58d7d9b?q=80&w=800"
+            alt="Bouncy Waves styling"
+            class="gallery-img"
+          />
+          <div class="gallery-overlay">
+            <h4 class="font-serif">Bouncy Waves</h4>
+            <p>Long-lasting volume and natural bounce</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pattern Block 2 (Left Tall, Right Split - Inverted for Variety) -->
+    <div class="row g-0 mb-4 reveal">
+      <div class="col-md-6 gallery-col">
+        <!-- Left Tall (Treatments) -->
+        <div
+          class="gallery-item gallery-right-tall gallery-grid-item"
+          data-category="treatments"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800"
+            alt="Keratin Treatment"
+            class="gallery-img"
+          />
+          <div class="gallery-overlay">
+            <h4 class="font-serif">Scalp Wellness Detox</h4>
+            <p>Revitalizing mud mask and massage</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 gallery-col d-flex flex-column">
+        <!-- Top Image (Color) -->
+        <div
+          class="gallery-item gallery-left-top gallery-grid-item"
+          data-category="color"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=800"
+            alt="Vibrant Auburn Color"
+            class="gallery-img"
+          />
+          <div class="gallery-overlay">
+            <h4 class="font-serif">Vibrant Auburn</h4>
+            <p>Deep dimensional red tones</p>
+          </div>
+        </div>
+        <!-- Bottom Image (Cuts) -->
+        <div
+          class="gallery-item gallery-left-bottom gallery-grid-item"
+          data-category="cuts"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=800"
+            alt="Shear Pixie Cut"
+            class="gallery-img"
+          />
+          <div class="gallery-overlay">
+            <h4 class="font-serif">Modern Pixie</h4>
+            <p>Textured crop and structured fringe</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pattern Block 3 (Left Split, Right Tall) -->
+    <div class="row g-0 reveal">
+      <div class="col-md-6 gallery-col d-flex flex-column">
+        <!-- Top Image (Styling) -->
+        <div
+          class="gallery-item gallery-left-top gallery-grid-item"
+          data-category="styling"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1481501940778-cbb89edf582c?q=80&w=800"
+            alt="Editorial Braids"
+            class="gallery-img"
+          />
+          <div class="gallery-overlay">
+            <h4 class="font-serif">Structured Braid Updo</h4>
+            <p>Elegant plaits for red-carpet styling</p>
+          </div>
+        </div>
+        <!-- Bottom Image (Treatments) -->
+        <div
+          class="gallery-item gallery-left-bottom gallery-grid-item"
+          data-category="treatments"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1517832606589-7a598bbd425c?q=80&w=800"
+            alt="Olaplex repair treatment"
+            class="gallery-img"
+          />
+          <div class="gallery-overlay">
+            <h4 class="font-serif">Hydration Therapy</h4>
+            <p>Deep moisture restoration for curls</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 gallery-col">
+        <!-- Right Tall (Color) -->
+        <div
+          class="gallery-item gallery-right-tall gallery-grid-item"
+          data-category="color"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?q=80&w=800"
+            alt="Ice Blonde Highlights"
+            class="gallery-img"
+          />
+          <div class="gallery-overlay">
+            <h4 class="font-serif">Ice Blonde Highlights</h4>
+            <p>Cool-toned high-contrast dimensional foils</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Interactive Gallery Filter Logic (Vanilla JS) -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const galleryItems = document.querySelectorAll(".gallery-grid-item");
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", function () {
+        // Toggle active button class
+        filterButtons.forEach((b) => b.classList.remove("active"));
+        this.classList.add("active");
+
+        const filterValue = this.getAttribute("data-filter");
+
+        galleryItems.forEach((item) => {
+          const itemCategory = item.getAttribute("data-category");
+
+          if (filterValue === "all" || itemCategory === filterValue) {
+            item.classList.remove("hide");
+          } else {
+            item.classList.add("hide");
+          }
+        });
+      });
+    });
+  });
+</script>
+
+{% endblock %}

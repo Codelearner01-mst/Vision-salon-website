@@ -1,0 +1,114 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- Minimal Page Header -->
+<div class="page-header text-center reveal">
+  <div class="container">
+    <span class="story-badge">{{ service.category | upper }} TREATMENT</span>
+    <h1 class="page-title">{{ service.name }}</h1>
+    <p class="text-muted mx-auto mb-0" style="max-width: 600px">
+      {{ service.desc }}
+    </p>
+  </div>
+</div>
+
+<!-- Service Details Section -->
+<div class="container pb-5">
+  <div class="row align-items-center g-5 mb-5">
+    <!-- Left Column: Large Image -->
+    <div class="col-lg-6 reveal">
+      <div class="detail-img-wrapper">
+        <img src="{{ service.image }}" alt="{{ service.name }}" />
+      </div>
+    </div>
+
+    <!-- Right Column: Extensive Info -->
+    <div class="col-lg-6 detail-content-side reveal reveal-delay-1">
+      <h2 class="font-serif mb-4">Experience Beyond the Ordinary</h2>
+      <p class="text-secondary mb-4">{{ service.details }}</p>
+
+      <div class="mb-4">
+        <h5 class="font-serif mb-3">What's Included:</h5>
+        <ul class="list-unstyled text-secondary">
+          <li class="mb-2">
+            <i class="fas fa-check text-pink me-2"></i> Thorough structural hair
+            health consultation
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-check text-pink me-2"></i> Shampoo, scalp detox and
+            massage
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-check text-pink me-2"></i> Custom tailored
+            conditioning masks
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-check text-pink me-2"></i> Finished styling with
+            luxury products and Dyson drying tech
+          </li>
+        </ul>
+      </div>
+
+      <div class="d-flex align-items-center gap-4 mb-4">
+        <div>
+          <span class="text-muted small d-block">Starting Price</span>
+          <span class="fs-2 fw-bold text-pink">${{ service.price }}</span>
+        </div>
+        <div>
+          <span class="text-muted small d-block">Approx. Duration</span>
+          <span class="fs-4 fw-semibold text-theme-dark">45 - 90 mins</span>
+        </div>
+      </div>
+
+      <a
+        href="{{ url_for('book', service_id=service.id) }}"
+        class="btn btn-pink btn-lg px-5 py-3 rounded-pill shadow-sm"
+        >Book This Service</a
+      >
+    </div>
+  </div>
+
+  <hr class="border-light my-5" />
+
+  <!-- Related Samples Section -->
+  <div class="my-5 reveal">
+    <div class="text-center mb-5">
+      <span class="story-badge">RECOMMENDED FOR YOU</span>
+      <h2 class="font-serif display-6">Other Sample Services</h2>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+      {% for sample in samples[:3] %}
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card overflow-hidden">
+          <div class="service-img-wrapper">
+            <img src="{{ sample.image }}" alt="{{ sample.name }}" />
+          </div>
+          <div class="service-body">
+            <h4 class="font-serif mb-2">{{ sample.name }}</h4>
+            <p class="text-muted small mb-4">{{ sample.desc }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="fw-bold text-pink">${{ sample.price }}+</span>
+              <a
+                href="{{ url_for('service_detail', service_id=sample.id) }}"
+                class="text-decoration-none text-theme-dark small fw-semibold"
+                >View Details <i class="fas fa-chevron-right ms-1"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- View All Button -->
+    <div class="text-center mt-5">
+      <a
+        href="{{ url_for('services') }}"
+        class="btn btn-outline-dark px-5 py-3 rounded-pill tracking-wider small fw-semibold"
+        >View All Services</a
+      >
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Minimal Page Header -->
+<div class="page-header text-center reveal">
+  <div class="container">
+    <span class="story-badge">About Vision</span>
+    <h1 class="page-title">Our Heritage & Story</h1>
+    <p class="text-muted mx-auto mb-0" style="max-width: 600px;">
+      Discover the philosophy, team, and dedication to hair styling craftsmanship that drives us forward.
+    </p>
+  </div>
+</div>
+
+<!-- Story Content Block -->
+<div class="container pb-5">
+  <div class="row mb-5">
+    <div class="col-12 reveal">
+      <div class="story-large-banner mb-5 rounded-4 overflow-hidden shadow-sm" style="height: 450px;">
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1200" alt="Vision Salon Space" class="w-100 h-100" style="object-fit: cover;">
+      </div>
+    </div>
+  </div>
+  
+  <div class="row g-5 align-items-start mb-5">
+    <div class="col-lg-6 reveal">
+      <h2 class="font-serif display-5 mb-4">Crafting Beauty with Intent</h2>
+      <p class="lead text-muted mb-4">Established with a passion for excellence, Vision Salon has been redefining luxury hair styling for over a decade in Beverly Hills.</p>
+      <p class="text-secondary">We believe that hair styling is an intimate form of self-expression. Our philosophy combines modern techniques, premium organic products, and personal consultation to discover and accentuate your unique vision. Every stylist in our space is a dedicated artisan, committed to continuous education and delivering a bespoke experience from the moment you step through our doors.</p>
+    </div>
+    
+    <div class="col-lg-6 reveal reveal-delay-1">
+      <h3 class="font-serif mb-3">Our Core Principles</h3>
+      <div class="mb-4">
+        <h5 class="font-serif text-pink mb-1">Tailored Consultations</h5>
+        <p class="text-secondary small">We never copy-paste. Every style is cut and colored to match your specific skin tone, face shape, and daily maintenance routine.</p>
+      </div>
+      <div class="mb-4">
+        <h5 class="font-serif text-pink mb-1">Sustainably Luxury</h5>
+        <p class="text-secondary small">We care about hair health and environment. All shampoos, dyes, and styling sprays are organic, sulfate-free, and vegan-friendly.</p>
+      </div>
+      <div class="mb-4">
+        <h5 class="font-serif text-pink mb-1">Artistry & Technique</h5>
+        <p class="text-secondary small">Our team consists of certified master colorists and stylists who instruct globally and continuously refine their techniques backstage.</p>
+      </div>
+    </div>
+  </div>
+  
+  <hr class="border-light my-5">
+  
+  <!-- Our Team Section included at the bottom -->
+  <div class="my-5 reveal">
+    <div class="text-center mb-5">
+      <span class="story-badge">Meet the Artisans</span>
+      <h2 class="font-serif display-6">Our Creative Stylists</h2>
+      <p class="text-muted mx-auto" style="max-width: 500px;">Our collective of industry veterans dedicated to elevating your look.</p>
+    </div>
+    
+    <div class="row g-4">
+      {% for member in team %}
+      <div class="col-md-6 col-lg-4">
+        <div class="team-card">
+          <div class="team-img-wrapper">
+            <img src="{{ member.image }}" alt="{{ member.name }}" class="team-img">
+          </div>
+          <h4 class="font-serif mb-1">{{ member.name }}</h4>
+          <span class="text-pink small d-block mb-3">{{ member.role }}</span>
+          <p class="text-muted small mb-4">{{ member.bio | truncate(110) }}</p>
+          <div class="team-socials">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
