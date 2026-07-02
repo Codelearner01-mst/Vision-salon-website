@@ -64,27 +64,33 @@
         <div class="collapse navbar-collapse" id="navbarContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
             <li class="nav-item mx-2">
-              <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+              <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="{{ url_for('services') }}">Services</a>
+              <a class="nav-link" href="{{ url_for('service.services') }}"
+                >Services</a
+              >
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="{{ url_for('team') }}">Our Team</a>
+              <a class="nav-link" href="{{ url_for('team.team') }}">Our Team</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="{{ url_for('story') }}">Story</a>
+              <a class="nav-link" href="{{ url_for('story.story') }}">Story</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="{{ url_for('gallery') }}">Gallery</a>
+              <a class="nav-link" href="{{ url_for('gallery.gallery') }}"
+                >Gallery</a
+              >
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+              <a class="nav-link" href="{{ url_for('contact.contact') }}"
+                >Contact</a
+              >
             </li>
             <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
               <a
                 class="btn btn-pink px-4 py-2 rounded-pill shadow-sm"
-                href="{{ url_for('book') }}"
+                href="{{ url_for('book.book') }}"
                 >Book an Appointment</a
               >
             </li>

@@ -1,6 +1,4 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <!-- Page Header -->
 <div class="team-page-header">
@@ -8,8 +6,9 @@
     <div class="team-page-header-inner reveal">
       <span class="story-badge">Our Creative Minds</span>
       <h1 class="font-serif display-4 mb-3">Meet Our Stylists</h1>
-      <p class="text-muted mx-auto" style="max-width: 560px; font-size: 1.1rem;">
-        Master artisans, color visionaries, and texture experts — each one dedicated to crafting your signature look.
+      <p class="text-muted mx-auto" style="max-width: 560px; font-size: 1.1rem">
+        Master artisans, color visionaries, and texture experts — each one
+        dedicated to crafting your signature look.
       </p>
     </div>
   </div>
@@ -18,15 +17,22 @@
 <!-- Team Editorial Rows -->
 <section class="team-editorial-section">
   <div class="container">
-
     {% for member in team %}
-    <div class="team-editorial-row reveal {% if loop.index % 2 == 0 %}team-editorial-row--reverse{% endif %}">
-
+    <div
+      class="team-editorial-row reveal {% if loop.index % 2 == 0 %}team-editorial-row--reverse{% endif %}"
+    >
       <!-- Portrait Column -->
       <div class="team-editorial-portrait">
-        <a href="{{ url_for('team_detail', member_id=member.id) }}" class="text-decoration-none">
+        <a
+          href="{{ url_for('team.team_detail', member_id=member.id) }}"
+          class="text-decoration-none"
+        >
           <div class="team-editorial-img-wrap">
-            <img src="{{ member.image }}" alt="{{ member.name }}" class="team-editorial-img">
+            <img
+              src="{{ member.image }}"
+              alt="{{ member.name }}"
+              class="team-editorial-img"
+            />
             <div class="team-editorial-img-overlay">
               <span>View Profile <i class="fas fa-arrow-right ms-1"></i></span>
             </div>
@@ -48,7 +54,9 @@
           <p class="team-editorial-spec-label">Specialties</p>
           <ul class="team-editorial-spec-list">
             {% for spec in member.specialties %}
-            <li><i class="fas fa-check-circle text-pink me-2"></i>{{ spec }}</li>
+            <li>
+              <i class="fas fa-check-circle text-pink me-2"></i>{{ spec }}
+            </li>
             {% endfor %}
           </ul>
         </div>
@@ -56,7 +64,9 @@
 
         <div class="team-editorial-meta">
           <div class="team-editorial-meta-item">
-            <span class="team-editorial-meta-value">{{ member.years_exp }}+</span>
+            <span class="team-editorial-meta-value"
+              >{{ member.years_exp }}+</span
+            >
             <span class="team-editorial-meta-label">Years Experience</span>
           </div>
           <div class="team-editorial-meta-divider"></div>
@@ -67,27 +77,37 @@
         </div>
 
         <div class="team-editorial-actions">
-          <a href="{{ url_for('team_detail', member_id=member.id) }}" class="btn btn-pink px-4 py-2 rounded-pill shadow-sm">
+          <a
+            href="{{ url_for('team.team_detail', member_id=member.id) }}"
+            class="btn btn-pink px-4 py-2 rounded-pill shadow-sm"
+          >
             Full Profile
           </a>
-          <a href="{{ url_for('book') }}" class="btn btn-outline-dark-custom px-4 py-2 rounded-pill ms-2">
+          <a
+            href="{{ url_for('book.book') }}"
+            class="btn btn-outline-dark-custom px-4 py-2 rounded-pill ms-2"
+          >
             Book with {{ member.name.split()[0] }}
           </a>
         </div>
 
         <div class="team-editorial-socials">
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Instagram"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a href="#" aria-label="Facebook"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+          <a href="#" aria-label="LinkedIn"
+            ><i class="fab fa-linkedin-in"></i
+          ></a>
         </div>
       </div>
-
     </div>
-    {% if not loop.last %}<hr class="team-editorial-divider">{% endif %}
-    {% endfor %}
-
+    {% if not loop.last %}
+    <hr class="team-editorial-divider" />
+    {% endif %} {% endfor %}
   </div>
 </section>
 
 {% endblock %}
-

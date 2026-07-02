@@ -1,19 +1,20 @@
 import os
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config():
        SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
        SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class DevelopmentConfig(Config):
-       SQLALCHEMY_DATABASE_URI = os.environ.get("")
+       SQLALCHEMY_DATABASE_URI = os.environ.get("DEV_DATABASE_URL") or  'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
        DEBUG = True
 
 class TestingConfig(Config):
-       SQLALCHEMY_DATABASE_URI = os.environ.get("")
+       SQLALCHEMY_DATABASE_URI = os.environ.get("TEST_DATABASE_URL") or 'sqlite:///data-test.sqlite'
        TESTING= True
     
 class ProductionConfig(Config):
-       SQLALCHEMY_DATABASE_URI = os.environ.get("")
+       SQLALCHEMY_DATABASE_URI = os.environ.get("PROD_DATABASE_URL") or 'sqlite:///data.sqlite'
 
 config = {
        "default":DevelopmentConfig,

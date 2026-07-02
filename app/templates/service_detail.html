@@ -60,7 +60,7 @@
       </div>
 
       <a
-        href="{{ url_for('book', service_id=service.id) }}"
+        href="{{ url_for('book.book', service_id=service.id) }}"
         class="btn btn-pink btn-lg px-5 py-3 rounded-pill shadow-sm"
         >Book This Service</a
       >
@@ -89,7 +89,7 @@
             <div class="d-flex justify-content-between align-items-center">
               <span class="fw-bold text-pink">${{ sample.price }}+</span>
               <a
-                href="{{ url_for('service_detail', service_id=sample.id) }}"
+                href="{{ url_for('service.service_detail', service_id=sample.id) }}"
                 class="text-decoration-none text-theme-dark small fw-semibold"
                 >View Details <i class="fas fa-chevron-right ms-1"></i
               ></a>
@@ -103,7 +103,7 @@
     <!-- View All Button -->
     <div class="text-center mt-5">
       <a
-        href="{{ url_for('services') }}"
+        href="{{ url_for('service.services') }}"
         class="btn btn-outline-dark px-5 py-3 rounded-pill tracking-wider small fw-semibold"
         >View All Services</a
       >

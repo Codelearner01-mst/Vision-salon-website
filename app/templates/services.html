@@ -55,12 +55,12 @@
 
           <div class="d-flex gap-3">
             <a
-              href="{{ url_for('book', service_id=service.id) }}"
+              href="{{ url_for('book.book', service_id=service.id) }}"
               class="btn btn-pink px-4 py-2.5 rounded-pill shadow-sm small"
               >Book Now</a
             >
             <a
-              href="{{ url_for('service_detail', service_id=service.id) }}"
+              href="{{ url_for('service.service_detail', service_id=service.id) }}"
               class="btn btn-outline-dark px-4 py-2.5 rounded-pill small"
               >View Service Details</a
             >
