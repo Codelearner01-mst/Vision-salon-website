@@ -6,12 +6,14 @@ class AppointmentsModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     stylist_id = db.Column(db.Integer, db.ForeignKey('team.id'), nullable=False)
     service_id = db.Column(db.Integer, db.ForeignKey('services.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     total = db.Column(db.Float, nullable=False)
     date = db.Column(db.Integer, nullable=True)
     time_note = db.Column(db.String(255), nullable=True)
 
     stylist = db.relationship('TeamModel', backref='bookings')
     service = db.relationship('ServiceModel', backref='bookings')
+    user = db.relationship('UserModel', backref='bookings')
 
     def __init__(self, stylist_id, service_id, total, date=None, time_note=None):
         self.stylist_id = stylist_id
@@ -25,6 +27,7 @@ class AppointmentsModel(db.Model):
             'id': self.id,
             'stylist_id': self.stylist_id,
             'service_id': self.service_id,
+            "user_id": self.user_id,
             'total': self.total,
             'date': self.date,
             'time_note': self.time_note,
