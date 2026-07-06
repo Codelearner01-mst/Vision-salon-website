@@ -65,7 +65,7 @@
         <div class="team-editorial-meta">
           <div class="team-editorial-meta-item">
             <span class="team-editorial-meta-value"
-              >{{ member.years_exp }}+</span
+              >{{ member.years_of_experience }}+</span
             >
             <span class="team-editorial-meta-label">Years Experience</span>
           </div>
@@ -83,12 +83,14 @@
           >
             Full Profile
           </a>
+          {% if member.stylist %}
           <a
             href="{{ url_for('book.book') }}"
             class="btn btn-outline-dark-custom px-4 py-2 rounded-pill ms-2"
           >
             Book with {{ member.name.split()[0] }}
           </a>
+          {% endif %}
         </div>
 
         <div class="team-editorial-socials">

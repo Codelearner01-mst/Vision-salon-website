@@ -1,9 +1,14 @@
+from app.models.team_model import TeamModel
+from app.models.service_model import ServiceModel
 from . import main
-from flask import render_template
-from ..service.service_data import services_data
-from ..team.team_data import team_data
+from flask import render_template,abort
+
 
 
 @main.route('/book')
 def book():
-    return render_template('book.html', services=services_data.values(), team=team_data.values())
+    services = ServiceModel.query.all()
+    team_members = TeamModel.query.all()
+    if not services or not team_members:
+        abort(404)
+    return render_template('book.html', services=services, team=team_members)

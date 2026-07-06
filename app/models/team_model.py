@@ -4,32 +4,34 @@ class TeamModel(db.Model):
     __tablename__ = 'team'
 
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
     role = db.Column(db.String(255), nullable=True)
     image = db.Column(db.String(255), nullable=True)
-    experience= db.Column(db.String(255), nullable=True)
-    info = db.Column(db.String(255), nullable=True)
+    years_of_experience = db.Column(db.Integer, nullable=True)
+    bio = db.Column(db.String(400), nullable=True)
+    about = db.Column(db.Text, nullable=True)
     stylist = db.Column(db.Boolean, default=False, nullable=False)
-    specialty_id = db.Column(db.Integer, db.ForeignKey('specialties.id'), nullable=True)
 
-    specialty = db.relationship('SpecialtiesModel', backref='team_members')
-
-    def __init__(self, image=None, experience=None, info=None, stylist=False, specialty_id=None, role=None):
+    def __init__(self, name, image=None, years_of_experience=None, bio=None, about=None, stylist=False, role=None):
+        self.name = name
         self.image = image
-        self.experience = experience
-        self.info = info
+        self.years_of_experience = years_of_experience
+        self.bio = bio
+        self.about = about
         self.stylist = stylist
-        self.specialty_id = specialty_id
         self.role = role
 
-    def json(self):
+    def json(self,specialties=""):
         return {
             'id': self.id,
+            "name": self.name,
             'role': self.role,
             'image': self.image,
-            'experience': self.experience,
-            'info': self.info,
+            'years_of_experience': self.years_of_experience,
+            'bio': self.bio,
+            'about': self.about,
             'stylist': self.stylist,
-            'specialty_id': self.specialty_id,
+            "specialties": [s.name for s in specialties]
            
         }
 
@@ -39,9 +41,13 @@ class SpecialtiesModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
+    member_id = db.Column(db.Integer, db.ForeignKey('team.id'), nullable=True)
 
-    def __init__(self, name):
+    member = db.relationship('TeamModel', backref='specialties')
+
+    def __init__(self, name,member_id):
         self.name = name
+        self.member_id = member_id
 
     def json(self):
         return {'id': self.id, 'name': self.name}
