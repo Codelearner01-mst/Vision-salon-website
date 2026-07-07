@@ -17,175 +17,151 @@
   <!-- Filter Pills -->
   <div class="filter-pills reveal">
     <button class="filter-btn active" data-filter="all">All Styles</button>
-    <button class="filter-btn" data-filter="cuts">Cuts</button>
-    <button class="filter-btn" data-filter="color">Color</button>
-    <button class="filter-btn" data-filter="styling">Styling</button>
-    <button class="filter-btn" data-filter="treatments">Treatments</button>
+    {% for category in categories %}
+    <button class="filter-btn" data-filter="{{ category.lower() }}">
+      {{ category }}
+    </button>
+    {% endfor %}
   </div>
 
   <!-- Expanded Grid (Repeating the Landing Page Mosaic Pattern) -->
   <div class="gallery-container">
-    <!-- Pattern Block 1 (Left Split, Right Tall) -->
+    {% for block in blocks %}
     <div class="row g-0 mb-4 reveal">
+      {# Pattern: left-top, left-bottom, right-tall (two stacked on left, one
+      tall on right) #} {% if block.pattern|length == 3 and block.pattern[0] ==
+      'left-top' %}
       <div class="col-md-6 gallery-col d-flex flex-column">
-        <!-- Top Image (Color) -->
+        {% set a = block.slots[0] if block.slots|length > 0 else None %} {% set
+        b = block.slots[1] if block.slots|length > 1 else None %}
         <div
           class="gallery-item gallery-left-top gallery-grid-item"
-          data-category="color"
+          data-category="{{ a.category|lower if a }}"
         >
-          <img
-            src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=800"
-            alt="Balayage Artistry"
+          {% if a %}<img
+            src="{{ a.image }}"
+            alt="{{ a.headline }}"
             class="gallery-img"
-          />
+          />{% endif %} {% if a %}
           <div class="gallery-overlay">
-            <h4 class="font-serif">Balayage Highlights</h4>
-            <p>Soft hand-painted blonde blend</p>
+            <h4 class="font-serif">{{ a.headline }}</h4>
+            <p>{{ a.subheadline }}</p>
           </div>
+          {% endif %}
         </div>
-        <!-- Bottom Image (Cuts) -->
         <div
           class="gallery-item gallery-left-bottom gallery-grid-item"
-          data-category="cuts"
+          data-category="{{ b.category|lower if b }}"
         >
-          <img
-            src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?q=80&w=800"
-            alt="Precision Bob Cut"
+          {% if b %}<img
+            src="{{ b.image }}"
+            alt="{{ b.headline }}"
             class="gallery-img"
-          />
+          />{% endif %} {% if b %}
           <div class="gallery-overlay">
-            <h4 class="font-serif">Precision Bob</h4>
-            <p>Sleek symmetry and blunt finish</p>
+            <h4 class="font-serif">{{ b.headline }}</h4>
+            <p>{{ b.subheadline }}</p>
           </div>
+          {% endif %}
         </div>
       </div>
 
       <div class="col-md-6 gallery-col">
-        <!-- Right Tall (Styling) -->
+        {% set c = block.slots[2] if block.slots|length > 2 else None %}
         <div
           class="gallery-item gallery-right-tall gallery-grid-item"
-          data-category="styling"
+          data-category="{{ c.category|lower if c }}"
         >
-          <img
-            src="https://images.unsplash.com/photo-1605497746444-ac9da58d7d9b?q=80&w=800"
-            alt="Bouncy Waves styling"
+          {% if c %}<img
+            src="{{ c.image }}"
+            alt="{{ c.headline }}"
             class="gallery-img"
-          />
+          />{% endif %} {% if c %}
           <div class="gallery-overlay">
-            <h4 class="font-serif">Bouncy Waves</h4>
-            <p>Long-lasting volume and natural bounce</p>
+            <h4 class="font-serif">{{ c.headline }}</h4>
+            <p>{{ c.subheadline }}</p>
           </div>
+          {% endif %}
         </div>
       </div>
-    </div>
 
-    <!-- Pattern Block 2 (Left Tall, Right Split - Inverted for Variety) -->
-    <div class="row g-0 mb-4 reveal">
+      {% elif block.pattern|length == 3 and block.pattern[0] == 'left-tall' %}
+      {# Pattern: left tall, right split #}
       <div class="col-md-6 gallery-col">
-        <!-- Left Tall (Treatments) -->
+        {% set a = block.slots[0] if block.slots|length > 0 else None %}
         <div
           class="gallery-item gallery-right-tall gallery-grid-item"
-          data-category="treatments"
+          data-category="{{ a.category|lower if a }}"
         >
-          <img
-            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800"
-            alt="Keratin Treatment"
+          {% if a %}<img
+            src="{{ a.image }}"
+            alt="{{ a.headline }}"
             class="gallery-img"
-          />
+          />{% endif %} {% if a %}
           <div class="gallery-overlay">
-            <h4 class="font-serif">Scalp Wellness Detox</h4>
-            <p>Revitalizing mud mask and massage</p>
+            <h4 class="font-serif">{{ a.headline }}</h4>
+            <p>{{ a.subheadline }}</p>
           </div>
+          {% endif %}
         </div>
       </div>
 
       <div class="col-md-6 gallery-col d-flex flex-column">
-        <!-- Top Image (Color) -->
+        {% set b = block.slots[1] if block.slots|length > 1 else None %} {% set
+        c = block.slots[2] if block.slots|length > 2 else None %}
         <div
           class="gallery-item gallery-left-top gallery-grid-item"
-          data-category="color"
+          data-category="{{ b.category|lower if b }}"
         >
-          <img
-            src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=800"
-            alt="Vibrant Auburn Color"
+          {% if b %}<img
+            src="{{ b.image }}"
+            alt="{{ b.headline }}"
             class="gallery-img"
-          />
+          />{% endif %} {% if b %}
           <div class="gallery-overlay">
-            <h4 class="font-serif">Vibrant Auburn</h4>
-            <p>Deep dimensional red tones</p>
+            <h4 class="font-serif">{{ b.headline }}</h4>
+            <p>{{ b.subheadline }}</p>
           </div>
+          {% endif %}
         </div>
-        <!-- Bottom Image (Cuts) -->
         <div
           class="gallery-item gallery-left-bottom gallery-grid-item"
-          data-category="cuts"
+          data-category="{{ c.category|lower if c }}"
         >
-          <img
-            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=800"
-            alt="Shear Pixie Cut"
+          {% if c %}<img
+            src="{{ c.image }}"
+            alt="{{ c.headline }}"
             class="gallery-img"
-          />
+          />{% endif %} {% if c %}
           <div class="gallery-overlay">
-            <h4 class="font-serif">Modern Pixie</h4>
-            <p>Textured crop and structured fringe</p>
+            <h4 class="font-serif">{{ c.headline }}</h4>
+            <p>{{ c.subheadline }}</p>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Pattern Block 3 (Left Split, Right Tall) -->
-    <div class="row g-0 reveal">
-      <div class="col-md-6 gallery-col d-flex flex-column">
-        <!-- Top Image (Styling) -->
-        <div
-          class="gallery-item gallery-left-top gallery-grid-item"
-          data-category="styling"
-        >
-          <img
-            src="https://images.unsplash.com/photo-1481501940778-cbb89edf582c?q=80&w=800"
-            alt="Editorial Braids"
-            class="gallery-img"
-          />
-          <div class="gallery-overlay">
-            <h4 class="font-serif">Structured Braid Updo</h4>
-            <p>Elegant plaits for red-carpet styling</p>
-          </div>
-        </div>
-        <!-- Bottom Image (Treatments) -->
-        <div
-          class="gallery-item gallery-left-bottom gallery-grid-item"
-          data-category="treatments"
-        >
-          <img
-            src="https://images.unsplash.com/photo-1517832606589-7a598bbd425c?q=80&w=800"
-            alt="Olaplex repair treatment"
-            class="gallery-img"
-          />
-          <div class="gallery-overlay">
-            <h4 class="font-serif">Hydration Therapy</h4>
-            <p>Deep moisture restoration for curls</p>
-          </div>
+          {% endif %}
         </div>
       </div>
 
-      <div class="col-md-6 gallery-col">
-        <!-- Right Tall (Color) -->
+      {% else %} {# Fallback: simple single-column items #} {% for item in
+      block.slots %}
+      <div class="col-md-4 gallery-col mb-3">
         <div
-          class="gallery-item gallery-right-tall gallery-grid-item"
-          data-category="color"
+          class="gallery-item gallery-grid-item"
+          data-category="{{ item.category|lower }}"
         >
           <img
-            src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?q=80&w=800"
-            alt="Ice Blonde Highlights"
+            src="{{ item.image }}"
+            alt="{{ item.headline }}"
             class="gallery-img"
           />
           <div class="gallery-overlay">
-            <h4 class="font-serif">Ice Blonde Highlights</h4>
-            <p>Cool-toned high-contrast dimensional foils</p>
+            <h4 class="font-serif">{{ item.headline }}</h4>
+            <p>{{ item.subheadline }}</p>
           </div>
         </div>
       </div>
+      {% endfor %} {% endif %}
     </div>
+    {% endfor %}
   </div>
 </div>
 

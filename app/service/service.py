@@ -20,17 +20,16 @@ def services():
               services = s_arr
               services.append(service)
            
-        return render_template("services.html", services= s_arr)
-       
-    except:
+        return render_template("services.html", services= s_arr)    
+    except Exception as e:
+        print('Service fetching error:', {e})
         return jsonify({"error": "Failed to fetch services data"})
 
 @main.route('/services/<int:service_id>')
 def service_detail(service_id):
     s = ServiceModel.query.get(service_id)
     if s is not None:
-      includes = s.service_includes
-      service = s.json(includes)     
+      service = s.json()     
       # Samples: all other services
       services = ServiceModel.query.all()
       samples = []

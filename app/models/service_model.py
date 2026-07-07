@@ -23,7 +23,7 @@ class ServiceModel(db.Model):
         self.price = price
         self.descriptionII = descriptionII
 
-    def json(self,service_includes=""):
+    def json(self):
         return {
             'id': self.id,
             'headline': self.headline,
@@ -35,7 +35,7 @@ class ServiceModel(db.Model):
             'price': self.price,
             'descriptionII': self.descriptionII,
             "sub_works": [],
-            "service_includes":[s.name for s in service_includes]
+            "service_includes":[s.name for s in self.service_includes]
         }
 
 class SubServiceModel(db.Model):
