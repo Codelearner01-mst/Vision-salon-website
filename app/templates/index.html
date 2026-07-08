@@ -1,15 +1,7 @@
 {% extends "base.html" %} {{super()}} {% block content %}
 
-<!-- Hero Section with Background Video and Carousel Overlay -->
+<!-- Hero Section with per-slide background videos and carousel overlay -->
 <section class="hero-video-container">
-  <video class="hero-video-bg" autoplay loop muted playsinline>
-    <source
-      src="https://player.vimeo.com/external/470355447.sd.mp4?s=d7607736b41295b9d5c4146a782414777ad9de4d&profile_id=165&oauth2_token_id=57447761"
-      type="video/mp4"
-    />
-    Your browser does not support the video tag.
-  </video>
-
   <div
     id="heroCarousel"
     class="carousel slide carousel-fade hero-overlay-carousel"
@@ -40,8 +32,15 @@
     </div>
 
     <div class="carousel-inner">
-      <!-- Slide 1 -->
+      <!-- Slide 1 (video background) -->
       <div class="carousel-item active">
+        <video class="hero-video-bg" autoplay loop muted playsinline>
+          <source
+            src="{{url_for('static', filename='videos/hero_video_slide1_25fps.mp4')}}"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
         <div class="hero-slide-content">
           <h1 class="font-serif">Crafting Your Signature Look</h1>
           <p>
@@ -64,8 +63,15 @@
         </div>
       </div>
 
-      <!-- Slide 2 -->
+      <!-- Slide 2 (video background) -->
       <div class="carousel-item">
+        <video class="hero-video-bg" autoplay loop muted playsinline>
+          <source
+            src="{{url_for('static', filename='videos/hero_video_slide2_30fps.mp4')}}"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
         <div class="hero-slide-content">
           <h1 class="font-serif">Vibrant Color, Infinite Shine</h1>
           <p>
@@ -88,8 +94,15 @@
         </div>
       </div>
 
-      <!-- Slide 3 -->
+      <!-- Slide 3 (video background) -->
       <div class="carousel-item">
+        <video class="hero-video-bg" autoplay loop muted playsinline>
+          <source
+            src="{{url_for('static', filename='videos/hero_video_slide3_25fps.mp4')}}"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
         <div class="hero-slide-content">
           <h1 class="font-serif">Confidence in Every Strand</h1>
           <p>
@@ -179,143 +192,143 @@
   </div>
 </section>
 
-<!-- Our Services Section -->
-<section id="services" class="py-5 section-services-redesign">
-  <div class="container py-5">
-    <div class="text-center mb-5 max-w-600 mx-auto reveal">
-      <span class="story-badge">Services</span>
-      <h2 class="font-serif display-6 mb-3">Our Curated Salon Offerings</h2>
-      <p class="text-muted">
-        From precision cuts to customized color transformations, our stylists
-        deliver exceptional, tailored care for your hair.
-      </p>
+<!-- Our Services Section — floating inset container -->
+<section id="services" class="section-services-v2">
+  <div class="services-skewed-bg"></div>
+  <div class="container position-relative">
+    <div class="services-floating-container reveal">
+      <div class="text-center mb-5 max-w-600 mx-auto">
+        <span class="story-badge">Services</span>
+        <h2 class="font-serif display-6 mb-3">Our Curated Salon Offerings</h2>
+        <p class="text-muted">
+          From precision cuts to customized color transformations, our stylists
+          deliver exceptional, tailored care for your hair.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Service 1 -->
+        <div class="col-md-6 col-lg-3 reveal reveal-delay-1">
+          <div class="service-card">
+            <div class="service-img-wrapper">
+              <img
+                src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=600"
+                alt="Signature Cuts"
+              />
+            </div>
+            <div class="service-body">
+              <div class="service-icon-box">
+                <i class="fas fa-scissors"></i>
+              </div>
+              <h4 class="font-serif mb-3">Signature Cuts</h4>
+              <p class="text-muted small mb-4">
+                Precision, tailored cuts designed to complement your facial
+                structure, texture, and style. Includes blowdry.
+              </p>
+              <hr class="border-light-grey mb-3" />
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-pink">$95+</span>
+                <a
+                  href="#book"
+                  class="text-decoration-none text-theme-dark small fw-semibold"
+                  >Book Now <i class="fas fa-chevron-right ms-1"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="col-md-6 col-lg-3 reveal reveal-delay-2">
+          <div class="service-card">
+            <div class="service-img-wrapper">
+              <img
+                src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=600"
+                alt="Balayage &amp; Color"
+              />
+            </div>
+            <div class="service-body">
+              <div class="service-icon-box">
+                <i class="fas fa-wand-magic-sparkles"></i>
+              </div>
+              <h4 class="font-serif mb-3">Balayage &amp; Color</h4>
+              <p class="text-muted small mb-4">
+                Custom paint hand-crafted dimensional highlights, all-over
+                gloss, and root retouches using premium formulas.
+              </p>
+              <hr class="border-light-grey mb-3" />
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-pink">$210+</span>
+                <a
+                  href="#book"
+                  class="text-decoration-none text-theme-dark small fw-semibold"
+                  >Book Now <i class="fas fa-chevron-right ms-1"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="col-md-6 col-lg-3 reveal reveal-delay-3">
+          <div class="service-card">
+            <div class="service-img-wrapper">
+              <img
+                src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?q=80&w=600"
+                alt="Styling &amp; Blowouts"
+              />
+            </div>
+            <div class="service-body">
+              <div class="service-icon-box"><i class="fas fa-wind"></i></div>
+              <h4 class="font-serif mb-3">Styling &amp; Blowouts</h4>
+              <p class="text-muted small mb-4">
+                Sleek, straight, bouncy waves or structured updos for special
+                events. Achieve a flawless, long-lasting look.
+              </p>
+              <hr class="border-light-grey mb-3" />
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-pink">$65+</span>
+                <a
+                  href="#book"
+                  class="text-decoration-none text-theme-dark small fw-semibold"
+                  >Book Now <i class="fas fa-chevron-right ms-1"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="col-md-6 col-lg-3 reveal reveal-delay-4">
+          <div class="service-card">
+            <div class="service-img-wrapper">
+              <img
+                src="https://images.unsplash.com/photo-1517832606589-7a598bbd425c?q=80&w=600"
+                alt="Hair Treatments"
+              />
+            </div>
+            <div class="service-body">
+              <div class="service-icon-box"><i class="fas fa-spa"></i></div>
+              <h4 class="font-serif mb-3">Hair Treatments</h4>
+              <p class="text-muted small mb-4">
+                Nourishing keratin therapy, deep conditioning masks, and scalp
+                detoxification to restore health and shine.
+              </p>
+              <hr class="border-light-grey mb-3" />
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-pink">$80+</span>
+                <a
+                  href="#book"
+                  class="text-decoration-none text-theme-dark small fw-semibold"
+                  >Book Now <i class="fas fa-chevron-right ms-1"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="row g-4">
-      <!-- Service 1 -->
-      <div class="col-md-6 col-lg-3 reveal reveal-delay-1">
-        <div class="service-card">
-          <div class="service-img-wrapper">
-            <img
-              src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=600"
-              alt="Signature Cuts"
-            />
-          </div>
-          <div class="service-body">
-            <div class="service-icon-box">
-              <i class="fas fa-scissors"></i>
-            </div>
-            <h4 class="font-serif mb-3">Signature Cuts</h4>
-            <p class="text-muted small mb-4">
-              Precision, tailored cuts designed to complement your facial
-              structure, texture, and style. Includes blowdry.
-            </p>
-            <hr class="border-light-grey mb-3" />
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="fw-bold text-pink">$95+</span>
-              <a
-                href="#book"
-                class="text-decoration-none text-theme-dark small fw-semibold"
-                >Book Now <i class="fas fa-chevron-right ms-1"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Service 2 -->
-      <div class="col-md-6 col-lg-3 reveal reveal-delay-2">
-        <div class="service-card">
-          <div class="service-img-wrapper">
-            <img
-              src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=600"
-              alt="Balayage & Color"
-            />
-          </div>
-          <div class="service-body">
-            <div class="service-icon-box">
-              <i class="fas fa-wand-magic-sparkles"></i>
-            </div>
-            <h4 class="font-serif mb-3">Balayage & Color</h4>
-            <p class="text-muted small mb-4">
-              Custom paint hand-crafted dimensional highlights, all-over gloss,
-              and root retouches using premium formulas.
-            </p>
-            <hr class="border-light-grey mb-3" />
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="fw-bold text-pink">$210+</span>
-              <a
-                href="#book"
-                class="text-decoration-none text-theme-dark small fw-semibold"
-                >Book Now <i class="fas fa-chevron-right ms-1"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Service 3 -->
-      <div class="col-md-6 col-lg-3 reveal reveal-delay-3">
-        <div class="service-card">
-          <div class="service-img-wrapper">
-            <img
-              src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?q=80&w=600"
-              alt="Styling & Blowouts"
-            />
-          </div>
-          <div class="service-body">
-            <div class="service-icon-box">
-              <i class="fas fa-wind"></i>
-            </div>
-            <h4 class="font-serif mb-3">Styling & Blowouts</h4>
-            <p class="text-muted small mb-4">
-              Sleek, straight, bouncy waves or structured updos for special
-              events. Achieve a flawless, long-lasting look.
-            </p>
-            <hr class="border-light-grey mb-3" />
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="fw-bold text-pink">$65+</span>
-              <a
-                href="#book"
-                class="text-decoration-none text-theme-dark small fw-semibold"
-                >Book Now <i class="fas fa-chevron-right ms-1"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Service 4 -->
-      <div class="col-md-6 col-lg-3 reveal reveal-delay-4">
-        <div class="service-card">
-          <div class="service-img-wrapper">
-            <img
-              src="https://images.unsplash.com/photo-1517832606589-7a598bbd425c?q=80&w=600"
-              alt="Hair Treatments"
-            />
-          </div>
-          <div class="service-body">
-            <div class="service-icon-box">
-              <i class="fas fa-spa"></i>
-            </div>
-            <h4 class="font-serif mb-3">Hair Treatments</h4>
-            <p class="text-muted small mb-4">
-              Nourishing keratin therapy, deep conditioning masks, and scalp
-              detoxification to restore health and shine.
-            </p>
-            <hr class="border-light-grey mb-3" />
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="fw-bold text-pink">$80+</span>
-              <a
-                href="#book"
-                class="text-decoration-none text-theme-dark small fw-semibold"
-                >Book Now <i class="fas fa-chevron-right ms-1"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- end .services-floating-container -->
   </div>
 </section>
 
@@ -382,70 +395,75 @@
   </div>
 </section>
 
-<!-- What We Do — layered gradient, not flat dark -->
-<section class="section-why-redesign">
-  <div class="why-bg-layer"></div>
-  <div class="container position-relative py-5">
-    <div class="row align-items-center g-5 py-4">
-      <!-- Left: heading -->
-      <div class="col-lg-5 reveal">
-        <span class="story-badge story-badge--light">What We Do</span>
-        <h2 class="font-serif display-5 text-white mb-4">
-          The Vision<br />Experience
-        </h2>
-        <p
-          class="text-light-grey mb-5"
-          style="font-size: 1.05rem; line-height: 1.85"
-        >
-          We offer a level of attention and craftsmanship that transforms your
-          routine salon visit into a true luxury retreat.
-        </p>
-        <a
-          href="/services"
-          class="btn btn-pink px-5 py-3 rounded-pill shadow-sm"
-          >Explore Services</a
-        >
-      </div>
-      <!-- Right: icon cards -->
-      <div class="col-lg-7">
-        <div class="row g-4">
-          <div class="col-sm-6 reveal reveal-delay-1">
-            <div class="why-card">
-              <div class="why-icon-box"><i class="fas fa-award"></i></div>
-              <h5 class="text-white mb-2">Award Stylists</h5>
-              <p class="text-light-grey small mb-0">
-                Certified specialists trained in premier global styling
-                academies.
-              </p>
-            </div>
+<!-- What We Do — inset rounded container, not edge-to-edge -->
+<section class="section-why-v2">
+  <div class="container">
+    <div class="why-inset-container reveal">
+      <div class="why-bg-layer"></div>
+      <div class="why-inset-content">
+        <div class="row align-items-center g-5">
+          <!-- Left: heading -->
+          <div class="col-lg-5">
+            <span class="story-badge story-badge--light">What We Do</span>
+            <h2 class="font-serif display-5 text-white mb-4">
+              The Vision<br />Experience
+            </h2>
+            <p
+              class="text-light-grey mb-5"
+              style="font-size: 1.05rem; line-height: 1.85"
+            >
+              We offer a level of attention and craftsmanship that transforms
+              your routine salon visit into a true luxury retreat.
+            </p>
+            <a
+              href="/services"
+              class="btn btn-pink px-5 py-3 rounded-pill shadow-sm"
+              >Explore Services</a
+            >
           </div>
-          <div class="col-sm-6 reveal reveal-delay-2">
-            <div class="why-card">
-              <div class="why-icon-box"><i class="fas fa-gem"></i></div>
-              <h5 class="text-white mb-2">Premium Products</h5>
-              <p class="text-light-grey small mb-0">
-                Organic, sulfate-free, and vegan-friendly treatment brands
-                exclusively.
-              </p>
-            </div>
-          </div>
-          <div class="col-sm-6 reveal reveal-delay-3">
-            <div class="why-card">
-              <div class="why-icon-box"><i class="fas fa-heart"></i></div>
-              <h5 class="text-white mb-2">Tailored Consulting</h5>
-              <p class="text-light-grey small mb-0">
-                Your look is built around your structure, skin tone, and
-                lifestyle.
-              </p>
-            </div>
-          </div>
-          <div class="col-sm-6 reveal reveal-delay-4">
-            <div class="why-card">
-              <div class="why-icon-box"><i class="fas fa-bolt"></i></div>
-              <h5 class="text-white mb-2">Modern Care</h5>
-              <p class="text-light-grey small mb-0">
-                Advanced scalp care, bond repair, and damage shield technology.
-              </p>
+          <!-- Right: icon cards -->
+          <div class="col-lg-7">
+            <div class="row g-4">
+              <div class="col-sm-6 reveal reveal-delay-1">
+                <div class="why-card">
+                  <div class="why-icon-box"><i class="fas fa-award"></i></div>
+                  <h5 class="text-white mb-2">Award Stylists</h5>
+                  <p class="text-light-grey small mb-0">
+                    Certified specialists trained in premier global styling
+                    academies.
+                  </p>
+                </div>
+              </div>
+              <div class="col-sm-6 reveal reveal-delay-2">
+                <div class="why-card">
+                  <div class="why-icon-box"><i class="fas fa-gem"></i></div>
+                  <h5 class="text-white mb-2">Premium Products</h5>
+                  <p class="text-light-grey small mb-0">
+                    Organic, sulfate-free, and vegan-friendly treatment brands
+                    exclusively.
+                  </p>
+                </div>
+              </div>
+              <div class="col-sm-6 reveal reveal-delay-3">
+                <div class="why-card">
+                  <div class="why-icon-box"><i class="fas fa-heart"></i></div>
+                  <h5 class="text-white mb-2">Tailored Consulting</h5>
+                  <p class="text-light-grey small mb-0">
+                    Your look is built around your structure, skin tone, and
+                    lifestyle.
+                  </p>
+                </div>
+              </div>
+              <div class="col-sm-6 reveal reveal-delay-4">
+                <div class="why-card">
+                  <div class="why-icon-box"><i class="fas fa-bolt"></i></div>
+                  <h5 class="text-white mb-2">Modern Care</h5>
+                  <p class="text-light-grey small mb-0">
+                    Advanced scalp care, bond repair, and damage shield
+                    technology.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

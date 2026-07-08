@@ -8,6 +8,7 @@
   --theme-pink: #ff4a8b;
   --theme-pink-hover: #e0356e;
   --theme-pink-light: #fff0f3;
+  --theme-light-blue: #486886;
   --theme-white: #ffffff;
   --theme-muted: #8e8e93;
 
@@ -98,7 +99,7 @@ h6,
 /* Navbar Customization */
 .navbar {
   transition: var(--theme-transition);
-  background-color: rgba(24, 24, 27, 0.95) !important;
+  background-color: var(--theme-light-blue) !important;
   backdrop-filter: blur(10px);
 }
 
@@ -184,6 +185,8 @@ h6,
   text-align: center;
   color: var(--theme-white);
   padding: 0 1.5rem;
+  position: relative;
+  z-index: 10;
 }
 
 .hero-slide-content h1 {
@@ -580,6 +583,10 @@ h6,
 }
 
 /* Footer Customizations */
+footer {
+  background-color: var(--theme-light-blue) !important;
+}
+
 .footer-links li {
   margin-bottom: 0.75rem;
 }
@@ -1217,32 +1224,63 @@ h6,
   }
 }
 
-/* --- Services Section Redesign --- */
-.section-services-redesign {
-  background: #ffffff;
+/* --- Services Section V2 — skewed bg + floating container --- */
+.section-services-v2 {
   position: relative;
+  padding: 8rem 0 6rem;
+  background: #ffffff;
+  overflow: hidden;
 }
 
-.section-services-redesign::before {
-  content: "";
+/* Diagonal skewed background shape behind the cards */
+.services-skewed-bg {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--theme-pink) 30%,
-    var(--theme-pink-hover) 70%,
-    transparent
-  );
+  top: 15%;
+  left: -5%;
+  right: -5%;
+  bottom: -10%;
+  background: var(--theme-light-grey);
+  transform: skewY(-3deg);
+  z-index: 0;
+  border-radius: 0 0 0 60px;
 }
 
-/* --- Gallery Unified Section Redesign --- */
+/* Floating container that pops off the skewed bg */
+.services-floating-container {
+  position: relative;
+  z-index: 1;
+  background: var(--theme-white);
+  border-radius: 32px;
+  padding: 4rem 3rem 3.5rem;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+@media (max-width: 767px) {
+  .services-floating-container {
+    padding: 2.5rem 1.25rem 2rem;
+    border-radius: 24px;
+  }
+  .section-services-v2 {
+    padding: 5rem 0 4rem;
+  }
+}
+
+/* --- Gallery Section — angled top clip --- */
 .section-gallery-redesign {
   background: var(--theme-light-grey);
-  padding-top: 5rem;
+  padding-top: 6rem;
+  position: relative;
+  clip-path: polygon(0 40px, 100% 0, 100% 100%, 0 100%);
+  margin-top: -40px;
+}
+
+@media (max-width: 767px) {
+  .section-gallery-redesign {
+    clip-path: polygon(0 20px, 100% 0, 100% 100%, 0 100%);
+    margin-top: -20px;
+    padding-top: 4rem;
+  }
 }
 
 .gallery-section-header {
@@ -1259,18 +1297,20 @@ h6,
   margin-bottom: 0;
 }
 
-.gallery-mosaic {
-  /* uses existing gallery CSS classes */
+/* --- "What We Do" V2 — inset rounded container, not edge-to-edge --- */
+.section-why-v2 {
+  padding: 6rem 0;
+  background: #ffffff;
 }
 
-/* --- "What We Do" Section Redesign --- */
-.section-why-redesign {
+.why-inset-container {
   position: relative;
+  border-radius: 36px;
   overflow: hidden;
-  padding: 0;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
 }
 
-.why-bg-layer {
+.why-inset-container .why-bg-layer {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -1281,29 +1321,45 @@ h6,
     #200d15 100%
   );
   z-index: 0;
+  border-radius: 36px;
 }
 
-/* Subtle radial pink glow accent top-right */
-.why-bg-layer::after {
-  content: "";
+.why-inset-container .why-bg-layer::after {
+  content: '';
   position: absolute;
   top: -120px;
   right: -120px;
   width: 500px;
   height: 500px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 74, 139, 0.18) 0%,
-    transparent 65%
-  );
+  background: radial-gradient(circle, rgba(255, 74, 139, 0.18) 0%, transparent 65%);
   pointer-events: none;
 }
 
-.section-why-redesign .container {
+.why-inset-content {
   position: relative;
   z-index: 1;
+  padding: 4.5rem 4rem;
 }
+
+@media (max-width: 991px) {
+  .why-inset-content {
+    padding: 3rem 2rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .why-inset-container {
+    border-radius: 24px;
+  }
+  .why-inset-content {
+    padding: 2.5rem 1.5rem;
+  }
+  .section-why-v2 {
+    padding: 4rem 0;
+  }
+}
+
 
 .why-card {
   background: rgba(255, 255, 255, 0.04);
