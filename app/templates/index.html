@@ -1,4 +1,5 @@
-{% extends "base.html" %} {{super()}} {% block content %}
+{% extends "base.html" %} {% from "macros.html" import empty_state %}
+{{super()}} {% block content %}
 
 <!-- Hero Section with per-slide background videos and carousel overlay -->
 <section class="hero-video-container">
@@ -208,28 +209,27 @@
 
       <div class="row g-4">
         <!-- Service 1 -->
+        {% if services|length == 0 %}
+        <!-- -->
+        {{ empty_state("No services available at the moment.") }}
+        <!-- -->
+        {%endif%} {% for s in services %}
         <div class="col-md-6 col-lg-3 reveal reveal-delay-1">
           <div class="service-card">
             <div class="service-img-wrapper">
-              <img
-                src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=600"
-                alt="Signature Cuts"
-              />
+              <img src="{{ s.image }}" alt="Signature Cuts" />
             </div>
             <div class="service-body">
               <div class="service-icon-box">
                 <i class="fas fa-scissors"></i>
               </div>
-              <h4 class="font-serif mb-3">Signature Cuts</h4>
-              <p class="text-muted small mb-4">
-                Precision, tailored cuts designed to complement your facial
-                structure, texture, and style. Includes blowdry.
-              </p>
+              <h4 class="font-serif mb-3">{{s.name}}</h4>
+              <p class="text-muted small mb-4">{{s.decription}}</p>
               <hr class="border-light-grey mb-3" />
               <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-pink">$95+</span>
+                <span class="fw-bold text-pink">${{s.price}}+</span>
                 <a
-                  href="#book"
+                  href="{{ url_for('book.book', service_id=s.id) }}"
                   class="text-decoration-none text-theme-dark small fw-semibold"
                   >Book Now <i class="fas fa-chevron-right ms-1"></i
                 ></a>
@@ -237,161 +237,10 @@
             </div>
           </div>
         </div>
-
-        <!-- Service 2 -->
-        <div class="col-md-6 col-lg-3 reveal reveal-delay-2">
-          <div class="service-card">
-            <div class="service-img-wrapper">
-              <img
-                src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=600"
-                alt="Balayage &amp; Color"
-              />
-            </div>
-            <div class="service-body">
-              <div class="service-icon-box">
-                <i class="fas fa-wand-magic-sparkles"></i>
-              </div>
-              <h4 class="font-serif mb-3">Balayage &amp; Color</h4>
-              <p class="text-muted small mb-4">
-                Custom paint hand-crafted dimensional highlights, all-over
-                gloss, and root retouches using premium formulas.
-              </p>
-              <hr class="border-light-grey mb-3" />
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-pink">$210+</span>
-                <a
-                  href="#book"
-                  class="text-decoration-none text-theme-dark small fw-semibold"
-                  >Book Now <i class="fas fa-chevron-right ms-1"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Service 3 -->
-        <div class="col-md-6 col-lg-3 reveal reveal-delay-3">
-          <div class="service-card">
-            <div class="service-img-wrapper">
-              <img
-                src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?q=80&w=600"
-                alt="Styling &amp; Blowouts"
-              />
-            </div>
-            <div class="service-body">
-              <div class="service-icon-box"><i class="fas fa-wind"></i></div>
-              <h4 class="font-serif mb-3">Styling &amp; Blowouts</h4>
-              <p class="text-muted small mb-4">
-                Sleek, straight, bouncy waves or structured updos for special
-                events. Achieve a flawless, long-lasting look.
-              </p>
-              <hr class="border-light-grey mb-3" />
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-pink">$65+</span>
-                <a
-                  href="#book"
-                  class="text-decoration-none text-theme-dark small fw-semibold"
-                  >Book Now <i class="fas fa-chevron-right ms-1"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Service 4 -->
-        <div class="col-md-6 col-lg-3 reveal reveal-delay-4">
-          <div class="service-card">
-            <div class="service-img-wrapper">
-              <img
-                src="https://images.unsplash.com/photo-1517832606589-7a598bbd425c?q=80&w=600"
-                alt="Hair Treatments"
-              />
-            </div>
-            <div class="service-body">
-              <div class="service-icon-box"><i class="fas fa-spa"></i></div>
-              <h4 class="font-serif mb-3">Hair Treatments</h4>
-              <p class="text-muted small mb-4">
-                Nourishing keratin therapy, deep conditioning masks, and scalp
-                detoxification to restore health and shine.
-              </p>
-              <hr class="border-light-grey mb-3" />
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-pink">$80+</span>
-                <a
-                  href="#book"
-                  class="text-decoration-none text-theme-dark small fw-semibold"
-                  >Book Now <i class="fas fa-chevron-right ms-1"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-        </div>
+        {%endfor%}
       </div>
     </div>
     <!-- end .services-floating-container -->
-  </div>
-</section>
-
-<!-- Gallery & What We Do — restored sections -->
-<section id="gallery" class="section-gallery-redesign">
-  <div class="gallery-section-header container reveal">
-    <div>
-      <span class="story-badge">Our Gallery</span>
-      <h2 class="font-serif display-6 mb-0">Visual Inspirations</h2>
-    </div>
-    <p class="text-muted gallery-header-desc">
-      Explore our recent hair transformations, balayage masterworks, and modern
-      cuts.
-    </p>
-  </div>
-
-  <!-- Gallery Grid -->
-  <div class="gallery-mosaic container-fluid px-0">
-    <div class="row g-0">
-      <div class="col-md-6 gallery-col d-flex flex-column reveal">
-        <div class="gallery-item gallery-left-top">
-          <img
-            src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=800"
-            alt="Balayage Artistry"
-            class="gallery-img"
-          />
-          <div class="gallery-overlay">
-            <h4 class="font-serif">Balayage Artistry</h4>
-            <p>Hand-painted sun-kissed dimensionality</p>
-          </div>
-        </div>
-        <div class="gallery-item gallery-left-bottom">
-          <img
-            src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?q=80&w=800"
-            alt="Signature Blowouts"
-            class="gallery-img"
-          />
-          <div class="gallery-overlay">
-            <h4 class="font-serif">Signature Blowouts</h4>
-            <p>Bouncy waves and flawless movement</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 gallery-col reveal reveal-delay-1">
-        <div class="gallery-item gallery-right-tall">
-          <img
-            src="https://images.unsplash.com/photo-1605497746444-ac9da58d7d9b?q=80&w=800"
-            alt="Precision Styling"
-            class="gallery-img"
-          />
-          <div class="gallery-overlay">
-            <h4 class="font-serif">Precision Styling</h4>
-            <p>Perfect symmetry and modern definition</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container text-center pb-5 pt-4 reveal">
-    <a href="/gallery" class="btn btn-pink px-5 py-3 rounded-pill shadow-sm"
-      >View Full Gallery</a
-    >
   </div>
 </section>
 
@@ -470,6 +319,70 @@
       </div>
     </div>
   </div>
+</section>
+
+<!-- Gallery section -->
+<section id="gallery" class="section-gallery-redesign">
+  <div class="gallery-section-header container reveal">
+    <div>
+      <span class="story-badge">Our Gallery</span>
+      <h2 class="font-serif display-6 mb-0">Visual Inspirations</h2>
+    </div>
+    <p class="text-muted gallery-header-desc">
+      Explore our recent hair transformations, balayage masterworks, and modern
+      cuts.
+    </p>
+  </div>
+
+  <!-- Gallery Grid -->
+  {%if gallery|length == 0%}
+  <!-- -->
+  {{ empty_state("No gallery available at the moment.") }}
+  <!-- -->
+  {%endif%} {%if gallery %}
+  <div class="gallery-mosaic container-fluid px-0">
+    <div class="row g-0">
+      {% set a = gallery[0] if gallery|length > 0 else None %}
+      <div class="col-md-6 gallery-col d-flex flex-column reveal">
+        <div class="gallery-item gallery-left-top">
+          <img src="{{a.image}}" alt="{{a.headline}}" class="gallery-img" />
+          <div class="gallery-overlay">
+            <h4 class="font-serif">{{a.headline}}</h4>
+            <p>{{a.subheadline}}</p>
+          </div>
+        </div>
+        {% set b = gallery[1] if gallery|length > 1 else None %} {# Second image
+        #} {% if b %}
+        <div class="gallery-item gallery-left-bottom">
+          <img src="{{b.image}}" alt="{{b.headline}}" class="gallery-img" />
+          <div class="gallery-overlay">
+            <h4 class="font-serif">{{b.headline}}</h4>
+            <p>{{b.subheadline}}</p>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      {%set c = gallery[2] if gallery|length > 2 else None%} {# Third image #}
+      {% if c %}
+      <div class="col-md-6 gallery-col reveal reveal-delay-1">
+        <div class="gallery-item gallery-right-tall">
+          <img src="{{c.image}}" alt="Precision Styling" class="gallery-img" />
+          <div class="gallery-overlay">
+            <h4 class="font-serif">{{c.headline}}</h4>
+            <p>{{c.subheadline}}</p>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="container text-center pb-5 pt-4 reveal">
+    <a href="/gallery" class="btn btn-pink px-5 py-3 rounded-pill shadow-sm"
+      >View Full Gallery</a
+    >
+  </div>
+  {%endif%}
 </section>
 
 <!-- Testimonials Section -->
@@ -646,83 +559,44 @@
     </div>
 
     <div class="row g-4">
-      <!-- Stylist 1 -->
+      {%if team|length ==0%}
+      <!-- -->
+      {{ empty_state("No team available at the moment.") }}
+      <!-- -->
+      {%endif%} {%for t in team%}
       <div class="col-md-6 col-lg-4 reveal reveal-delay-1">
         <div class="team-card">
           <div class="team-img-wrapper">
-            <img
-              src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400"
-              alt="Sarah Jenkins"
-              class="team-img"
-            />
+            <img src="{{t.image}}" alt="{{t.name}}" class="team-img" />
           </div>
-          <h4 class="font-serif mb-1">Sarah Jenkins</h4>
-          <span class="text-pink small d-block mb-3"
-            >Founder & Master Stylist</span
-          >
-          <p class="text-muted small">
-            With 15+ years of training in Paris and NYC, Sarah specializes in
-            luxury cuts and premium wedding styling.
-          </p>
+          <h4 class="font-serif mb-1">{{t.name}}</h4>
+          <span class="text-pink small d-block mb-3">{{t.role}}</span>
+          <p class="text-muted small">{{t.bio}}</p>
           <div class="team-socials">
             <a href="#"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-facebook-f"></i></a>
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
           </div>
+          {% if t.stylist %}
+          <a
+            href="{{ url_for('book.book', user_id=t.id) }}"
+            class="btn btn-pink w-100 mt-3 rounded-pill shadow-sm"
+          >
+            Book Now
+          </a>
+          {% endif %}
         </div>
       </div>
+      {%endfor%}
+    </div>
 
-      <!-- Stylist 2 -->
-      <div class="col-md-6 col-lg-4 reveal reveal-delay-2">
-        <div class="team-card">
-          <div class="team-img-wrapper">
-            <img
-              src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=400"
-              alt="Michael Chang"
-              class="team-img"
-            />
-          </div>
-          <h4 class="font-serif mb-1">Michael Chang</h4>
-          <span class="text-pink small d-block mb-3"
-            >Master Color Specialist</span
-          >
-          <p class="text-muted small">
-            Michael is an expert in custom balayage, high-contrast highlights,
-            and complex color correction techniques.
-          </p>
-          <div class="team-socials">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Stylist 3 -->
-      <div class="col-md-6 col-lg-4 reveal reveal-delay-3">
-        <div class="team-card">
-          <div class="team-img-wrapper">
-            <img
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400"
-              alt="Amanda Ross"
-              class="team-img"
-            />
-          </div>
-          <h4 class="font-serif mb-1">Amanda Ross</h4>
-          <span class="text-pink small d-block mb-3"
-            >Texture & Styling Expert</span
-          >
-          <p class="text-muted small">
-            Amanda specializes in textured hair care, natural curls, protective
-            styling, and scalp wellness treatments.
-          </p>
-          <div class="team-socials">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-      </div>
+    <div class="text-center mt-5 reveal">
+      <a
+        href="{{ url_for('team.team') }}"
+        class="btn btn-pink px-5 py-3 rounded-pill shadow-sm"
+      >
+        View Full Team
+      </a>
     </div>
   </div>
 </section>
