@@ -1,6 +1,6 @@
 import unittest
 from app import create_app, db
-from app.models.team_model import TeamModel, SpecialtiesModel
+from app.models.team_model import TeamModel, SpecialtiesModel, WeekdaysModel, TeamWorkdaysModel
 
 
 class TestTeam(unittest.TestCase):
@@ -38,6 +38,26 @@ class TestTeam(unittest.TestCase):
         db.session.add_all([specialty1, specialty2, specialty3])
         db.session.commit()
 
+        # Seed weekdays
+        days = [
+            WeekdaysModel(day_num=0, name="Monday"),
+            WeekdaysModel(day_num=1, name="Tuesday"),
+            WeekdaysModel(day_num=2, name="Wednesday"),
+            WeekdaysModel(day_num=3, name="Thursday"),
+            WeekdaysModel(day_num=4, name="Friday"),
+        ]
+        db.session.add_all(days)
+        db.session.commit()
+
+        # Assign workdays: John works Mon-Thu, Paul works Mon-Fri
+        john_days = WeekdaysModel.query.filter(WeekdaysModel.day_num.in_([0, 1, 2, 3])).all()
+        paul_days = WeekdaysModel.query.filter(WeekdaysModel.day_num.in_([0, 1, 2, 3, 4])).all()
+        for day in john_days:
+            db.session.add(TeamWorkdaysModel(member_id=team_member1.id, day_id=day.id))
+        for day in paul_days:
+            db.session.add(TeamWorkdaysModel(member_id=team_member2.id, day_id=day.id))
+        db.session.commit()
+
     def tearDown(self):
         db.session.remove()
         db.drop_all()
@@ -56,6 +76,13 @@ class TestTeam(unittest.TestCase):
         self.assertIn(b"Experienced stylist", response.data)
         self.assertIn(b"An Extraodinary stylist", response.data)
         self.assertNotIn(b"Doesn't exist", response.data)
+        # Workdays display
+        self.assertIn(b"Working Days", response.data)
+        self.assertIn(b"Mon", response.data)
+        self.assertIn(b"Tue", response.data)
+        self.assertIn(b"Wed", response.data)
+        self.assertIn(b"Thu", response.data)
+        self.assertIn(b"Fri", response.data)
 
     def test_team_detail_page(self):
         member = TeamModel.query.first()
@@ -70,6 +97,12 @@ class TestTeam(unittest.TestCase):
         self.assertIn(b"Keratin", response.data)
         self.assertNotIn(b"Paul Aquero", response.data)
         self.assertNotIn(b"Coloring", response.data)
+        # Workdays display
+        self.assertIn(b"Weekly Schedule", response.data)
+        self.assertIn(b"Mon", response.data)
+        self.assertIn(b"Tue", response.data)
+        self.assertIn(b"Wed", response.data)
+        self.assertIn(b"Thu", response.data)
 
         # Test for a non-existent member
         response = self.client.get("/team/999")

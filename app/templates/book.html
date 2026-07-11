@@ -94,6 +94,11 @@
             <span class="text-muted" style="font-size: 0.75rem"
               >{{ member.role.split(' ')[-1] }}</span
             >
+
+            <span class="text-muted d-block mt-1" style="font-size: 0.7rem">
+              {% if member.workdays %} {{ member.workdays[0].name[:3] }} - {{
+              member.workdays[-1].name[:3] }} {% endif %}
+            </span>
           </div>
           {% endfor %}
         </div>

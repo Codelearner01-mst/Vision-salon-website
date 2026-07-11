@@ -62,6 +62,17 @@
         </div>
         {% endif %}
 
+        {% if member.workdays %}
+        <div class="team-editorial-specialties">
+          <p class="team-editorial-spec-label">Working Days</p>
+          <div class="d-flex flex-wrap gap-2">
+            {% for day in member.workdays %}
+            <span class="badge bg-light text-dark rounded-pill px-3 py-2" style="font-size: 0.8rem">{{ day[:3] }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
         <div class="team-editorial-meta">
           <div class="team-editorial-meta-item">
             <span class="team-editorial-meta-value"

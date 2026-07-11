@@ -1,6 +1,7 @@
 import unittest
 from app import create_app, db
 from app.models import BookingTimesModel, ServiceModel, TeamModel
+from app.models.team_model import WeekdaysModel, TeamWorkdaysModel
 from datetime import time
 
 
@@ -23,6 +24,26 @@ class TestBook(unittest.TestCase):
         db.session.add_all([bt, bt2, service, service2, team_member, team_member2])
         db.session.commit()
 
+        # Seed weekdays
+        days = [
+            WeekdaysModel(day_num=0, name='Monday'),
+            WeekdaysModel(day_num=1, name='Tuesday'),
+            WeekdaysModel(day_num=2, name='Wednesday'),
+            WeekdaysModel(day_num=3, name='Thursday'),
+            WeekdaysModel(day_num=4, name='Friday'),
+        ]
+        db.session.add_all(days)
+        db.session.commit()
+
+        # Assign workdays: John works Mon-Thu, Paul works Mon-Fri
+        john_days = WeekdaysModel.query.filter(WeekdaysModel.day_num.in_([0, 1, 2, 3])).all()
+        paul_days = WeekdaysModel.query.filter(WeekdaysModel.day_num.in_([0, 1, 2, 3, 4])).all()
+        for day in john_days:
+            db.session.add(TeamWorkdaysModel(member_id=team_member.id, day_id=day.id))
+        for day in paul_days:
+            db.session.add(TeamWorkdaysModel(member_id=team_member2.id, day_id=day.id))
+        db.session.commit()
+
     def tearDown(self):
         db.session.remove()
         db.drop_all()
@@ -43,3 +64,8 @@ class TestBook(unittest.TestCase):
         self.assertNotIn(b"An Extraodinary stylist", response.data)
         self.assertNotIn(b"A quality brading to look beauty", response.data)
         self.assertNotIn(b"Doesn't exist", response.data)
+        self.assertIn(b"Mon", response.data)
+        self.assertIn(b"Thu", response.data)
+        self.assertIn(b"Fri", response.data)
+        self.assertNotIn(b"Tue", response.data)
+        self.assertNotIn(b"Wed", response.data)

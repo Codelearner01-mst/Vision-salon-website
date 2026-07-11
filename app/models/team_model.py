@@ -23,7 +23,7 @@ class TeamModel(db.Model):
         self.stylist = stylist
         self.role = role
 
-    def json(self,specialties=""):
+    def json(self):
         return {
             'id': self.id,
             "name": self.name,
@@ -33,7 +33,8 @@ class TeamModel(db.Model):
             'bio': self.bio,
             'about': self.about,
             'stylist': self.stylist,
-            "specialties": [s.name for s in specialties]
+            "specialties": [s.name for s in self.specialties],
+             "workdays":[d.name for d in self.workdays]
            
         }
 
