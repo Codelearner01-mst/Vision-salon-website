@@ -37,10 +37,10 @@ class BookingTimesModel(db.Model):
     __tablename__ = 'time'
 
     id = db.Column(db.Integer, primary_key=True)
-    time = db.Column(db.String(120), nullable=False)
+    time = db.Column(db.Time, nullable=False)
 
     def __init__(self, time):
         self.time = time
 
     def json(self):
-        return {'id': self.id, 'time': self.time}
+        return {'id': self.id, 'time': self.time.strftime('%I:%M %p') if self.time else None}

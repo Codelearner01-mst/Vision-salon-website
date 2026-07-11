@@ -12,6 +12,8 @@ class TeamModel(db.Model):
     about = db.Column(db.Text, nullable=True)
     stylist = db.Column(db.Boolean, default=False, nullable=False)
 
+    workdays = db.relationship('WeekdaysModel', secondary='team_workdays', backref='team_members', overlaps='workday_links')
+
     def __init__(self, name, image=None, years_of_experience=None, bio=None, about=None, stylist=False, role=None):
         self.name = name
         self.image = image
@@ -75,4 +77,40 @@ class TeamSocialsModel(db.Model):
             'member_id': self.member_id,
             'social_id': self.social_id,
             'link': self.link,
+        }
+
+class WeekdaysModel(db.Model):
+    __tablename__ = 'weekdays'
+
+    id = db.Column(db.Integer, primary_key=True)
+    day_num = db.Column(db.Integer, nullable=False)
+    name = db.Column(db.String(20), nullable=False)
+
+    def __init__(self, day_num, name):
+        self.day_num = day_num
+        self.name = name
+
+    def json(self):
+        return {'id': self.id, 'day_num': self.day_num, 'name': self.name}
+
+
+class TeamWorkdaysModel(db.Model):
+    __tablename__ = 'team_workdays'
+
+    id = db.Column(db.Integer, primary_key=True)
+    member_id = db.Column(db.Integer, db.ForeignKey('team.id'), nullable=False)
+    day_id = db.Column(db.Integer, db.ForeignKey('weekdays.id'), nullable=False)
+
+    member = db.relationship('TeamModel', overlaps='workdays,team_members')
+    day = db.relationship('WeekdaysModel', overlaps='workdays,team_members')
+
+    def __init__(self, member_id, day_id):
+        self.member_id = member_id
+        self.day_id = day_id
+
+    def json(self):
+        return {
+            'id': self.id,
+            'member_id': self.member_id,
+            'day_id': self.day_id,
         }
