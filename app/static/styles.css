@@ -1325,14 +1325,18 @@ footer {
 }
 
 .why-inset-container .why-bg-layer::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -120px;
   right: -120px;
   width: 500px;
   height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 74, 139, 0.18) 0%, transparent 65%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 74, 139, 0.18) 0%,
+    transparent 65%
+  );
   pointer-events: none;
 }
 
@@ -1359,7 +1363,6 @@ footer {
     padding: 4rem 0;
   }
 }
-
 
 .why-card {
   background: rgba(255, 255, 255, 0.04);
@@ -1709,4 +1712,34 @@ footer {
     align-items: flex-start;
     gap: 0.75rem;
   }
+}
+
+/* Disabled and Booked Time Slots */
+.time-slot-btn.disabled {
+  background-color: #e9ecef !important;
+  color: var(--theme-muted) !important;
+  border-color: #dee2e6 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  opacity: 0.5;
+  box-shadow: none !important;
+  text-decoration: line-through;
+}
+
+/* Custom booking availability status messages */
+.booking-status-alert {
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--theme-transition);
+}
+
+.booking-status-alert-danger {
+  background-color: #fff0f3;
+  color: #e0356e;
+  border: 1px solid rgba(255, 74, 139, 0.2);
 }

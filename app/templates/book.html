@@ -126,13 +126,23 @@
               id="booking-date"
               required
             />
+            <!-- Status message container under date input -->
+            <div
+              id="date-status-message"
+              class="booking-status-alert booking-status-alert-danger"
+              style="display: none"
+            ></div>
           </div>
           <div class="col-md-6">
             {% if booking_times %}
             <label class="form-label small fw-semibold">Select Time Slot</label>
             <div class="time-grid-picker">
               {% for bt in booking_times %}
-              <div class="time-slot-btn" data-time="{{ bt.time }}">
+              <div
+                class="time-slot-btn"
+                data-time-id="{{ bt.id }}"
+                data-time="{{ bt.time }}"
+              >
                 {{bt.time}}
               </div>
               {% endfor %}
@@ -260,6 +270,54 @@
   </div>
 </div>
 
+<!-- Custom Alert/Confirmation Modal -->
+<div
+  class="modal fade"
+  id="bookingModal"
+  tabindex="-1"
+  aria-labelledby="bookingModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div
+      class="modal-content text-dark"
+      style="
+        border-radius: 20px;
+        border: none;
+        box-shadow: var(--theme-shadow-lg);
+      "
+    >
+      <div class="modal-header border-0 pb-0">
+        <h5
+          class="modal-title font-serif fw-bold text-dark"
+          id="bookingModalLabel"
+        >
+          Appointment Status
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body py-4">
+        <p id="bookingModalBody" class="mb-0 text-muted"></p>
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <button
+          type="button"
+          class="btn btn-pink px-4 py-2 rounded-pill shadow-sm"
+          id="bookingModalCloseBtn"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Interactive Booking Script (Vanilla JS) -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -269,11 +327,34 @@
     let selectedStylistName = "Any Available Stylist";
     let selectedDate = null;
     let selectedTime = null;
+    let isStylistAvailable = true;
+    let availabilityMessage = "";
+    let redirectOnClose = false;
 
     // Check URL parameters for pre-selections
     const urlParams = new URLSearchParams(window.location.search);
     const preServiceId = urlParams.get("service_id");
     const preStylistId = urlParams.get("stylist_id");
+
+    // Custom Modal helper
+    function showModal(title, message, redirect = false) {
+      document.getElementById("bookingModalLabel").textContent = title;
+      document.getElementById("bookingModalBody").textContent = message;
+      redirectOnClose = redirect;
+
+      const modalEl = document.getElementById("bookingModal");
+      const modalInstance = new bootstrap.Modal(modalEl);
+      modalInstance.show();
+    }
+
+    // Modal close event redirect listener
+    document
+      .getElementById("bookingModal")
+      .addEventListener("hidden.bs.modal", function () {
+        if (redirectOnClose) {
+          window.location.href = "/";
+        }
+      });
 
     // Service select logic
     const serviceCards = document.querySelectorAll(".select-service-card");
@@ -309,6 +390,7 @@
         selectedStylist = this.getAttribute("data-stylist-id");
         selectedStylistName = this.getAttribute("data-stylist-name");
         updateSummary();
+        checkAvailability();
       });
 
       // Auto-select if passed in URL
@@ -329,14 +411,17 @@
 
     dateInput.addEventListener("change", function () {
       selectedDate = this.value;
-      console.log(selectedDate);
       updateSummary();
+      checkAvailability();
     });
 
     // Time slot picker logic
     const timeSlots = document.querySelectorAll(".time-slot-btn");
     timeSlots.forEach((slot) => {
       slot.addEventListener("click", function () {
+        if (this.classList.contains("disabled")) {
+          return; // Prevent selecting booked or unavailable time slots
+        }
         timeSlots.forEach((s) => s.classList.remove("selected"));
         this.classList.add("selected");
 
@@ -344,6 +429,92 @@
         updateSummary();
       });
     });
+
+    // Fetch availability status from backend
+    function checkAvailability() {
+      const statusDiv = document.getElementById("date-status-message");
+      const confirmBtn = document.getElementById("confirm-booking-btn");
+
+      // Reset UI state before checking
+      statusDiv.style.display = "none";
+      statusDiv.textContent = "";
+      confirmBtn.disabled = false;
+      isStylistAvailable = true;
+      availabilityMessage = "";
+
+      timeSlots.forEach((slot) => {
+        slot.classList.remove("disabled", "booked");
+        slot.textContent = slot.getAttribute("data-time");
+      });
+
+      if (!selectedDate) {
+        updateSummary();
+        return;
+      }
+
+      const payload = {
+        date: selectedDate,
+        stylist_id:
+          selectedStylist === "any" ? "any" : parseInt(selectedStylist),
+      };
+
+      fetch("/check-day", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.None) {
+            // No stylist or selected stylist is not available
+            isStylistAvailable = false;
+            availabilityMessage = data.None;
+
+            statusDiv.style.display = "block";
+            statusDiv.textContent = data.None;
+
+            // Disable all time slots and mark as unavailable (N/A)
+            timeSlots.forEach((slot) => {
+              slot.classList.add("disabled");
+              slot.classList.remove("selected");
+              slot.textContent = slot.getAttribute("data-time") + " (N/A)";
+            });
+            selectedTime = null;
+            updateSummary();
+
+            // Disable confirmation button
+            confirmBtn.disabled = true;
+          } else if (data.success) {
+            // Stylist is available, enable times except booked ones
+            timeSlots.forEach((slot) => {
+              slot.classList.remove("disabled");
+            });
+
+            // Disable already booked slots
+            const bookedTimes = data.booked_times || [];
+            const bookedIds = bookedTimes.map((bt) => parseInt(bt.id));
+
+            timeSlots.forEach((slot) => {
+              const timeId = parseInt(slot.getAttribute("data-time-id"));
+              if (bookedIds.includes(timeId)) {
+                slot.classList.add("disabled", "booked");
+                slot.textContent = slot.getAttribute("data-time") + " (Booked)";
+                // If the currently selected slot gets booked/disabled, deselect it
+                if (slot.classList.contains("selected")) {
+                  slot.classList.remove("selected");
+                  selectedTime = null;
+                }
+              }
+            });
+            updateSummary();
+          }
+        })
+        .catch((err) => {
+          console.error("Error checking availability:", err);
+        });
+    }
 
     // Update summary widget
     function updateSummary() {
@@ -362,19 +533,26 @@
         document.getElementById("summary-total-price").textContent = "$0";
       }
 
-      // Stylist details
-      document.getElementById("summary-stylist-name").textContent =
-        selectedStylistName;
-
-      // Date and Time details
-      if (selectedDate || selectedTime) {
-        let dateStr = selectedDate ? formatDate(selectedDate) : "Not Set";
-        let timeStr = selectedTime ? ` at ${selectedTime}` : "";
-        document.getElementById("summary-datetime").textContent =
-          `${dateStr}${timeStr}`;
+      // Stylist & Availability details
+      if (!isStylistAvailable) {
+        document.getElementById("summary-stylist-name").innerHTML =
+          `<span class="text-danger">${selectedStylistName} (Unavailable)</span>`;
+        document.getElementById("summary-datetime").innerHTML =
+          `<span class="text-danger">${availabilityMessage}</span>`;
       } else {
-        document.getElementById("summary-datetime").textContent =
-          "Not Scheduled Yet";
+        document.getElementById("summary-stylist-name").textContent =
+          selectedStylistName;
+
+        // Date and Time details
+        if (selectedDate || selectedTime) {
+          let dateStr = selectedDate ? formatDate(selectedDate) : "Not Set";
+          let timeStr = selectedTime ? ` at ${selectedTime}` : "";
+          document.getElementById("summary-datetime").textContent =
+            `${dateStr}${timeStr}`;
+        } else {
+          document.getElementById("summary-datetime").textContent =
+            "Not Scheduled Yet";
+        }
       }
     }
 
@@ -387,7 +565,7 @@
       );
     }
 
-    // Submit booking alerts
+    // Submit booking alerts using custom modal
     document
       .getElementById("confirm-booking-btn")
       .addEventListener("click", function (e) {
@@ -398,22 +576,30 @@
         const bookEmail = document.getElementById("book-email").value;
 
         if (!selectedService) {
-          alert("Please select a Salon Service.");
+          showModal("Requirement Missing", "Please select a Salon Service.");
+          return;
+        }
+        if (!isStylistAvailable) {
+          showModal("Stylist Unavailable", availabilityMessage);
           return;
         }
         if (!selectedDate || !selectedTime) {
-          alert("Please select appointment Date and Time.");
+          showModal(
+            "Requirement Missing",
+            "Please select appointment Date and Time.",
+          );
           return;
         }
         if (!bookName || !bookPhone || !bookEmail) {
-          alert("Please fill in your Name, Phone Number, and Email.");
+          showModal(
+            "Requirement Missing",
+            "Please fill in your Name, Phone Number, and Email.",
+          );
           return;
         }
 
-        alert(
-          `Thank you, ${bookName}! Your appointment for ${selectedService.name} with ${selectedStylistName} on ${formatDate(selectedDate)} at ${selectedTime} has been successfully requested. We will email confirmation details to ${bookEmail}.`,
-        );
-        window.location.href = "/";
+        const successMsg = `Thank you, ${bookName}! Your appointment for ${selectedService.name} with ${selectedStylistName} on ${formatDate(selectedDate)} at ${selectedTime} has been successfully requested. We will email confirmation details to ${bookEmail}.`;
+        showModal("Booking Successful", successMsg, true);
       });
   });
 </script>

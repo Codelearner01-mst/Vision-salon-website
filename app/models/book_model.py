@@ -1,4 +1,5 @@
 from app import db
+from datetime import time
 
 class AppointmentsModel(db.Model):
     __tablename__ = 'books'
@@ -8,19 +9,22 @@ class AppointmentsModel(db.Model):
     service_id = db.Column(db.Integer, db.ForeignKey('services.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     total = db.Column(db.Float, nullable=False)
-    date = db.Column(db.Integer, nullable=True)
+    date = db.Column(db.Date, nullable=False)
+    time_id = db.Column(db.Integer,db.ForeignKey('time.id'),nullable=False)
     note = db.Column(db.String(255), nullable=True)
 
     stylist = db.relationship('TeamModel', backref='bookings')
     service = db.relationship('ServiceModel', backref='bookings')
     user = db.relationship('UserModel', backref='bookings')
+    appointment_time = db.relationship("BookingTimesModel",backref="bookings")
 
-    def __init__(self, stylist_id, service_id, total, date=None, note=None):
+    def __init__(self, stylist_id, service_id, total, date, time_id, note=None):
         self.stylist_id = stylist_id
         self.service_id = service_id
         self.total = total
         self.date = date
-        self.time_note = note
+        self.time_id = time_id
+        self.note = note
 
     def json(self):
         return {
@@ -31,6 +35,11 @@ class AppointmentsModel(db.Model):
             'total': self.total,
             'date': self.date,
             'time_note': self.note,
+        }
+    def available_appointment_times_json(self):
+        return {
+            'id': self.appointment_time.id,
+            "time":self.appointment_time.time.strftime("%H:%M:%S")
         }
     
 class BookingTimesModel(db.Model):
