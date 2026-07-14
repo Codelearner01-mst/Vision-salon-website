@@ -69,3 +69,21 @@ class TestBook(unittest.TestCase):
         self.assertIn(b"Fri", response.data)
         self.assertNotIn(b"Tue", response.data)
         self.assertNotIn(b"Wed", response.data)
+
+    def test_day_check(self):
+        john = db.session.get(TeamModel,1)
+        Paul = db.session.get(TeamModel,2)
+        all = TeamModel.query.all()
+        self.assertTrue(john.day_is_available("2026-07-14"))
+        self.assertFalse(john.day_is_available("2026-07-18"))
+        self.assertTrue(Paul.day_is_available("2026-07-17"))
+        self.assertFalse(Paul.day_is_available("2026-07-19"))
+        for t in all:
+            self.assertTrue(t.day_is_available("2026-07-20"))
+            self.assertTrue(t.day_is_available("2026-07-16"))
+            self.assertFalse(t.day_is_available("2026-07-19"))
+            self.assertFalse(t.day_is_available("2026-07-18"))
+
+
+
+
