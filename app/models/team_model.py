@@ -1,4 +1,6 @@
 from app import db
+import datetime 
+from datetime import date
 
 class TeamModel(db.Model):
     __tablename__ = 'team'
@@ -22,6 +24,18 @@ class TeamModel(db.Model):
         self.about = about
         self.stylist = stylist
         self.role = role
+
+    def day_is_available(self,date):
+       if not date or date is None:
+        return False
+       date = date.split("-")
+       year, month, day= [int(date[0]),int(date[1]),int(date[2])]
+       day_num = datetime.date(year,month,day).weekday()
+       workdays = self.workdays
+       for wd in workdays:
+         if day_num == wd.day_num:
+           return True
+       return False
 
     def json(self):
         return {

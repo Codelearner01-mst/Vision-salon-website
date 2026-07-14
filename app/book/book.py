@@ -1,14 +1,37 @@
 from ..models import ServiceModel, TeamModel, BookingTimesModel
 from . import main
-from flask import render_template,abort
+from flask import render_template,abort,request,jsonify
+import datetime as dt
+from datetime import date
+from app import db
 
 
 
-@main.route('/book')
+@main.route('/book', methods=["GET","POST"])
 def book():
     services = ServiceModel.query.all()
     team_members = TeamModel.query.all()
     booking_times = [bt.json() for bt in BookingTimesModel.query.all()]
     if not services or not team_members or not booking_times:
-        abort(404)
+        abort(404)   
     return render_template('book.html', services=services, team=team_members, booking_times=booking_times)
+
+@main.route('/check-day', methods=["POST"])
+def check_day():
+    date = request.get_json()
+    if date is not None and not isinstance(date["stylist_id"],int) and date["stylist_id"] =="any":
+      team_members = TeamModel.query.all()
+      for t in team_members:
+          if t.day_is_available(date["date"]):
+              return jsonify({"success":"Day is available"})
+      return jsonify({"None":"No stylist available on this day."})
+    
+    if date is not None and isinstance(date["stylist_id"],int):
+        member = db.session.get(TeamModel,date["stylist_id"])
+        if member is not None:
+            if member.day_is_available(date["date"]):
+                return jsonify({"Success":"Day is available"})
+        return jsonify({"None":"Selected sytlist is not available on this day"})
+    return jsonify({"Error":"The request was invalid"})
+
+    
