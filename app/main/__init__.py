@@ -6,3 +6,4 @@ from . import home
 from . import story
 from . import contact
 from . import gallery
+from app import errors

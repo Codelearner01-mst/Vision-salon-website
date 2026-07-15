@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}404 — Page Not Found | Vision Salon{% endblock %}
+{% block content %}
+
+<section class="error-page-section">
+  <!-- Ambient decorative blobs -->
+  <div class="error-blob error-blob-1"></div>
+  <div class="error-blob error-blob-2"></div>
+
+  <div class="container">
+    <div class="error-inner">
+
+      <!-- Toy illustration: giant scissors doodle in SVG -->
+      <div class="error-illustration" aria-hidden="true">
+        <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg" class="error-svg">
+          <!-- Scissors blade left -->
+          <ellipse cx="68" cy="78" rx="42" ry="12" fill="none" stroke="#ff4a8b" stroke-width="5"
+            stroke-linecap="round" transform="rotate(-38 68 78)" />
+          <!-- Scissors blade right -->
+          <ellipse cx="152" cy="78" rx="42" ry="12" fill="none" stroke="#ff4a8b" stroke-width="5"
+            stroke-linecap="round" transform="rotate(38 152 78)" />
+          <!-- Pivot ring -->
+          <circle cx="110" cy="102" r="10" fill="white" stroke="#ff4a8b" stroke-width="4"/>
+          <circle cx="110" cy="102" r="4" fill="#ff4a8b"/>
+          <!-- Handle left -->
+          <ellipse cx="60" cy="148" rx="20" ry="28" fill="none" stroke="#ff4a8b" stroke-width="5"
+            stroke-linecap="round"/>
+          <!-- Handle right -->
+          <ellipse cx="160" cy="148" rx="20" ry="28" fill="none" stroke="#ff4a8b" stroke-width="5"
+            stroke-linecap="round"/>
+          <!-- Snip sparks -->
+          <line x1="105" y1="60" x2="95" y2="44" stroke="#ffb3d0" stroke-width="3" stroke-linecap="round"/>
+          <line x1="115" y1="60" x2="125" y2="44" stroke="#ffb3d0" stroke-width="3" stroke-linecap="round"/>
+          <line x1="110" y1="55" x2="110" y2="38" stroke="#ffb3d0" stroke-width="3" stroke-linecap="round"/>
+          <!-- Decorative strand of hair -->
+          <path d="M30 30 Q55 10 80 35 Q105 60 130 35 Q155 10 180 30"
+            fill="none" stroke="#ffd6e8" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+
+        <!-- Drifting number -->
+        <span class="error-code">404</span>
+      </div>
+
+      <div class="error-content">
+        <span class="story-badge mb-3 d-inline-block">Oops!</span>
+        <h1 class="font-serif error-title">Page Not Found</h1>
+        <p class="error-desc">
+          Looks like this page got a little too adventurous and wandered off.
+          Don't worry — even the best hair days have a stray strand or two.
+        </p>
+        <div class="error-actions">
+          <a href="/" class="btn btn-pink px-5 py-3 rounded-pill shadow-sm">
+            <i class="fas fa-home me-2"></i>Back to Home
+          </a>
+          <a href="/services" class="btn btn-outline-light-custom px-5 py-3 rounded-pill">
+            View Services
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

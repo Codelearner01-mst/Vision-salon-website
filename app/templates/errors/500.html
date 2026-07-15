@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}500 — Server Error | Vision Salon{% endblock %}
+{% block content %}
+
+<section class="error-page-section">
+  <!-- Ambient decorative blobs -->
+  <div class="error-blob error-blob-1"></div>
+  <div class="error-blob error-blob-2"></div>
+
+  <div class="container">
+    <div class="error-inner">
+
+      <!-- Toy illustration: a broken comb / hair dryer in SVG -->
+      <div class="error-illustration" aria-hidden="true">
+        <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg" class="error-svg">
+          <!-- Hair dryer body -->
+          <rect x="70" y="60" width="90" height="58" rx="28" fill="none" stroke="#ff4a8b" stroke-width="5"/>
+          <!-- Nozzle -->
+          <rect x="155" y="76" width="30" height="26" rx="8" fill="none" stroke="#ff4a8b" stroke-width="4"/>
+          <!-- Handle -->
+          <rect x="96" y="113" width="30" height="42" rx="14" fill="none" stroke="#ff4a8b" stroke-width="4"/>
+          <!-- Fan blades (circle + cross) -->
+          <circle cx="108" cy="88" r="14" fill="none" stroke="#ffb3d0" stroke-width="3"/>
+          <line x1="108" y1="74" x2="108" y2="102" stroke="#ffb3d0" stroke-width="3" stroke-linecap="round"/>
+          <line x1="94" y1="88" x2="122" y2="88" stroke="#ffb3d0" stroke-width="3" stroke-linecap="round"/>
+          <!-- Steam puffs -->
+          <path d="M190 74 Q200 68 195 60 Q190 52 200 46" fill="none" stroke="#ffd6e8" stroke-width="4" stroke-linecap="round"/>
+          <path d="M196 85 Q208 79 203 71 Q198 63 210 57" fill="none" stroke="#ffd6e8" stroke-width="4" stroke-linecap="round"/>
+          <!-- Warning sparks (lightning bolt) -->
+          <polyline points="55,50 45,78 56,78 44,108" fill="none" stroke="#ff4a8b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- Small stars / sparks -->
+          <circle cx="38" cy="48" r="3" fill="#ffb3d0"/>
+          <circle cx="62" cy="38" r="2" fill="#ffb3d0"/>
+          <circle cx="30" cy="65" r="2" fill="#ffd6e8"/>
+        </svg>
+
+        <!-- Drifting number -->
+        <span class="error-code">500</span>
+      </div>
+
+      <div class="error-content">
+        <span class="story-badge mb-3 d-inline-block">Server Error</span>
+        <h1 class="font-serif error-title">Something Went Wrong</h1>
+        <p class="error-desc">
+          Our stylists are working hard behind the scenes to fix things.
+          This is on us — please try again in a moment.
+        </p>
+        <div class="error-actions">
+          <a href="/" class="btn btn-pink px-5 py-3 rounded-pill shadow-sm">
+            <i class="fas fa-home me-2"></i>Back to Home
+          </a>
+          <a href="/contact" class="btn btn-outline-light-custom px-5 py-3 rounded-pill">
+            Contact Us
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}
