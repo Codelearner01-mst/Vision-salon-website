@@ -12,19 +12,25 @@ class AppointmentsModel(db.Model):
     date = db.Column(db.Date, nullable=False)
     time_id = db.Column(db.Integer,db.ForeignKey('time.id'),nullable=False)
     note = db.Column(db.String(255), nullable=True)
+    quest_name = db.Column(db.String(100), nullable=True)
+    email = db.Column(db.String(100), nullable=True)
+    phone_number = db.Column(db.String(30), nullable=True)
 
     stylist = db.relationship('TeamModel', backref='bookings')
     service = db.relationship('ServiceModel', backref='bookings')
     user = db.relationship('UserModel', backref='bookings')
     appointment_time = db.relationship("BookingTimesModel",backref="bookings")
 
-    def __init__(self, stylist_id, service_id, total, date, time_id, note=None):
+    def __init__(self, stylist_id, service_id, total, date, time_id,  quest_name, email ,  phone_number,note=None):
         self.stylist_id = stylist_id
         self.service_id = service_id
         self.total = total
         self.date = date
         self.time_id = time_id
         self.note = note
+        self.quest_name = quest_name
+        self.email = email 
+        self.phone_number = phone_number
 
     def json(self):
         return {

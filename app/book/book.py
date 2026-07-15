@@ -46,4 +46,24 @@ def check_day():
         return jsonify({"None":"Selected sytlist is not available on this day"})
     return jsonify({"Error":"The request was invalid"})
 
-    
+@main.route('/book-appointment', methods=["POST"])
+def book_appointment():
+    book_details = request.get_json()
+    if not book_details or book_details is None:
+        return jsonify({"invalid":"Couldn't placed the order. Got invalid details!"})
+    if not book_details["guest_details"]:
+        return jsonify({"invalid":"Couldn't placed the order. Quest details was not provided!"})
+    try:
+        service_id, stylist_id, total,date,time_id = [book_details["service_id"],book_details["stylist_id"],book_details["total"],book_details["date"],book_details["time_id"]]
+        guest = book_details["guest_details"]
+        name, email, note, phone = [guest["guest_name"],guest["email"],guest["note"],guest["phone_number"]]
+        appointment = AppointmentsModel(stylist_id,service_id,total,date,time_id,name,email,phone,note)
+        db.session.add(appointment)
+        db.session.commit()
+        successMsg = f'Thank you, {name} Your appointment for {appointment.service.name} with {appointment.stylist.name} on {appointment.date} at {appointment.appointment_time.time.strftime("%H:%M:%S")} has been successfully requested. We will email confirmation details to you.'
+        return jsonify({"success":successMsg})
+    except Exception as e:
+        db.session.rollback()
+        print("Exception error",e)
+        return jsonify({"error":"Oops.Error occured while placing order. Try again later!"})
+   

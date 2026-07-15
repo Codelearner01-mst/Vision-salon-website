@@ -425,7 +425,10 @@
         timeSlots.forEach((s) => s.classList.remove("selected"));
         this.classList.add("selected");
 
-        selectedTime = this.getAttribute("data-time");
+        selectedTime = {
+          time: this.getAttribute("data-time"),
+          id: this.getAttribute("data-time-id"),
+        };
         updateSummary();
       });
     });
@@ -546,7 +549,7 @@
         // Date and Time details
         if (selectedDate || selectedTime) {
           let dateStr = selectedDate ? formatDate(selectedDate) : "Not Set";
-          let timeStr = selectedTime ? ` at ${selectedTime}` : "";
+          let timeStr = selectedTime?.time ? ` at ${selectedTime.time}` : "";
           document.getElementById("summary-datetime").textContent =
             `${dateStr}${timeStr}`;
         } else {
@@ -574,6 +577,7 @@
         const bookName = document.getElementById("book-name").value;
         const bookPhone = document.getElementById("book-phone").value;
         const bookEmail = document.getElementById("book-email").value;
+        const booknote = document.getElementById("book-notes").value;
 
         if (!selectedService) {
           showModal("Requirement Missing", "Please select a Salon Service.");
@@ -597,9 +601,43 @@
           );
           return;
         }
-
-        const successMsg = `Thank you, ${bookName}! Your appointment for ${selectedService.name} with ${selectedStylistName} on ${formatDate(selectedDate)} at ${selectedTime} has been successfully requested. We will email confirmation details to ${bookEmail}.`;
-        showModal("Booking Successful", successMsg, true);
+        const payload = {
+          stylist_id: Number(selectedStylist)
+            ? parseInt(selectedStylist)
+            : selectedStylist,
+          service_id: parseInt(selectedService.id),
+          total: Number(selectedService.price),
+          date: selectedDate,
+          time_id: parseInt(selectedTime.id),
+          guest_details: {
+            guest_name: bookName,
+            email: bookEmail,
+            phone_number: bookPhone,
+            note: booknote,
+          },
+        };
+        console.log(payload);
+        fetch("/book-appointment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.invalid) {
+              showModal("Invalid", data.invalid);
+              return;
+            }
+            if (data.error) {
+              showModal("Error", data.error);
+              return;
+            }
+            if (data.success) {
+              showModal("Booking Successful", data.success, true);
+            }
+          });
       });
   });
 </script>
