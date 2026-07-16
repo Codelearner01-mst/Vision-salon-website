@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block content %}
+﻿{% extends "base.html" %} {% block content %}
 
 <!-- Minimal Page Header -->
 <div class="page-header text-center reveal">
@@ -165,32 +165,7 @@
   </div>
 </div>
 
-<!-- Interactive Gallery Filter Logic (Vanilla JS) -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const galleryItems = document.querySelectorAll(".gallery-grid-item");
-
-    filterButtons.forEach((btn) => {
-      btn.addEventListener("click", function () {
-        // Toggle active button class
-        filterButtons.forEach((b) => b.classList.remove("active"));
-        this.classList.add("active");
-
-        const filterValue = this.getAttribute("data-filter");
-
-        galleryItems.forEach((item) => {
-          const itemCategory = item.getAttribute("data-category");
-
-          if (filterValue === "all" || itemCategory === filterValue) {
-            item.classList.remove("hide");
-          } else {
-            item.classList.add("hide");
-          }
-        });
-      });
-    });
-  });
-</script>
+<!-- Interactive Gallery Filter Logic (extracted to front-end/gallery.js) -->
+<script src="{{ url_for('static', filename='front-end/gallery.js') }}"></script>
 
 {% endblock %}

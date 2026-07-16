@@ -54,10 +54,13 @@ def book_appointment():
     if not book_details["guest_details"]:
         return jsonify({"invalid":"Couldn't placed the order. Quest details was not provided!"})
     try:
-        service_id, stylist_id, total,date,time_id = [book_details["service_id"],book_details["stylist_id"],book_details["total"],book_details["date"],book_details["time_id"]]
+        service_id, stylist_id, total,booking_date,time_id = [book_details["service_id"],book_details["stylist_id"],book_details["total"],book_details["date"],book_details["time_id"]]
+        # Convert date string to Python date object for SQLite
+        if isinstance(booking_date, str):
+            booking_date = dt.datetime.strptime(booking_date, "%Y-%m-%d").date()
         guest = book_details["guest_details"]
         name, email, note, phone = [guest["guest_name"],guest["email"],guest["note"],guest["phone_number"]]
-        appointment = AppointmentsModel(stylist_id,service_id,total,date,time_id,name,email,phone,note)
+        appointment = AppointmentsModel(stylist_id,service_id,total,booking_date,time_id,name,email,phone,note)
         db.session.add(appointment)
         db.session.commit()
         successMsg = f'Thank you, {name} Your appointment for {appointment.service.name} with {appointment.stylist.name} on {appointment.date} at {appointment.appointment_time.time.strftime("%H:%M:%S")} has been successfully requested. We will email confirmation details to you.'
@@ -80,4 +83,3 @@ def book_appointment():
         db.session.rollback()
         print("Exception error",e)
         return jsonify({"error":"Oops.Error occured while placing order. Try again later!"})
-   

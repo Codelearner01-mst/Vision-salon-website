@@ -1,4 +1,24 @@
+"""
+test_book.py - Unit tests for the booking system (book.py routes).
+
+Tests cover three route endpoints:
+  1. GET /book              - Renders the booking page with services, stylists, and time slots
+  2. POST /check-day         - AJAX endpoint that checks stylist availability and returns booked time slots
+  3. POST /book-appointment  - AJAX endpoint that creates an appointment and sends a confirmation email
+
+Test data is seeded in setUp() with:
+  - 2 services (Basic Haircut $25, Quality Brading $50)
+  - 2 stylists (John Doe: Mon-Thu, Paul Aquero: Mon-Fri)
+  - 2 booking times (10:00 AM, 12:00 PM)
+  - 5 weekdays (Mon-Fri)
+  - 3 existing appointments (for booked_times testing)
+
+All tests use an in-memory SQLite database that is created and dropped per test.
+send_email is mocked with @patch to prevent real emails from being sent.
+"""
+
 import unittest
+from unittest.mock import patch
 from app import create_app, db
 from app.models import BookingTimesModel, ServiceModel, TeamModel
 from app.models.team_model import WeekdaysModel, TeamWorkdaysModel
@@ -47,10 +67,10 @@ class TestBook(unittest.TestCase):
 
         # Seed appointments for booked_times testing
         # July 20, 2026 is a Monday (day_num=0) - both John and Paul work
-        a1 = AppointmentsModel(stylist_id=team_member.id, service_id=service.id, total=service.price, date=date(2026, 7, 20), time_id=bt.id, note='First time client')
-        a2 = AppointmentsModel(stylist_id=team_member2.id, service_id=service2.id, total=service2.price, date=date(2026, 7, 20), time_id=bt2.id, note='Allergic to ammonia')
+        a1 = AppointmentsModel(stylist_id=team_member.id, service_id=service.id, total=service.price, date=date(2026, 7, 20), time_id=bt.id, note='First time client',quest_name="Kofi Baa",email="Kofi22@gmail.com",phone_number="0543267765")
+        a2 = AppointmentsModel(stylist_id=team_member2.id, service_id=service2.id, total=service2.price, date=date(2026, 7, 20), time_id=bt2.id, note='Allergic to ammonia',quest_name="Yaa Beisua",email="Yaa22@gmail.com",phone_number="0543276065")
         # July 16, 2026 is a Thursday (day_num=3) - both work
-        a3 = AppointmentsModel(stylist_id=team_member.id, service_id=service2.id, total=service2.price, date=date(2026, 7, 16), time_id=bt.id)
+        a3 = AppointmentsModel(stylist_id=team_member.id, service_id=service2.id, total=service2.price, date=date(2026, 7, 16), time_id=bt.id,quest_name=" John Blay",email="johnB34@gmail.com",phone_number="0543285645")
         db.session.add_all([a1, a2, a3])
         db.session.commit()
 
@@ -60,6 +80,7 @@ class TestBook(unittest.TestCase):
         self.app_context.pop()
 
     def test_book_page(self):
+        """GET /book should render the booking page with services, stylists, time slots, and workday labels."""
         response = self.client.get("/book")
         self.assertEqual(response.status_code, 200)
         self.assertNotEqual(response.status_code, 404)
@@ -81,6 +102,7 @@ class TestBook(unittest.TestCase):
         self.assertNotIn(b"Wed", response.data)
 
     def test_day_check(self):
+        """Directly test TeamModel.day_is_available() for both stylists on various weekdays."""
         john = db.session.get(TeamModel, 1)
         paul = db.session.get(TeamModel, 2)
         all_stylists = TeamModel.query.all()
@@ -95,6 +117,7 @@ class TestBook(unittest.TestCase):
             self.assertFalse(t.day_is_available("2026-07-18"))
 
     def test_check_day_any_stylist_available(self):
+        """POST /check-day with stylist_id=any on a day with bookings should return success + 2 booked times."""
         response = self.client.post("/check-day",
             json={"stylist_id": "any", "date": "2026-07-20"})
         self.assertEqual(response.status_code, 200)
@@ -105,6 +128,7 @@ class TestBook(unittest.TestCase):
         self.assertEqual(len(data["booked_times"]), 2)
 
     def test_check_day_any_stylist_available_no_bookings(self):
+        """POST /check-day with stylist_id=any on a day with no bookings should return success + 0 booked times."""
         response = self.client.post("/check-day",
             json={"stylist_id": "any", "date": "2026-07-14"})
         self.assertEqual(response.status_code, 200)
@@ -115,6 +139,7 @@ class TestBook(unittest.TestCase):
         self.assertEqual(len(data["booked_times"]), 0)
 
     def test_check_day_any_stylist_not_available(self):
+        """POST /check-day with stylist_id=any on a weekend (nobody works) should return None message."""
         response = self.client.post("/check-day",
             json={"stylist_id": "any", "date": "2026-07-18"})
         self.assertEqual(response.status_code, 200)
@@ -123,6 +148,7 @@ class TestBook(unittest.TestCase):
         self.assertEqual(data["None"], "No stylist available on this day.")
 
     def test_check_day_specific_stylist_available(self):
+        """POST /check-day with a specific stylist (John) on a workday should return success + 1 booked time."""
         john = TeamModel.query.filter_by(name='John Doe').first()
         response = self.client.post("/check-day",
             json={"stylist_id": john.id, "date": "2026-07-20"})
@@ -134,6 +160,7 @@ class TestBook(unittest.TestCase):
         self.assertEqual(len(data["booked_times"]), 1)
 
     def test_check_day_specific_stylist_not_available(self):
+        """POST /check-day with John on a Friday (he does not work) should return None message."""
         john = TeamModel.query.filter_by(name='John Doe').first()
         response = self.client.post("/check-day",
             json={"stylist_id": john.id, "date": "2026-07-17"})
@@ -143,6 +170,7 @@ class TestBook(unittest.TestCase):
         self.assertEqual(data["None"], "Selected sytlist is not available on this day")
 
     def test_check_day_paul_available_friday(self):
+        """POST /check-day with Paul on a Friday (he works Fridays) should return success + 0 booked times."""
         paul = TeamModel.query.filter_by(name='Paul Aquero').first()
         response = self.client.post("/check-day",
             json={"stylist_id": paul.id, "date": "2026-07-17"})
@@ -154,9 +182,124 @@ class TestBook(unittest.TestCase):
         self.assertEqual(len(data["booked_times"]), 0)
 
     def test_check_day_invalid_request(self):
+        """POST /check-day with an invalid stylist_id (not any and not an int) should return Error."""
         response = self.client.post("/check-day",
             json={"stylist_id": "invalid", "date": "2026-07-20"})
         self.assertEqual(response.status_code, 200)
         data = response.get_json()
         self.assertIn("Error", data)
         self.assertEqual(data["Error"], "The request was invalid")
+
+    # ---------- book_appointment tests ----------
+
+    def test_book_appointment_invalid_details(self):
+        """Empty JSON body should return invalid."""
+        response = self.client.post("/book-appointment", json={})
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertIn("invalid", data)
+        self.assertEqual(data["invalid"], "Couldn't placed the order. Got invalid details!")
+
+    def test_book_appointment_missing_guest_details(self):
+        """Valid service/stylist/date/time but no guest_details should return invalid."""
+        service = ServiceModel.query.first()
+        stylist = TeamModel.query.first()
+        bt = BookingTimesModel.query.first()
+        response = self.client.post("/book-appointment",
+            json={
+                "service_id": service.id,
+                "stylist_id": stylist.id,
+                "total": service.price,
+                "date": "2026-07-14",
+                "time_id": bt.id,
+                "guest_details": None
+            })
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertIn("invalid", data)
+        self.assertEqual(data["invalid"], "Couldn't placed the order. Quest details was not provided!")
+
+    @patch("app.book.book.send_email")
+    def test_book_appointment_success(self, mock_send_email):
+        """Valid booking should save appointment, return success message, and call send_email."""
+        service = ServiceModel.query.first()
+        stylist = TeamModel.query.first()
+        bt = BookingTimesModel.query.first()
+
+        # Count appointments before
+        count_before = AppointmentsModel.query.count()
+
+        response = self.client.post("/book-appointment",
+            json={
+                "service_id": service.id,
+                "stylist_id": stylist.id,
+                "total": service.price,
+                "date": "2026-07-14",
+                "time_id": bt.id,
+                "guest_details": {
+                    "guest_name": "Test Guest",
+                    "email": "testguest@gmail.com",
+                    "phone_number": "0240000000",
+                    "note": "This is a test booking"
+                }
+            })
+
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertIn("success", data)
+        self.assertIn("Test Guest", data["success"])
+        self.assertIn(service.name, data["success"])
+        self.assertIn(stylist.name, data["success"])
+
+        # Verify appointment was saved to the database
+        count_after = AppointmentsModel.query.count()
+        self.assertEqual(count_after, count_before + 1)
+
+        # Verify the saved appointment has the correct data
+        saved = AppointmentsModel.query.filter_by(quest_name="Test Guest").first()
+        self.assertIsNotNone(saved)
+        self.assertEqual(saved.email, "testguest@gmail.com")
+        self.assertEqual(saved.phone_number, "0240000000")
+        self.assertEqual(saved.note, "This is a test booking")
+        self.assertEqual(saved.total, service.price)
+
+        # Verify send_email was called with the right arguments
+        mock_send_email.assert_called_once()
+        call_kwargs = mock_send_email.call_args
+        self.assertEqual(call_kwargs[1]["to"], "testguest@gmail.com")
+        self.assertEqual(call_kwargs[1]["subject"], "Booking Confirmation - Vision Salon")
+        self.assertEqual(call_kwargs[1]["name"], "Test Guest")
+
+    @patch("app.book.book.send_email")
+    def test_book_appointment_error(self, mock_send_email):
+        """Invalid foreign key (non-existent service/stylist) should trigger error and rollback."""
+        bt = BookingTimesModel.query.first()
+        response = self.client.post("/book-appointment",
+            json={
+                "service_id": 9999,
+                "stylist_id": 9999,
+                "total": 25.0,
+                "date": "2026-07-14",
+                "time_id": bt.id,
+                "guest_details": {
+                    "guest_name": "Error Guest",
+                    "email": "error@gmail.com",
+                    "phone_number": "0240000000",
+                    "note": "This should fail"
+                }
+            })
+
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertIn("error", data)
+        self.assertEqual(data["error"], "Oops.Error occured while placing order. Try again later!")
+
+        # Note: SQLite does not enforce foreign key constraints by default,
+        # so the appointment is actually committed to the DB before the error
+        # occurs when accessing appointment.service.name (which is None).
+        # The error is caught and rollback is called, but the commit already
+        # happened. The key assertion is that the error response is returned.
+        # In production (PostgreSQL), the FK constraint would prevent the commit.
+
+        # Verify send_email was NOT called (error occurred before email)
+        mock_send_email.assert_not_called()
