@@ -1,10 +1,10 @@
 from ..models import ServiceModel, TeamModel, BookingTimesModel,AppointmentsModel
 from . import main
-from flask import render_template,abort,request,jsonify
+from flask import render_template,abort,request,jsonify,current_app
 import datetime as dt
 from datetime import date
 from app import db
-
+from app.email import send_email 
 
 
 @main.route('/book', methods=["GET","POST"])
@@ -61,6 +61,20 @@ def book_appointment():
         db.session.add(appointment)
         db.session.commit()
         successMsg = f'Thank you, {name} Your appointment for {appointment.service.name} with {appointment.stylist.name} on {appointment.date} at {appointment.appointment_time.time.strftime("%H:%M:%S")} has been successfully requested. We will email confirmation details to you.'
+        send_email(
+            to=appointment.email,
+            subject="Booking Confirmation - Vision Salon",
+            template="email/booking_success_email",
+            sender=current_app.config['VISION_MAIL_SENDER'],
+            name=name,
+            service_name=appointment.service.name,
+            stylist_name=appointment.stylist.name,
+            date=appointment.date,
+            time=appointment.appointment_time.time.strftime("%I:%M %p"),
+            total=appointment.total,
+            note=appointment.note,
+            phone_number=appointment.phone_number
+        )
         return jsonify({"success":successMsg})
     except Exception as e:
         db.session.rollback()

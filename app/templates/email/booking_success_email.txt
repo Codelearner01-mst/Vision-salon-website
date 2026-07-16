@@ -1,0 +1,27 @@
+Dear {{ name }},
+
+Thank you for booking your appointment with Vision Salon! Your booking has been successfully confirmed. Here are the details of your appointment:
+
+------------------------------------------------------------
+BOOKING CONFIRMATION
+------------------------------------------------------------
+
+Service:      {{ service_name }}
+Stylist:      {{ stylist_name }}
+Date:         {{ date }}
+Time:         {{ time }}
+Total Cost:   GHC {{ total }}
+
+------------------------------------------------------------
+
+{% if note %}
+Your Note:    {{ note }}
+{% endif %}
+
+Phone on file: {{ phone_number }}
+
+We look forward to seeing you at Vision Salon! If you need to reschedule or have any questions, please contact us.
+
+Best regards,
+The Vision Salon Team
+kwabenap603@gmail.com
