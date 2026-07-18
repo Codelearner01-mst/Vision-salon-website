@@ -1,9 +1,11 @@
 from ..models import ServiceModel, TeamModel, BookingTimesModel,AppointmentsModel,WeekdaysModel,TeamWorkdaysModel
 from . import main
 from flask import render_template,abort,request,jsonify,current_app
+import datetime as dt
 from app import db
 from app.email import send_email 
 from app.helper.date import get_day_num
+from sqlalchemy.exc import IntegrityError
 
 
 @main.route('/book', methods=["GET","POST"])
@@ -68,7 +70,7 @@ def book_appointment():
         appointment = AppointmentsModel(stylist_id,service_id,total,booking_date,time_id,name,email,phone,note)
         db.session.add(appointment)
         db.session.commit()
-        successMsg = f'Thank you, {name} Your appointment for {appointment.service.name} with {appointment.stylist.name} on {appointment.date} at {appointment.appointment_time.time.strftime("%H:%M:%S")} has been successfully requested. We will email confirmation details to you.'
+        successMsg = f'Thank you, {name} Your appointment for {appointment.service.name} with {appointment.stylist.name} on {appointment.date} at {appointment.appointment_time.time.strftime("%I:%M %p")} has been successfully requested. We will email confirmation details to you.'
         send_email(
             to=appointment.email,
             subject="Booking Confirmation - Vision Salon",
@@ -84,7 +86,37 @@ def book_appointment():
             phone_number=appointment.phone_number
         )
         return jsonify({"success":successMsg})
-    except Exception as e:
+    except IntegrityError as e:
         db.session.rollback()
         print("Exception error",e)
-        return jsonify({"error":"Oops.Error occured while placing order. Try again later!"})
+        
+        # 1. Convert the raw Postgres error to a string
+    # It looks like: "...violates unique constraint 'uq_booked_slot'..."
+        error_message = str(e.orig)
+    
+    # 2. Check for your exact unique constraint name
+        if "uq_booked_slot" in error_message:
+           return jsonify({
+            "status": "error", 
+            "code": "SLOT_TAKEN",
+            "message": "Sorry, this time slot was just booked by another user."
+           }), 409  # 409 Conflict is the standard HTTP status code for this
+
+       # 3. Check for other potential issues (like a deleted/missing user ID)
+        elif "foreign key" in error_message:
+           return jsonify({
+            "status": "error",
+            "code": "INVALID_USER",
+            "message": "Booking failed. The associated user account does not exist."
+          }), 400
+
+    # 4. Fallback for any other unexpected database constraint failures
+        else:
+           return jsonify({
+            "status": "error", 
+            "code": "DATABASE_ERROR",
+            "message": "An unexpected system error occurred. Please try again."
+        }), 500
+
+    finally:
+     db.session.close()

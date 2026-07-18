@@ -1,5 +1,6 @@
 from app import db
 from datetime import time
+from sqlalchemy import UniqueConstraint
 
 class AppointmentsModel(db.Model):
     __tablename__ = 'books'
@@ -15,6 +16,13 @@ class AppointmentsModel(db.Model):
     quest_name = db.Column(db.String(100), nullable=True)
     email = db.Column(db.String(100), nullable=True)
     phone_number = db.Column(db.String(30), nullable=True)
+
+    __table_args__ = (
+        UniqueConstraint(
+            "date", "time_id", "stylist_id",
+            name="uq_booked_slot"
+        ),
+    )
 
     stylist = db.relationship('TeamModel', backref='bookings')
     service = db.relationship('ServiceModel', backref='bookings')
