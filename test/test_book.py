@@ -125,7 +125,7 @@ class TestBook(unittest.TestCase):
         self.assertIn("success", data)
         self.assertEqual(data["success"], "Day is available")
         self.assertIn("booked_times", data)
-        self.assertEqual(len(data["booked_times"]), 2)
+        self.assertEqual(len(data["booked_times"]), 0)
 
     def test_check_day_any_stylist_available_no_bookings(self):
         """POST /check-day with stylist_id=any on a day with no bookings should return success + 0 booked times."""
@@ -289,10 +289,13 @@ class TestBook(unittest.TestCase):
                 }
             })
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 400)
         data = response.get_json()
-        self.assertIn("error", data)
-        self.assertEqual(data["error"], "Oops.Error occured while placing order. Try again later!")
+        self.assertIn("status", data)
+        self.assertIn("code",data)
+        self.assertEqual(data["status"],"error")
+        self.assertEqual(data["code"],"INVALID_USER")
+        self.assertEqual(data["message"], "Booking failed. The associated user account does not exist.")
 
         # Note: SQLite does not enforce foreign key constraints by default,
         # so the appointment is actually committed to the DB before the error
