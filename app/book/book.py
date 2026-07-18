@@ -1,10 +1,9 @@
-from ..models import ServiceModel, TeamModel, BookingTimesModel,AppointmentsModel
+from ..models import ServiceModel, TeamModel, BookingTimesModel,AppointmentsModel,WeekdaysModel,TeamWorkdaysModel
 from . import main
 from flask import render_template,abort,request,jsonify,current_app
-import datetime as dt
-from datetime import date
 from app import db
 from app.email import send_email 
+from app.helper.date import get_day_num
 
 
 @main.route('/book', methods=["GET","POST"])
@@ -20,16 +19,22 @@ def book():
 def check_day():
     date = request.get_json()
     if date is not None and not isinstance(date["stylist_id"],int) and date["stylist_id"] =="any":
-      team_members = TeamModel.query.all()
-      for t in team_members:
-          if t.day_is_available(date["date"]):
-              booked_times = []
-              available_appointments_times = AppointmentsModel.query.filter_by(date=date["date"]).all()
-              if len(available_appointments_times):
-                  for t in available_appointments_times:
-                      booked_times.append(t.available_appointment_times_json())
-                  return jsonify({"success":"Day is available","booked_times":booked_times})
+      day_num = get_day_num(date["date"])
+      available_stylists = TeamModel.query.filter(TeamModel.workdays.any(WeekdaysModel.day_num == day_num)).all()
+      day_is_available = TeamWorkdaysModel.query.filter(TeamWorkdaysModel.day.has(WeekdaysModel.day_num==day_num)).all()
+      if day_is_available:
+          booked_times = []
+          appointments = AppointmentsModel.query.filter_by(date=date["date"]).all()
+          if len(appointments):
+              times = [a.appointment_time for a in appointments]
+              for t in times:
+                  if t in booked_times:
+                     continue
+                  if times.count(t)==len(available_stylists):
+                     booked_times.append(t)
+              booked_times = [bt.json() for bt in booked_times]
               return jsonify({"success":"Day is available","booked_times":booked_times})
+          return jsonify({"success":"Day is available","booked_times":booked_times})
       return jsonify({"None":"No stylist available on this day."})
     
     if date is not None and isinstance(date["stylist_id"],int):
