@@ -116,8 +116,23 @@ class TestBook(unittest.TestCase):
             self.assertFalse(t.day_is_available("2026-07-19"))
             self.assertFalse(t.day_is_available("2026-07-18"))
 
-    def test_check_day_any_stylist_available(self):
-        """POST /check-day with stylist_id=any on a day with bookings should return success + 2 booked times."""
+    def test_check_day_any_stylist_available_all_booked(self):
+        """POST /check-day with stylist_id=any when all stylists are booked at a time should return that time in booked_times."""
+        # July 20, 2026 is a Monday - both John and Paul work
+        # Currently John has 10:00, Paul has 12:00
+        # Add Paul at 10:00 too, so 10:00 is fully booked (2 stylists, 2 appointments at 10:00)
+        john = TeamModel.query.filter_by(name='John Doe').first()
+        paul = TeamModel.query.filter_by(name='Paul Aquero').first()
+        service = ServiceModel.query.first()
+        bt = BookingTimesModel.query.first()  # 10:00 AM
+        a4 = AppointmentsModel(
+            stylist_id=paul.id, service_id=service.id, total=service.price,
+            date=date(2026, 7, 20), time_id=bt.id,
+            quest_name="Kwame", email="kwame@gmail.com", phone_number="0543285567"
+        )
+        db.session.add(a4)
+        db.session.commit()
+
         response = self.client.post("/check-day",
             json={"stylist_id": "any", "date": "2026-07-20"})
         self.assertEqual(response.status_code, 200)
@@ -125,6 +140,23 @@ class TestBook(unittest.TestCase):
         self.assertIn("success", data)
         self.assertEqual(data["success"], "Day is available")
         self.assertIn("booked_times", data)
+        # 10:00 AM should be fully booked (both John and Paul have appointments at 10:00)
+        self.assertEqual(len(data["booked_times"]), 1)
+        self.assertEqual(data["booked_times"][0]["time"], "10:00 AM")
+        
+    def test_check_day_any_stylist_available_not_all_booked(self):
+        """POST /check-day with stylist_id=any when not all stylists are booked at a time should return empty booked_times."""
+        # July 20, 2026 is a Monday - both John and Paul work
+        # John has 10:00, Paul has 12:00 - neither time is fully booked
+        # (only 1 of 2 stylists booked at each time)
+        response = self.client.post("/check-day",
+            json={"stylist_id": "any", "date": "2026-07-20"})
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertIn("success", data)
+        self.assertEqual(data["success"], "Day is available")
+        self.assertIn("booked_times", data)
+        # No time is fully booked, so booked_times should be empty
         self.assertEqual(len(data["booked_times"]), 0)
 
     def test_check_day_any_stylist_available_no_bookings(self):
@@ -272,7 +304,7 @@ class TestBook(unittest.TestCase):
 
     @patch("app.book.book.send_email")
     def test_book_appointment_error(self, mock_send_email):
-        """Invalid foreign key (non-existent service/stylist) should trigger error and rollback."""
+        """Non-existent service/stylist IDs should be caught by .get() validation and return invalid."""
         bt = BookingTimesModel.query.first()
         response = self.client.post("/book-appointment",
             json={
@@ -289,20 +321,147 @@ class TestBook(unittest.TestCase):
                 }
             })
 
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 200)
         data = response.get_json()
-        self.assertIn("status", data)
-        self.assertIn("code",data)
-        self.assertEqual(data["status"],"error")
-        self.assertEqual(data["code"],"INVALID_USER")
-        self.assertEqual(data["message"], "Booking failed. The associated user account does not exist.")
+        self.assertIn("invalid", data)
+        self.assertIn("does not exist", data["invalid"])
 
-        # Note: SQLite does not enforce foreign key constraints by default,
-        # so the appointment is actually committed to the DB before the error
-        # occurs when accessing appointment.service.name (which is None).
-        # The error is caught and rollback is called, but the commit already
-        # happened. The key assertion is that the error response is returned.
-        # In production (PostgreSQL), the FK constraint would prevent the commit.
-
-        # Verify send_email was NOT called (error occurred before email)
+        # Verify send_email was NOT called (validation failed before email)
         mock_send_email.assert_not_called()
+
+    # ---------- missing key validation tests ----------
+
+    def test_book_appointment_missing_service_id(self):
+        """Payload without service_id key should return invalid message."""
+        bt = BookingTimesModel.query.first()
+        stylist = TeamModel.query.first()
+        response = self.client.post("/book-appointment",
+            json={
+                "stylist_id": stylist.id,
+                "total": 25.0,
+                "date": "2026-07-14",
+                "time_id": bt.id,
+                "guest_details": {
+                    "guest_name": "Test",
+                    "email": "test@gmail.com",
+                    "phone_number": "0240000000",
+                    "note": "note"
+                }
+            })
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertIn("invalid", data)
+        self.assertIn("Service", data["invalid"])
+
+    def test_book_appointment_missing_stylist_id(self):
+        """Payload without stylist_id key should return invalid message."""
+        bt = BookingTimesModel.query.first()
+        service = ServiceModel.query.first()
+        response = self.client.post("/book-appointment",
+            json={
+                "service_id": service.id,
+                "total": 25.0,
+                "date": "2026-07-14",
+                "time_id": bt.id,
+                "guest_details": {
+                    "guest_name": "Test",
+                    "email": "test@gmail.com",
+                    "phone_number": "0240000000",
+                    "note": "note"
+                }
+            })
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertIn("invalid", data)
+        self.assertIn("Stylist", data["invalid"])
+
+    def test_book_appointment_missing_time_id(self):
+        """Payload without time_id key should return invalid message."""
+        service = ServiceModel.query.first()
+        stylist = TeamModel.query.first()
+        response = self.client.post("/book-appointment",
+            json={
+                "service_id": service.id,
+                "stylist_id": stylist.id,
+                "total": 25.0,
+                "date": "2026-07-14",
+                "guest_details": {
+                    "guest_name": "Test",
+                    "email": "test@gmail.com",
+                    "phone_number": "0240000000",
+                    "note": "note"
+                }
+            })
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertIn("invalid", data)
+        self.assertIn("Time", data["invalid"])
+
+    def test_book_appointment_missing_date(self):
+        """Payload without date key should return invalid message."""
+        bt = BookingTimesModel.query.first()
+        service = ServiceModel.query.first()
+        stylist = TeamModel.query.first()
+        response = self.client.post("/book-appointment",
+            json={
+                "service_id": service.id,
+                "stylist_id": stylist.id,
+                "total": 25.0,
+                "time_id": bt.id,
+                "guest_details": {
+                    "guest_name": "Test",
+                    "email": "test@gmail.com",
+                    "phone_number": "0240000000",
+                    "note": "note"
+                }
+            })
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertIn("invalid", data)
+        self.assertIn("Date", data["invalid"])
+
+    def test_book_appointment_nonexistent_service_id(self):
+        """Payload with service_id that does not exist in DB should return invalid."""
+        bt = BookingTimesModel.query.first()
+        stylist = TeamModel.query.first()
+        response = self.client.post("/book-appointment",
+            json={
+                "service_id": 9999,
+                "stylist_id": stylist.id,
+                "total": 25.0,
+                "date": "2026-07-14",
+                "time_id": bt.id,
+                "guest_details": {
+                    "guest_name": "Test",
+                    "email": "test@gmail.com",
+                    "phone_number": "0240000000",
+                    "note": "note"
+                }
+            })
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertIn("invalid", data)
+        self.assertIn("does not exist", data["invalid"])
+
+    def test_book_appointment_nonexistent_stylist_id(self):
+        """Payload with stylist_id that does not exist in DB should return invalid."""
+        bt = BookingTimesModel.query.first()
+        service = ServiceModel.query.first()
+        response = self.client.post("/book-appointment",
+            json={
+                "service_id": service.id,
+                "stylist_id": 9999,
+                "total": 25.0,
+                "date": "2026-07-14",
+                "time_id": bt.id,
+                "guest_details": {
+                    "guest_name": "Test",
+                    "email": "test@gmail.com",
+                    "phone_number": "0240000000",
+                    "note": "note"
+                }
+            })
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertIn("invalid", data)
+        self.assertIn("does not exist", data["invalid"])

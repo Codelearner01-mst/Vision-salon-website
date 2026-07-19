@@ -7,7 +7,7 @@ def send_booking(quest_name, email, phone):
         "stylist_id": 1,
         "service_id": 2,
         "total": 95,
-        "date": "2026-07-21",
+        "date": "2026-07-23",
         "time_id": 5,
         "guest_details": {
           "guest_name":quest_name,

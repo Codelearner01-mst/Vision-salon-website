@@ -58,15 +58,83 @@ def book_appointment():
     book_details = request.get_json()
     if not book_details or book_details is None:
         return jsonify({"invalid":"Couldn't placed the order. Got invalid details!"})
-    if not book_details["guest_details"]:
+
+    # Use .get() to safely check for missing keys
+    service_id = book_details.get("service_id")
+    stylist_id = book_details.get("stylist_id")
+    total = book_details.get("total")
+    booking_date = book_details.get("date")
+    time_id = book_details.get("time_id")
+    guest = book_details.get("guest_details")
+
+    if not service_id:
+        return jsonify({"invalid":"Service was not selected. Please select a service."})
+    if not stylist_id and stylist_id != 0:
+        return jsonify({"invalid":"Stylist was not selected. Please select a stylist."})
+    if not total and total != 0:
+        return jsonify({"invalid":"Total price is missing."})
+    if not booking_date:
+        return jsonify({"invalid":"Date was not selected. Please select a date."})
+    if not time_id:
+        return jsonify({"invalid":"Time slot was not selected. Please select a time."})
+    if not guest:
         return jsonify({"invalid":"Couldn't placed the order. Quest details was not provided!"})
+
+    # Validate guest_details keys
+    name = guest.get("guest_name")
+    email = guest.get("email")
+    phone = guest.get("phone_number")
+    note = guest.get("note", "")
+    if not name:
+        return jsonify({"invalid":"Your name is required."})
+    if not email:
+        return jsonify({"invalid":"Your email is required."})
+    if not phone:
+        return jsonify({"invalid":"Your phone number is required."})
+
+    # Verify service_id and stylist_id exist in the database
+    service = db.session.get(ServiceModel, service_id)
+    if service is None:
+        return jsonify({"invalid":"The selected service does not exist."})
+    if isinstance(stylist_id, int):
+        stylist = db.session.get(TeamModel, stylist_id)
+        if stylist is None:
+            return jsonify({"invalid":"The selected stylist does not exist."})
+
     try:
-        service_id, stylist_id, total,booking_date,time_id = [book_details["service_id"],book_details["stylist_id"],book_details["total"],book_details["date"],book_details["time_id"]]
         # Convert date string to Python date object for SQLite
         if isinstance(booking_date, str):
             booking_date = dt.datetime.strptime(booking_date, "%Y-%m-%d").date()
-        guest = book_details["guest_details"]
-        name, email, note, phone = [guest["guest_name"],guest["email"],guest["note"],guest["phone_number"]]
+        if not isinstance(stylist_id,int) and (stylist_id == "Any" or stylist_id == "Any".lower()):
+            booked = db.session.query(AppointmentsModel.stylist_id).filter(AppointmentsModel.time_id == time_id, AppointmentsModel.date == booking_date) 
+            available  = TeamModel.query.filter(~TeamModel.id.in_(booked)).all()
+            if len(available) == 1:
+                 stylist_id = available[0].id
+                 appointment = AppointmentsModel(stylist_id,service_id,total,booking_date,time_id,name,email,phone,note)
+            else:
+                import random
+                random_stylist = random.choice([stylist for stylist in available])
+                stylist_id = random_stylist.id
+                appointment = AppointmentsModel(stylist_id,service_id,total,booking_date,time_id,name,email,phone,note)
+            db.session.add(appointment)
+            db.session.commit()
+            successMsg = f'Thank you, {name} Your appointment for {appointment.service.name} with any stylist available on {appointment.date} at {appointment.appointment_time.time.strftime("%I:%M %p")} has been successfully requested. We will email confirmation details to you.'
+            send_email(
+            to=appointment.email,
+            subject="Booking Confirmation - Vision Salon",
+            template="email/booking_success_email",
+            sender=current_app.config['VISION_MAIL_SENDER'],
+            name=name,
+            service_name=appointment.service.name,
+            stylist_name= "Any available stylist",
+            date=appointment.date,
+            time=appointment.appointment_time.time.strftime("%I:%M %p"),
+            total=appointment.total,
+            note=appointment.note,
+            phone_number=appointment.phone_number
+        )
+            return jsonify({"success":successMsg})
+        
         appointment = AppointmentsModel(stylist_id,service_id,total,booking_date,time_id,name,email,phone,note)
         db.session.add(appointment)
         db.session.commit()

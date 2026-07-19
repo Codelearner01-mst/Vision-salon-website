@@ -284,6 +284,12 @@ document.addEventListener("DOMContentLoaded", function () {
         );
         return;
       }
+      // Disable button immediately to prevent double submission
+      const confirmBtn = document.getElementById("confirm-booking-btn");
+      const originalText = confirmBtn.textContent;
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = "Processing...";
+      debugger;
       const payload = {
         stylist_id: Number(selectedStylist)
           ? parseInt(selectedStylist)
@@ -311,15 +317,26 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((data) => {
           if (data.invalid) {
             showModal("Invalid", data.invalid);
+            confirmBtn.disabled = false;
+            confirmBtn.textContent = originalText;
             return;
           }
-          if (data.error) {
-            showModal("Error", data.error);
+          if (data.error || data.status === "error") {
+            const errorMsg = data.error || data.message || "An error occurred.";
+            showModal("Error", errorMsg);
+            confirmBtn.disabled = false;
+            confirmBtn.textContent = originalText;
             return;
           }
           if (data.success) {
             showModal("Booking Successful", data.success, true);
           }
+        })
+        .catch((err) => {
+          console.error("Error submitting booking:", err);
+          showModal("Error", "Something went wrong. Please try again.");
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = originalText;
         });
     });
 });
