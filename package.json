@@ -1,0 +1,13 @@
+{
+  "name": "vision-hairsalon",
+  "version": "1.0.0",
+  "description": "Vision Hairsalon Premium Web Application",
+  "main": "salon.py",
+  "scripts": {
+    "build:css": "npx -y sass app/static/scss/main.scss app/static/styles.css --style=expanded --no-source-map",
+    "watch:css": "npx -y sass app/static/scss/main.scss app/static/styles.css --watch"
+  },
+  "keywords": ["hairsalon", "flask", "sass"],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,18 @@
+// ==========================================
+// Vision Hairsalon - Master SCSS Architecture
+// ==========================================
+
+// 1. Abstracts (Variables, Mixins)
+@use "abstracts";
+
+// 2. Base (Reset, Utilities)
+@use "base";
+
+// 3. Components (Buttons, Cards, Alerts)
+@use "components";
+
+// 4. Layout (Navbar, Footer, Headers)
+@use "layout";
+
+// 5. Pages (Home, Services, Gallery, Booking, Stylist, Error)
+@use "pages";

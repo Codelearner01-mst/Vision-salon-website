@@ -1,0 +1,45 @@
+// ==========================================
+// Gallery Page SCSS Module
+// ==========================================
+
+.filter-pills {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 3.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background-color: var(--theme-white);
+  border: 2px solid var(--theme-light-grey);
+  color: var(--theme-deep-grey);
+  padding: 0.65rem 1.6rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: var(--theme-transition);
+  cursor: pointer;
+
+  &:hover,
+  &.active {
+    background-color: var(--theme-gold);
+    border-color: var(--theme-gold);
+    color: var(--theme-white);
+    transform: translateY(-2px);
+  }
+}
+
+.gallery-grid-item {
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+
+  &.hide {
+    display: none !important;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}

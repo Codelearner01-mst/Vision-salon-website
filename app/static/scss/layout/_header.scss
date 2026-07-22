@@ -1,0 +1,32 @@
+// ==========================================
+// Inner Page Header Banners
+// ==========================================
+
+.page-header {
+  padding: 5rem 0;
+  background-color: var(--theme-light-grey);
+  border-bottom: 1px solid rgba(24, 24, 27, 0.05);
+  margin-bottom: 4rem;
+
+  .story-badge {
+    margin-bottom: 0.75rem;
+  }
+}
+
+.page-header-compact {
+  padding: 2.5rem 0 2rem;
+  margin-bottom: 2rem;
+
+  .page-title {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+}
+
+.page-title {
+  font-family: var(--font-serif);
+  font-weight: 800;
+  font-size: 3.2rem;
+  letter-spacing: -0.02em;
+  color: var(--theme-deep-grey);
+}

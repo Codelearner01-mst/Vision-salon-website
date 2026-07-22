@@ -1,0 +1,50 @@
+// ==========================================
+// Navigation Bar Layout
+// ==========================================
+
+.navbar {
+  transition: var(--theme-transition);
+  background-color: var(--theme-primary) !important;
+  backdrop-filter: blur(10px);
+}
+
+.brand-text {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--theme-white);
+}
+
+.navbar-nav {
+  .nav-link {
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.75rem !important;
+    transition: var(--theme-transition);
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background-color: var(--theme-gold);
+      transition: var(--theme-transition);
+      transform: translateX(-50%);
+    }
+
+    &:hover::after,
+    &.active-link::after {
+      width: 70%;
+    }
+
+    &:hover,
+    &.active-link {
+      color: var(--theme-white) !important;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+// ==========================================
+// Reusable SASS Mixins
+// ==========================================
+
+// Responsive Breakpoints
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "sm" {
+    @media (max-width: 575px) { @content; }
+  } @else if $breakpoint == "md" {
+    @media (max-width: 767px) { @content; }
+  } @else if $breakpoint == "md-up" {
+    @media (min-width: 768px) { @content; }
+  } @else if $breakpoint == "lg" {
+    @media (max-width: 991px) { @content; }
+  } @else if $breakpoint == "lg-up" {
+    @media (min-width: 992px) { @content; }
+  } @else if $breakpoint == "xl" {
+    @media (max-width: 1024px) { @content; }
+  }
+}
+
+// Flex Center Helper
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Hover Transition Helper
+@mixin hover-lift($y: -3px) {
+  transition: var(--theme-transition, all 0.4s cubic-bezier(0.16, 1, 0.3, 1));
+  &:hover {
+    transform: translateY($y);
+  }
+}

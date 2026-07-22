@@ -1,0 +1,47 @@
+// ==========================================
+// Base Reset & Global Typography
+// ==========================================
+@use "../abstracts" as *;
+
+:root {
+  --theme-light-grey: #{$theme-light-grey};
+  --theme-deep-grey: #{$theme-deep-grey};
+  --theme-dark-bg: #{$theme-dark-bg};
+  --theme-primary: #{$theme-primary};
+  --theme-primary-hover: #{$theme-primary-hover};
+  --theme-primary-light: #{$theme-primary-light};
+  --theme-gold: #{$theme-gold};
+  --theme-gold-hover: #{$theme-gold-hover};
+  --theme-gold-light: #{$theme-gold-light};
+  --theme-white: #{$theme-white};
+  --theme-muted: #{$theme-muted};
+
+  --font-serif: #{$font-serif};
+  --font-sans: #{$font-sans};
+
+  --theme-transition: #{$theme-transition};
+  --theme-shadow: #{$theme-shadow};
+  --theme-shadow-lg: #{$theme-shadow-lg};
+  --theme-shadow-primary: #{$theme-shadow-primary};
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--theme-deep-grey);
+  background-color: var(--theme-white);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-serif {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+}

@@ -1,0 +1,20 @@
+// ==========================================
+// Alert Components
+// ==========================================
+
+.booking-status-alert {
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--theme-transition);
+
+  &-danger {
+    background-color: #fff0f3;
+    color: #e0356e;
+    border: 1px solid rgba(92, 37, 44, 0.2);
+  }
+}

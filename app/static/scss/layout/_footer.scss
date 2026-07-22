@@ -1,0 +1,42 @@
+// ==========================================
+// Footer Layout
+// ==========================================
+
+footer {
+  background-color: var(--theme-deep-grey) !important;
+}
+
+.footer-links {
+  li {
+    margin-bottom: 0.75rem;
+  }
+
+  a {
+    transition: var(--theme-transition);
+
+    &:hover {
+      color: var(--theme-gold) !important;
+      padding-left: 5px;
+    }
+  }
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--theme-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: var(--theme-transition);
+
+  &:hover {
+    background-color: var(--theme-gold);
+    color: var(--theme-white);
+    transform: translateY(-3px);
+  }
+}

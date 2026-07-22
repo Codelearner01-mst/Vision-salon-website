@@ -1,0 +1,26 @@
+// ==========================================
+// Theme Variables & Design Tokens
+// ==========================================
+
+// Color Palette
+$theme-light-grey: #f4f4f5 !default;
+$theme-deep-grey: #18181b !default;
+$theme-dark-bg: #0c0c0e !default;
+$theme-primary: #5c252c !default; // Wine - deeper
+$theme-primary-hover: #4a1d22 !default; // Darker wine
+$theme-primary-light: #f5e6e8 !default; // Light wine tint
+$theme-gold: #c9a961 !default; // Warm gold
+$theme-gold-hover: #b8964e !default;
+$theme-gold-light: #faf3e0 !default;
+$theme-white: #ffffff !default;
+$theme-muted: #8e8e93 !default;
+
+// Font Families
+$font-serif: "Playfair Display", Georgia, serif !default;
+$font-sans: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !default;
+
+// Utilities & Shadows
+$theme-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !default;
+$theme-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !default;
+$theme-shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1) !default;
+$theme-shadow-primary: 0 10px 25px rgba(92, 37, 44, 0.2) !default;
