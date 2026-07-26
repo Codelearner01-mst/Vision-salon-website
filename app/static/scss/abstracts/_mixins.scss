@@ -1,21 +1,34 @@
 // ==========================================
 // Reusable SASS Mixins
 // ==========================================
+@use "variables" as *;
 
 // Responsive Breakpoints
 @mixin respond-to($breakpoint) {
   @if $breakpoint == "sm" {
-    @media (max-width: 575px) { @content; }
+    @media (max-width: 575px) {
+      @content;
+    }
   } @else if $breakpoint == "md" {
-    @media (max-width: 767px) { @content; }
+    @media (max-width: 767px) {
+      @content;
+    }
   } @else if $breakpoint == "md-up" {
-    @media (min-width: 768px) { @content; }
+    @media (min-width: 768px) {
+      @content;
+    }
   } @else if $breakpoint == "lg" {
-    @media (max-width: 991px) { @content; }
+    @media (max-width: 991px) {
+      @content;
+    }
   } @else if $breakpoint == "lg-up" {
-    @media (min-width: 992px) { @content; }
+    @media (min-width: 992px) {
+      @content;
+    }
   } @else if $breakpoint == "xl" {
-    @media (max-width: 1024px) { @content; }
+    @media (max-width: 1024px) {
+      @content;
+    }
   }
 }
 
@@ -28,8 +41,82 @@
 
 // Hover Transition Helper
 @mixin hover-lift($y: -3px) {
-  transition: var(--theme-transition, all 0.4s cubic-bezier(0.16, 1, 0.3, 1));
+  transition: var(--salon-transition, all 0.4s cubic-bezier(0.16, 1, 0.3, 1));
   &:hover {
     transform: translateY($y);
   }
+}
+
+// ---------- Reusable mixins ----------
+@mixin heading-h1 {
+  font-family: $salon-font-heading;
+  font-size: $salon-heading-h1-size;
+  font-weight: $heading-h1-weight;
+  line-height: 1;
+}
+
+@mixin body-regular {
+  font-family: $salon-font-body;
+  font-size: $body-regular-size;
+  font-weight: $body-regular-weight;
+  line-height: $body-regular-line;
+}
+
+@mixin body-link {
+  font-family: $salon-font-body;
+  font-size: $body-link-size;
+  font-weight: $body-link-weight;
+}
+
+@mixin label-uppercase {
+  font-family: $salon-font-body;
+  font-size: $label-uppercase-size;
+  font-weight: $label-uppercase-weight;
+  text-transform: uppercase;
+}
+
+@mixin heading-h2 {
+  font-family: $salon-font-heading;
+  font-size: $salon-heading-h2-size;
+  font-weight: $heading-h2-weight;
+  line-height: 1;
+}
+
+@mixin button-label {
+  font-family: $salon-font-body;
+  font-size: $button-label-size;
+  font-weight: $button-label-weight;
+  letter-spacing: $button-label-spacing;
+}
+
+// ---------- Added: needed by the Figma pages, not previously defined ----------
+
+// Card shell — reused by service cards (list + recommended) and team cards.
+// Same white bg / border / radius / clipped corners on all three.
+@mixin card-base {
+  background: $salon-bg-primary;
+  border: 1px solid $salon-border;
+  border-radius: $salon-radius-md;
+  overflow: hidden;
+}
+
+// "$20" / "Free" price text — see $salon-price-size comment in _variables.scss
+// for why this isn't sourced from an official Figma text style.
+@mixin price-label {
+  font-family: $salon-font-body;
+  font-size: $salon-price-size;
+  font-weight: $salon-price-weight;
+  color: $salon-primary;
+}
+
+// Small circular badge — used for the social icons on the stylist page
+// (28px, initials centered). Size is adjustable in case it's reused smaller
+// elsewhere later.
+@mixin badge-circle($size: 28px) {
+  @include flex-center;
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  background: $salon-primary;
+  color: $salon-text-on-dark;
 }

@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% from "macros.html" import empty_state %}
+﻿{% extends "base.html" %} {% from "macros.html" import empty_state %}
 {{super()}} {% block content %}
 
 <!-- Hero Section with per-slide background videos and carousel overlay -->
@@ -50,14 +50,10 @@
             natural beauty.
           </p>
           <div class="hero-slide-buttons">
-            <a
-              href="#book"
-              class="btn btn-pink px-5 py-3 rounded-pill shadow-sm"
+            <a href="#book" class="btn btn-pink px-5 py-3 shadow-sm"
               >Book an Appointment</a
             >
-            <a
-              href="#services"
-              class="btn btn-outline-light-custom px-5 py-3 rounded-pill"
+            <a href="#services" class="btn btn-outline-light-custom px-5 py-3"
               >View Our Services</a
             >
           </div>
@@ -81,14 +77,10 @@
             features.
           </p>
           <div class="hero-slide-buttons">
-            <a
-              href="#book"
-              class="btn btn-pink px-5 py-3 rounded-pill shadow-sm"
+            <a href="#book" class="btn btn-pink px-5 py-3 shadow-sm"
               >Book an Appointment</a
             >
-            <a
-              href="#services"
-              class="btn btn-outline-light-custom px-5 py-3 rounded-pill"
+            <a href="#services" class="btn btn-outline-light-custom px-5 py-3"
               >View Our Services</a
             >
           </div>
@@ -112,14 +104,10 @@
             protect.
           </p>
           <div class="hero-slide-buttons">
-            <a
-              href="#book"
-              class="btn btn-pink px-5 py-3 rounded-pill shadow-sm"
+            <a href="#book" class="btn btn-pink px-5 py-3 shadow-sm"
               >Book an Appointment</a
             >
-            <a
-              href="#services"
-              class="btn btn-outline-light-custom px-5 py-3 rounded-pill"
+            <a href="#services" class="btn btn-outline-light-custom px-5 py-3"
               >View Our Services</a
             >
           </div>
@@ -149,13 +137,10 @@
 </section>
 
 <!-- Our Story Section -->
-<section id="story" class="section-story-redesign">
-  <!-- Decorative blobs -->
-  <div class="story-blob story-blob-1"></div>
-  <div class="story-blob story-blob-2"></div>
-  <div class="container py-5 position-relative">
-    <div class="row align-items-center g-5 py-5">
-      <div class="col-lg-6 reveal">
+<section id="story" class="section-story py-6">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7 reveal">
         <div class="story-image-wrapper story-img-float">
           <img
             src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=800"
@@ -169,7 +154,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6 reveal reveal-delay-1">
+      <div class="col-lg-5 reveal reveal-delay-1">
         <span class="story-badge">Our Story</span>
         <h2 class="font-serif display-5 mb-4">
           Where Vision<br />Meets Artistry
@@ -185,7 +170,7 @@
           and personal consultation to discover and accentuate your unique
           vision.
         </p>
-        <a href="#book" class="btn btn-pink px-5 py-3 rounded-pill shadow-sm"
+        <a href="#book" class="btn btn-pink px-5 py-3 shadow-sm"
           >Start Your Journey</a
         >
       </div>
@@ -193,11 +178,10 @@
   </div>
 </section>
 
-<!-- Our Services Section — floating inset container -->
-<section id="services" class="section-services-v2">
-  <div class="services-skewed-bg"></div>
-  <div class="container position-relative">
-    <div class="services-floating-container reveal">
+<!-- Our Services Section -->
+<section id="services" class="py-6">
+  <div class="container">
+    <div class="reveal">
       <div class="text-center mb-5 max-w-600 mx-auto">
         <span class="story-badge">Services</span>
         <h2 class="font-serif display-6 mb-3">Our Curated Salon Offerings</h2>
@@ -240,79 +224,66 @@
         {%endfor%}
       </div>
     </div>
-    <!-- end .services-floating-container -->
   </div>
 </section>
 
-<!-- What We Do — inset rounded container, not edge-to-edge -->
-<section class="section-why-v2">
+<!-- What We Do Section -->
+<section class="py-6 bg-theme-light">
   <div class="container">
-    <div class="why-inset-container reveal">
-      <div class="why-bg-layer"></div>
-      <div class="why-inset-content">
-        <div class="row align-items-center g-5">
-          <!-- Left: heading -->
-          <div class="col-lg-5">
-            <span class="story-badge story-badge--light">What We Do</span>
-            <h2 class="font-serif display-5 text-white mb-4">
-              The Vision<br />Experience
-            </h2>
-            <p
-              class="text-light-grey mb-5"
-              style="font-size: 1.05rem; line-height: 1.85"
-            >
-              We offer a level of attention and craftsmanship that transforms
-              your routine salon visit into a true luxury retreat.
-            </p>
-            <a
-              href="/services"
-              class="btn btn-pink px-5 py-3 rounded-pill shadow-sm"
-              >Explore Services</a
-            >
+    <div class="row align-items-center g-5 reveal">
+      <!-- Left: heading -->
+      <div class="col-lg-5">
+        <span class="story-badge">What We Do</span>
+        <h2 class="font-serif display-5 mb-4">The Vision<br />Experience</h2>
+        <p
+          class="text-muted mb-5"
+          style="font-size: 1.05rem; line-height: 1.85"
+        >
+          We offer a level of attention and craftsmanship that transforms your
+          routine salon visit into a true luxury retreat.
+        </p>
+        <a href="/services" class="btn btn-pink px-5 py-3">Explore Services</a>
+      </div>
+      <!-- Right: icon cards -->
+      <div class="col-lg-7">
+        <div class="row g-4">
+          <div class="col-sm-6 reveal reveal-delay-1">
+            <div class="why-card">
+              <div class="why-icon-box"><i class="fas fa-award"></i></div>
+              <h5 class="mb-2">Award Stylists</h5>
+              <p class="text-muted small mb-0">
+                Certified specialists trained in premier global styling
+                academies.
+              </p>
+            </div>
           </div>
-          <!-- Right: icon cards -->
-          <div class="col-lg-7">
-            <div class="row g-4">
-              <div class="col-sm-6 reveal reveal-delay-1">
-                <div class="why-card">
-                  <div class="why-icon-box"><i class="fas fa-award"></i></div>
-                  <h5 class="text-white mb-2">Award Stylists</h5>
-                  <p class="text-light-grey small mb-0">
-                    Certified specialists trained in premier global styling
-                    academies.
-                  </p>
-                </div>
-              </div>
-              <div class="col-sm-6 reveal reveal-delay-2">
-                <div class="why-card">
-                  <div class="why-icon-box"><i class="fas fa-gem"></i></div>
-                  <h5 class="text-white mb-2">Premium Products</h5>
-                  <p class="text-light-grey small mb-0">
-                    Organic, sulfate-free, and vegan-friendly treatment brands
-                    exclusively.
-                  </p>
-                </div>
-              </div>
-              <div class="col-sm-6 reveal reveal-delay-3">
-                <div class="why-card">
-                  <div class="why-icon-box"><i class="fas fa-heart"></i></div>
-                  <h5 class="text-white mb-2">Tailored Consulting</h5>
-                  <p class="text-light-grey small mb-0">
-                    Your look is built around your structure, skin tone, and
-                    lifestyle.
-                  </p>
-                </div>
-              </div>
-              <div class="col-sm-6 reveal reveal-delay-4">
-                <div class="why-card">
-                  <div class="why-icon-box"><i class="fas fa-bolt"></i></div>
-                  <h5 class="text-white mb-2">Modern Care</h5>
-                  <p class="text-light-grey small mb-0">
-                    Advanced scalp care, bond repair, and damage shield
-                    technology.
-                  </p>
-                </div>
-              </div>
+          <div class="col-sm-6 reveal reveal-delay-2">
+            <div class="why-card">
+              <div class="why-icon-box"><i class="fas fa-gem"></i></div>
+              <h5 class="mb-2">Premium Products</h5>
+              <p class="text-muted small mb-0">
+                Organic, sulfate-free, and vegan-friendly treatment brands
+                exclusively.
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-6 reveal reveal-delay-3">
+            <div class="why-card">
+              <div class="why-icon-box"><i class="fas fa-heart"></i></div>
+              <h5 class="mb-2">Tailored Consulting</h5>
+              <p class="text-muted small mb-0">
+                Your look is built around your structure, skin tone, and
+                lifestyle.
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-6 reveal reveal-delay-4">
+            <div class="why-card">
+              <div class="why-icon-box"><i class="fas fa-bolt"></i></div>
+              <h5 class="mb-2">Modern Care</h5>
+              <p class="text-muted small mb-0">
+                Advanced scalp care, bond repair, and damage shield technology.
+              </p>
             </div>
           </div>
         </div>
@@ -378,7 +349,7 @@
   </div>
 
   <div class="container text-center pb-5 pt-4 reveal">
-    <a href="/gallery" class="btn btn-pink px-5 py-3 rounded-pill shadow-sm"
+    <a href="/gallery" class="btn btn-pink px-5 py-3 shadow-sm"
       >View Full Gallery</a
     >
   </div>
@@ -397,15 +368,6 @@
     </div>
 
     <div class="testimonial-slider-wrapper reveal reveal-delay-1">
-      <!-- Prev Button -->
-      <button
-        class="testimonial-nav-btn testimonial-prev"
-        id="testimonialPrev"
-        aria-label="Previous testimonial"
-      >
-        <i class="fas fa-chevron-left"></i>
-      </button>
-
       <!-- Card Track -->
       <div class="testimonial-track-container">
         <div class="testimonial-track" id="testimonialTrack">
@@ -528,15 +490,6 @@
         <!-- end .testimonial-track -->
       </div>
       <!-- end .testimonial-track-container -->
-
-      <!-- Next Button -->
-      <button
-        class="testimonial-nav-btn testimonial-next"
-        id="testimonialNext"
-        aria-label="Next testimonial"
-      >
-        <i class="fas fa-chevron-right"></i>
-      </button>
     </div>
     <!-- end .testimonial-slider-wrapper -->
 
@@ -580,7 +533,7 @@
           {% if t.stylist %}
           <a
             href="{{ url_for('book.book', user_id=t.id) }}"
-            class="btn btn-pink w-100 mt-3 rounded-pill shadow-sm"
+            class="btn btn-pink w-100 mt-3 shadow-sm"
           >
             Book Now
           </a>
@@ -593,7 +546,7 @@
     <div class="text-center mt-5 reveal">
       <a
         href="{{ url_for('team.team') }}"
-        class="btn btn-pink px-5 py-3 rounded-pill shadow-sm"
+        class="btn btn-pink px-5 py-3 shadow-sm"
       >
         View Full Team
       </a>
@@ -622,12 +575,10 @@
         </p>
         <a
           href="tel:3105550199"
-          class="btn btn-pink btn-lg px-5 py-3 rounded-pill shadow-sm me-md-3 mb-3 mb-md-0"
+          class="btn btn-pink btn-lg px-5 py-3 shadow-sm me-md-3 mb-3 mb-md-0"
           ><i class="fas fa-phone-alt me-2"></i> Call to Book</a
         >
-        <a
-          href="#contact"
-          class="btn btn-outline-light-custom btn-lg px-5 py-3 rounded-pill"
+        <a href="#contact" class="btn btn-outline-light-custom btn-lg px-5 py-3"
           >Book Online Now</a
         >
       </div>
@@ -707,7 +658,7 @@
               >
               <input
                 type="text"
-                class="form-control rounded-pill bg-light border-0 px-3 py-2.5"
+                class="form-control bg-light border-0 px-3 py-2.5"
                 id="name"
                 placeholder="John Doe"
                 required
@@ -719,7 +670,7 @@
               >
               <input
                 type="email"
-                class="form-control rounded-pill bg-light border-0 px-3 py-2.5"
+                class="form-control bg-light border-0 px-3 py-2.5"
                 id="email"
                 placeholder="john@example.com"
                 required
@@ -730,7 +681,7 @@
                 >Service Interest</label
               >
               <select
-                class="form-select rounded-pill bg-light border-0 px-3 py-2.5"
+                class="form-select bg-light border-0 px-3 py-2.5"
                 id="service-interest"
               >
                 <option selected>Select a Service</option>
@@ -753,10 +704,7 @@
               ></textarea>
             </div>
             <div class="col-md-12 mt-4">
-              <button
-                type="submit"
-                class="btn btn-pink w-100 py-3 rounded-pill shadow-sm"
-              >
+              <button type="submit" class="btn btn-pink w-100 py-3 shadow-sm">
                 Send Appointment Inquiry
               </button>
             </div>

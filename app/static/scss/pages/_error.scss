@@ -75,7 +75,7 @@
 
 .error-code {
   position: absolute;
-  font-family: var(--font-serif);
+  font-family: var(--font-heading);
   font-size: 9rem;
   font-weight: 900;
   color: rgba(255, 74, 139, 0.08);
@@ -100,7 +100,7 @@
 .error-title {
   font-size: 3rem;
   font-weight: 800;
-  color: var(--theme-white);
+  color: var(--salon-bg-primary);
   margin-bottom: 1.25rem;
   letter-spacing: -0.02em;
 

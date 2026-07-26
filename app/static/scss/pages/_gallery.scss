@@ -11,23 +11,23 @@
 }
 
 .filter-btn {
-  background-color: var(--theme-white);
-  border: 2px solid var(--theme-light-grey);
-  color: var(--theme-deep-grey);
+  background-color: var(--salon-bg-primary);
+  border: 2px solid var(--salon-bg-subtle);
+  color: var(--salon-text-primary);
   padding: 0.65rem 1.6rem;
   border-radius: 50px;
   font-weight: 600;
   font-size: 0.85rem;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  transition: var(--theme-transition);
+  transition: var(--salon-transition);
   cursor: pointer;
 
   &:hover,
   &.active {
-    background-color: var(--theme-gold);
-    border-color: var(--theme-gold);
-    color: var(--theme-white);
+    background-color: var(--salon-accent);
+    border-color: var(--salon-accent);
+    color: var(--salon-bg-primary);
     transform: translateY(-2px);
   }
 }

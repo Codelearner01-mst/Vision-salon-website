@@ -52,7 +52,7 @@
           <div class="d-flex flex-wrap gap-2">
             {% for day in member.workdays %}
             <span
-              class="badge bg-light text-dark rounded-pill px-3 py-2"
+              class="badge bg-light text-dark px-3 py-2"
               style="font-size: 0.8rem"
               >{{ day[:3] }}</span
             >
@@ -93,13 +93,13 @@
         {% if member.stylist %}
         <a
           href="{{ url_for('book.book', stylist_id=member.id) }}"
-          class="btn btn-pink btn-lg px-5 py-3 rounded-pill shadow-sm"
+          class="btn btn-pink btn-lg px-5 py-3 shadow-sm"
           >Book with {{ member.name.split(' ')[0] }}</a
         >
         {% endif %}
         <a
           href="{{ url_for('team.team') }}"
-          class="btn btn-outline-dark btn-lg px-4 py-3 rounded-pill"
+          class="btn btn-outline-dark btn-lg px-4 py-3"
           >Back to Stylists</a
         >
       </div>

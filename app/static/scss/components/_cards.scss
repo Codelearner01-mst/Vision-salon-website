@@ -4,11 +4,11 @@
 
 // Vertical Service Card
 .service-card {
-  background-color: var(--theme-white);
+  background-color: var(--salon-bg-primary);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 16px;
   overflow: hidden;
-  transition: var(--theme-transition);
+  transition: var(--salon-transition);
   height: 100%;
 
   &:hover {
@@ -20,8 +20,8 @@
     }
 
     .service-icon-box {
-      background-color: var(--theme-gold);
-      color: var(--theme-white);
+      background-color: var(--salon-accent);
+      color: var(--salon-bg-primary);
       transform: rotateY(180deg);
     }
   }
@@ -36,7 +36,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: var(--theme-transition);
+      transition: var(--salon-transition);
     }
   }
 
@@ -58,25 +58,25 @@
     width: 50px;
     height: 50px;
     border-radius: 10px;
-    background-color: var(--theme-gold-light);
-    color: var(--theme-gold-hover);
+    background-color: var(--salon-accent-light);
+    color: var(--salon-accent-hover);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.3rem;
     margin-bottom: 1.25rem;
-    transition: var(--theme-transition);
+    transition: var(--salon-transition);
   }
 }
 
 // Team Card (Grid Preview)
 .team-card {
-  background-color: var(--theme-white);
+  background-color: var(--salon-bg-primary);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 16px;
   padding: 3rem 2rem;
   text-align: center;
-  transition: var(--theme-transition);
+  transition: var(--salon-transition);
   height: 100%;
 
   &:hover {
@@ -84,13 +84,13 @@
     border-color: rgba(92, 37, 44, 0.2);
 
     .team-img {
-      border-color: var(--theme-gold);
+      border-color: var(--salon-accent);
       transform: scale(1.05);
     }
 
     .team-socials a {
-      background-color: var(--theme-gold-light);
-      color: var(--theme-gold-hover);
+      background-color: var(--salon-accent-light);
+      color: var(--salon-accent-hover);
     }
   }
 
@@ -106,8 +106,8 @@
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid var(--theme-gold-light);
-    transition: var(--theme-transition);
+    border: 4px solid var(--salon-accent-light);
+    transition: var(--salon-transition);
   }
 
   .team-socials {
@@ -120,18 +120,18 @@
       width: 35px;
       height: 35px;
       border-radius: 50%;
-      background-color: var(--theme-light-grey);
-      color: var(--theme-deep-grey);
+      background-color: var(--salon-bg-subtle);
+      color: var(--salon-text-primary);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.9rem;
       text-decoration: none;
-      transition: var(--theme-transition);
+      transition: var(--salon-transition);
 
       &:hover {
-        background-color: var(--theme-gold) !important;
-        color: var(--theme-white) !important;
+        background-color: var(--salon-accent) !important;
+        color: var(--salon-bg-primary) !important;
         transform: translateY(-3px);
       }
     }
@@ -140,11 +140,11 @@
 
 // Why Card (Why Choose Us)
 .why-card {
-  background: var(--theme-white);
+  background: var(--salon-bg-primary);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 20px;
   padding: 2rem 1.75rem;
-  transition: var(--theme-transition);
+  transition: var(--salon-transition);
   height: 100%;
 
   &:hover {

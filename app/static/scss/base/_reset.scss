@@ -2,33 +2,58 @@
 // Base Reset & Global Typography
 // ==========================================
 @use "../abstracts" as *;
+@use "salons-tokens" as *;
 
 :root {
-  --theme-light-grey: #{$theme-light-grey};
-  --theme-deep-grey: #{$theme-deep-grey};
-  --theme-dark-bg: #{$theme-dark-bg};
-  --theme-primary: #{$theme-primary};
-  --theme-primary-hover: #{$theme-primary-hover};
-  --theme-primary-light: #{$theme-primary-light};
-  --theme-gold: #{$theme-gold};
-  --theme-gold-hover: #{$theme-gold-hover};
-  --theme-gold-light: #{$theme-gold-light};
-  --theme-white: #{$theme-white};
-  --theme-muted: #{$theme-muted};
+  // ---------- Brand colors ----------
+  --salon-navbar: #{$salon-navbar};
+  --salon-primary: #{$salon-primary};
+  --salon-primary-hover: #{$salon-primary-hover};
+  --salon-primary-light: #{$salon-primary-light};
+  --salon-accent: #{$salon-accent};
+  --salon-accent-hover: #{$salon-accent-hover};
+  --salon-accent-light: #{$salon-accent-light};
 
-  --font-serif: #{$font-serif};
-  --font-sans: #{$font-sans};
+  // ---------- Text colors ----------
+  --salon-text-primary: #{$salon-text-primary};
+  --salon-text-secondary: #{$salon-text-secondary};
+  --salon-text-on-dark: #{$salon-text-on-dark};
 
-  --theme-transition: #{$theme-transition};
-  --theme-shadow: #{$theme-shadow};
-  --theme-shadow-lg: #{$theme-shadow-lg};
-  --theme-shadow-primary: #{$theme-shadow-primary};
+  // ---------- Background colors ----------
+  --salon-bg-primary: #{$salon-bg-primary};
+  --salon-bg-subtle: #{$salon-bg-subtle};
+
+  // ---------- UI colors ----------
+  --salon-border: #{$salon-border};
+
+  // ---------- Typography ----------
+  --font-heading: #{$salon-font-heading};
+  --font-body: #{$salon-font-body};
+
+  // ---------- Transitions & shadows ----------
+  --salon-transition: #{$salon-transition};
+  --salon-shadow: #{$salon-shadow};
+  --salon-shadow-lg: #{$salon-shadow-lg};
+  --salon-shadow-primary: #{$salon-shadow-primary};
+
+  // ---------- Spacing ----------
+  --salon-spacing-xs: #{$salon-spacing-xs};
+  --salon-spacing-sm: #{$salon-spacing-sm};
+  --salon-spacing-md: #{$salon-spacing-md};
+  --salon-spacing-lg: #{$salon-spacing-lg};
+  --salon-spacing-xl: #{$salon-spacing-xl};
+  --salon-spacing-2xl: #{$salon-spacing-2xl};
+
+  --salon-radius-md: #{$salon-radius-md};
+
+  --salon-heading-h1-size: #{$salon-heading-h1-size};
+  --salon-heading-h2-size: #{$salon-heading-h2-size};
 }
 
 body {
-  font-family: var(--font-sans);
-  color: var(--theme-deep-grey);
-  background-color: var(--theme-white);
+  font-family: var(--font-body);
+  color: var(--salon-text-primary);
+  background-color: var(--salon-bg-primary);
   overflow-x: hidden;
   line-height: 1.6;
 }
@@ -40,7 +65,7 @@ h4,
 h5,
 h6,
 .font-serif {
-  font-family: var(--font-serif);
+  font-family: var(--font-heading);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.4;

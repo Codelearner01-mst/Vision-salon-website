@@ -10,7 +10,7 @@
   min-height: 600px;
   width: 100%;
   overflow: hidden;
-  background-color: var(--theme-dark-bg);
+  background-color: var(--salon-primary);
 }
 
 .hero-video-bg {
@@ -44,7 +44,7 @@
   justify-content: center;
   align-items: flex-start;
   text-align: left;
-  color: var(--theme-white);
+  color: var(--salon-bg-primary);
   padding: 0 2rem;
   max-width: 800px;
   position: relative;
@@ -167,7 +167,7 @@
   position: absolute;
   bottom: 28px;
   right: -20px;
-  background: var(--theme-white);
+  background: var(--salon-bg-primary);
   border-radius: 16px;
   padding: 1rem 1.5rem;
   display: flex;
@@ -182,16 +182,16 @@
 }
 
 .story-stat-num {
-  font-family: var(--font-serif);
+  font-family: var(--font-heading);
   font-size: 2rem;
   font-weight: 800;
-  color: var(--theme-gold);
+  color: var(--salon-accent);
   line-height: 1;
 }
 
 .story-stat-text {
   font-size: 0.78rem;
-  color: var(--theme-muted);
+  color: var(--salon-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
@@ -203,7 +203,7 @@
   width: 60px;
   height: 4px;
   border-radius: 4px;
-  background: linear-gradient(90deg, var(--theme-gold), rgba(201, 169, 97, 0.3));
+  background: linear-gradient(90deg, var(--salon-accent), rgba(201, 169, 97, 0.3));
   margin-bottom: 1.75rem;
 }
 
@@ -225,7 +225,7 @@
   left: -5%;
   right: -5%;
   bottom: -10%;
-  background: var(--theme-light-grey);
+  background: var(--salon-bg-subtle);
   transform: skewY(-3deg);
   z-index: 0;
   border-radius: 0 0 0 60px;
@@ -234,7 +234,7 @@
 .services-floating-container {
   position: relative;
   z-index: 1;
-  background: var(--theme-white);
+  background: var(--salon-bg-primary);
   border-radius: 32px;
   padding: 4rem 3rem 3.5rem;
   border: 1px solid rgba(0, 0, 0, 0.04);
@@ -259,7 +259,7 @@
   position: relative;
   overflow: hidden;
   width: 100%;
-  transition: var(--theme-transition);
+  transition: var(--salon-transition);
 
   &:hover {
     .gallery-img {
@@ -287,7 +287,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: var(--theme-transition);
+  transition: var(--salon-transition);
 }
 
 .gallery-overlay {
@@ -303,28 +303,28 @@
   justify-content: flex-end;
   align-items: flex-start;
   padding: 2rem;
-  transition: var(--theme-transition);
+  transition: var(--salon-transition);
   z-index: 2;
 
   h4 {
-    color: var(--theme-white);
+    color: var(--salon-bg-primary);
     font-size: 1.4rem;
     margin-bottom: 0.25rem;
     transform: translateY(15px);
-    transition: var(--theme-transition);
+    transition: var(--salon-transition);
   }
 
   p {
     color: rgba(255, 255, 255, 0.8);
     font-size: 0.9rem;
     transform: translateY(15px);
-    transition: var(--theme-transition);
+    transition: var(--salon-transition);
     transition-delay: 0.05s;
   }
 }
 
 .section-gallery-redesign {
-  background: var(--theme-light-grey);
+  background: var(--salon-bg-subtle);
   padding-top: 6rem;
   position: relative;
   clip-path: polygon(0 40px, 100% 0, 100% 100%, 0 100%);
@@ -361,14 +361,14 @@
 .why-item {
   text-align: left;
   padding: 1.5rem;
-  transition: var(--theme-transition);
+  transition: var(--salon-transition);
   display: flex;
   align-items: start;
   gap: 1.25rem;
 
   &:hover .why-icon-box {
-    background-color: var(--theme-gold);
-    color: var(--theme-white);
+    background-color: var(--salon-accent);
+    color: var(--salon-bg-primary);
     transform: scale(1.08);
   }
 }
@@ -377,13 +377,13 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: var(--theme-white);
-  color: var(--theme-gold-hover);
+  background-color: var(--salon-bg-primary);
+  color: var(--salon-accent-hover);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
-  transition: var(--theme-transition);
+  transition: var(--salon-transition);
   flex-shrink: 0;
 }
 
@@ -439,7 +439,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   padding: 8rem 0;
-  color: var(--theme-white);
+  color: var(--salon-bg-primary);
 }
 
 .cta-overlay {
@@ -490,7 +490,7 @@
 }
 
 .testimonial-card-inner {
-  background: var(--theme-white);
+  background: var(--salon-bg-primary);
   border-radius: 24px;
   padding: 2.5rem 2.5rem 2rem;
   display: flex;
@@ -498,7 +498,7 @@
   align-items: center;
   gap: 1.5rem;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  transition: var(--theme-transition);
+  transition: var(--salon-transition);
 
   &:hover {
     transform: translateY(-4px);
@@ -526,7 +526,7 @@
   height: 90px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid var(--theme-gold-light);
+  border: 4px solid var(--salon-accent-light);
 
   @include respond-to("md-up") {
     width: 110px;
@@ -556,10 +556,10 @@
 }
 
 .testimonial-author {
-  font-family: var(--font-serif);
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 1rem;
-  color: var(--theme-deep-grey);
+  color: var(--salon-text-primary);
   letter-spacing: -0.01em;
 }
 
@@ -575,9 +575,9 @@
 
   &::before {
     content: "\201C";
-    font-family: var(--font-serif);
+    font-family: var(--font-heading);
     font-size: 4rem;
-    color: var(--theme-primary);
+    color: var(--salon-primary);
     opacity: 0.18;
     position: absolute;
     top: -1.2rem;
@@ -593,20 +593,20 @@
   height: 52px;
   border-radius: 50%;
   border: none;
-  background: var(--theme-white);
-  color: var(--theme-deep-grey);
+  background: var(--salon-bg-primary);
+  color: var(--salon-text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
   cursor: pointer;
-  transition: var(--theme-transition);
+  transition: var(--salon-transition);
   z-index: 2;
   position: relative;
 
   &:hover {
-    background: var(--theme-primary);
-    color: var(--theme-white);
+    background: var(--salon-primary);
+    color: var(--salon-bg-primary);
     transform: scale(1.1);
   }
 
@@ -641,11 +641,11 @@
   background: #d4d4d8;
   border: none;
   cursor: pointer;
-  transition: var(--theme-transition);
+  transition: var(--salon-transition);
   padding: 0;
 
   &.active {
-    background: var(--theme-primary);
+    background: var(--salon-primary);
     transform: scale(1.3);
     width: 28px;
     border-radius: 6px;

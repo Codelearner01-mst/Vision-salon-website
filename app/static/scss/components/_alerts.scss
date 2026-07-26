@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: var(--theme-transition);
+  transition: var(--salon-transition);
 
   &-danger {
     background-color: #fff0f3;

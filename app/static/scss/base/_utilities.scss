@@ -14,15 +14,15 @@
 }
 
 .text-pink {
-  color: var(--theme-primary) !important;
+  color: var(--salon-primary) !important;
 }
 
 .bg-theme-dark {
-  background-color: var(--theme-deep-grey) !important;
+  background-color: var(--salon-text-primary) !important;
 }
 
 .bg-theme-light {
-  background-color: var(--theme-light-grey) !important;
+  background-color: var(--salon-bg-subtle) !important;
 }
 
 .text-light-grey {
@@ -55,7 +55,7 @@
 
 // Story Badges
 .story-badge {
-  color: var(--theme-gold);
+  color: var(--salon-accent);
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;

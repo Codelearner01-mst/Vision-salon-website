@@ -3,45 +3,45 @@
 // ==========================================
 
 .btn-pink {
-  background-color: var(--theme-primary);
-  color: var(--theme-white) !important;
-  border: 1px solid var(--theme-primary);
-  transition: var(--theme-transition);
+  background-color: var(--salon-primary);
+  color: var(--salon-bg-primary) !important;
+  border: 1px solid var(--salon-primary);
+  transition: var(--salon-transition);
   font-weight: 500;
   border-radius: 8px;
 
   &:hover {
-    background-color: var(--theme-primary-hover);
-    border-color: var(--theme-primary-hover);
+    background-color: var(--salon-primary-hover);
+    border-color: var(--salon-primary-hover);
     transform: translateY(-2px);
   }
 }
 
 .btn-outline-light-custom {
   background-color: transparent;
-  color: var(--theme-white) !important;
-  border: 2px solid var(--theme-white);
-  transition: var(--theme-transition);
+  color: var(--salon-bg-primary) !important;
+  border: 2px solid var(--salon-bg-primary);
+  transition: var(--salon-transition);
   font-weight: 500;
   border-radius: 8px;
 
   &:hover {
-    background-color: var(--theme-white);
-    color: var(--theme-deep-grey) !important;
+    background-color: var(--salon-bg-primary);
+    color: var(--salon-text-primary) !important;
     transform: translateY(-2px);
   }
 }
 
 .btn-outline-dark-custom {
   background-color: transparent;
-  color: var(--theme-deep-grey) !important;
-  border: 2px solid var(--theme-deep-grey);
-  transition: var(--theme-transition);
+  color: var(--salon-text-primary) !important;
+  border: 2px solid var(--salon-text-primary);
+  transition: var(--salon-transition);
   font-weight: 500;
 
   &:hover {
-    background-color: var(--theme-deep-grey);
-    color: var(--theme-white) !important;
+    background-color: var(--salon-text-primary);
+    color: var(--salon-bg-primary) !important;
     transform: translateY(-2px);
   }
 }

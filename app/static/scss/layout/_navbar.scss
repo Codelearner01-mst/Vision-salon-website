@@ -3,17 +3,17 @@
 // ==========================================
 
 .navbar {
-  transition: var(--theme-transition);
-  background-color: var(--theme-primary) !important;
+  transition: var(--salon-transition);
+  background-color: var(--salon-primary) !important;
   backdrop-filter: blur(10px);
 }
 
 .brand-text {
-  font-family: var(--font-serif);
+  font-family: var(--font-heading);
   font-size: 1.6rem;
   font-weight: 800;
   letter-spacing: 2px;
-  color: var(--theme-white);
+  color: var(--salon-bg-primary);
 }
 
 .navbar-nav {
@@ -22,7 +22,7 @@
     font-weight: 500;
     font-size: 0.95rem;
     padding: 0.5rem 0.75rem !important;
-    transition: var(--theme-transition);
+    transition: var(--salon-transition);
     position: relative;
 
     &::after {
@@ -32,8 +32,8 @@
       left: 50%;
       width: 0;
       height: 2px;
-      background-color: var(--theme-gold);
-      transition: var(--theme-transition);
+      background-color: var(--salon-accent);
+      transition: var(--salon-transition);
       transform: translateX(-50%);
     }
 
@@ -44,7 +44,7 @@
 
     &:hover,
     &.active-link {
-      color: var(--theme-white) !important;
+      color: var(--salon-bg-primary) !important;
     }
   }
 }

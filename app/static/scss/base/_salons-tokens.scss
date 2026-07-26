@@ -1,0 +1,53 @@
+// ==========================================================================
+// Salon design raw tokens — imported by _reset.scss, same role as abstracts
+// Source: figma.com/design/1laJDbp5lNPPMf1Y9VoZdm
+// ==========================================================================
+// ---------- Brand colors ----------
+$salon-navbar: #884b47;
+$salon-primary: #703b37;
+$salon-primary-hover: #5c3633;
+$salon-primary-light: #f3e8e6;
+$salon-accent: #b38c3c;
+$salon-accent-hover: #9a7630;
+$salon-accent-light: #f8f2e3;
+
+// ---------- Text colors ----------
+$salon-text-primary: #141414;
+$salon-text-secondary: #73706e;
+$salon-text-on-dark: #ffffff;
+
+// ---------- Background colors ----------
+$salon-bg-primary: #ffffff;
+$salon-bg-subtle: #f3f1ee;
+
+// ---------- UI colors ----------
+$salon-border: #e5e7eb;
+
+// ---------- Typography ----------
+$salon-font-heading: "Abril Fatface", Georgia, serif;
+$salon-font-body:
+  "Inter",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  sans-serif;
+
+// ---------- Transitions & shadows ----------
+$salon-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+$salon-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+$salon-shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+$salon-shadow-primary: 0 10px 25px rgba(112, 59, 55, 0.2);
+
+// ---------- Spacing ----------
+$salon-spacing-xs: 0.5rem;
+$salon-spacing-sm: 0.75rem;
+$salon-spacing-md: 1rem;
+$salon-spacing-lg: 1.5rem;
+$salon-spacing-xl: 2rem;
+$salon-spacing-2xl: 2.5rem;
+
+$salon-radius-md: 0.5rem;
+
+$salon-heading-h1-size: 2.375rem;
+$salon-heading-h2-size: 2rem;

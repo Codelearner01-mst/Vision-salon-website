@@ -18,10 +18,10 @@
 }
 
 .booking-step-title {
-  font-family: var(--font-serif, serif);
+  font-family: var(--font-heading, serif);
   font-size: 1rem;
   font-weight: 500;
-  color: var(--theme-deep-grey);
+  color: var(--salon-text-primary);
   margin-bottom: 1rem;
   letter-spacing: 0.02em;
 }
@@ -36,7 +36,7 @@
 
   &:focus {
     background: transparent;
-    border-color: var(--theme-primary);
+    border-color: var(--salon-primary);
     box-shadow: none;
   }
 }
@@ -64,12 +64,12 @@
 
   &:hover .service-text-name,
   &.selected .service-text-name {
-    color: var(--theme-deep-grey);
+    color: var(--salon-text-primary);
     font-weight: 500;
   }
 
   &.selected .service-text-price {
-    color: var(--theme-primary);
+    color: var(--salon-primary);
     font-weight: 600;
   }
 }
@@ -121,8 +121,8 @@
   }
 
   &.selected {
-    .stylist-avatar { border-color: var(--theme-gold); }
-    .stylist-item-name { color: var(--theme-deep-grey); font-weight: 600; }
+    .stylist-avatar { border-color: var(--salon-accent); }
+    .stylist-item-name { color: var(--salon-text-primary); font-weight: 600; }
   }
 
   &.show-tooltip .stylist-tooltip {
@@ -146,7 +146,7 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(92, 37, 44, 0.12);
-    color: var(--theme-primary);
+    color: var(--salon-primary);
     font-size: 0.9rem;
   }
 }
@@ -172,7 +172,7 @@
   max-width: 170px;
   padding: 0.5rem 0.6rem;
   border-radius: 6px;
-  background: var(--theme-deep-grey);
+  background: var(--salon-text-primary);
   color: rgba(255, 255, 255, 0.92);
   font-size: 0.65rem;
   line-height: 1.35;
@@ -193,7 +193,7 @@
     left: 50%;
     transform: translateX(-50%);
     border: 4px solid transparent;
-    border-top-color: var(--theme-deep-grey);
+    border-top-color: var(--salon-text-primary);
   }
 
   strong {
@@ -221,22 +221,22 @@
   font-weight: 500;
   text-align: center;
   cursor: pointer;
-  transition: var(--theme-transition);
+  transition: var(--salon-transition);
 
   &:hover {
     border-color: rgba(92, 37, 44, 0.25);
-    color: var(--theme-primary);
+    color: var(--salon-primary);
   }
 
   &.selected {
-    background-color: var(--theme-gold);
-    color: var(--theme-white);
-    border-color: var(--theme-gold);
+    background-color: var(--salon-accent);
+    color: var(--salon-bg-primary);
+    border-color: var(--salon-accent);
   }
 
   &.disabled {
     background-color: #e9ecef !important;
-    color: var(--theme-muted) !important;
+    color: var(--salon-text-secondary) !important;
     border-color: #dee2e6 !important;
     cursor: not-allowed !important;
     pointer-events: none !important;
@@ -248,7 +248,7 @@
 // Booking Summary Widget
 .book-summary-widget {
   background: transparent;
-  color: var(--theme-deep-grey);
+  color: var(--salon-text-primary);
   border: none;
   border-top: 1px solid rgba(24, 24, 27, 0.08);
   border-radius: 0;
@@ -261,7 +261,7 @@
   margin: 0 0 0.35rem;
   font-size: 0.88rem;
   line-height: 1.5;
-  color: var(--theme-deep-grey);
+  color: var(--salon-text-primary);
 }
 
 .book-summary-total {
@@ -269,5 +269,5 @@
   padding-top: 0.85rem;
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--theme-primary);
+  color: var(--salon-primary);
 }

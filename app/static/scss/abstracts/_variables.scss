@@ -1,26 +1,158 @@
-// ==========================================
-// Theme Variables & Design Tokens
-// ==========================================
+// ==========================================================================
+// Salon design tokens — shared across the entire application
+// Source: figma.com/design/1laJDbp5lNPPMf1Y9VoZdm
+// ==========================================================================
+@forward "../base/salons-tokens";
+@use "../base/salons-tokens" as *;
 
-// Color Palette
-$theme-light-grey: #f4f4f5 !default;
-$theme-deep-grey: #18181b !default;
-$theme-dark-bg: #0c0c0e !default;
-$theme-primary: #5c252c !default; // Wine - deeper
-$theme-primary-hover: #4a1d22 !default; // Darker wine
-$theme-primary-light: #f5e6e8 !default; // Light wine tint
-$theme-gold: #c9a961 !default; // Warm gold
-$theme-gold-hover: #b8964e !default;
-$theme-gold-light: #faf3e0 !default;
-$theme-white: #ffffff !default;
-$theme-muted: #8e8e93 !default;
+// ==========================================================================
+// Convenience aliases used by components/layout/pages.
+// These map the old variable names to the new salon tokens so the rest of
+// the codebase keeps working without changing every file.
+// ==========================================================================
 
-// Font Families
-$font-serif: "Playfair Display", Georgia, serif !default;
-$font-sans: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !default;
+// ---------- Brand colors ----------
+/*
+$brand-navbar: $salon-navbar;
+$brand-primary: $salon-primary;
+$brand-primary-dark: $salon-primary-hover;
+$brand-accent: $salon-accent;
 
-// Utilities & Shadows
-$theme-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !default;
-$theme-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !default;
-$theme-shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1) !default;
-$theme-shadow-primary: 0 10px 25px rgba(92, 37, 44, 0.2) !default;
+// ---------- Text colors ----------
+$text-primary: $salon-text-primary;
+$text-secondary: $salon-text-secondary;
+$text-on-dark: $salon-text-on-dark;
+
+// ---------- Background colors ----------
+$background-primary: $salon-bg-primary;
+$background-subtle: $salon-bg-subtle;
+
+// ---------- UI colors ----------
+$border-default: $salon-border;
+
+// ---------- Spacing / radius ----------
+$spacing-xs: $salon-spacing-xs;
+$spacing-sm: $salon-spacing-sm;
+$spacing-md: $salon-spacing-md;
+$spacing-lg: $salon-spacing-lg;
+$spacing-xl: $salon-spacing-xl;
+$spacing-2xl: $salon-spacing-2xl;
+
+$radius-md: $salon-radius-md;
+
+// ---------- Typography ----------
+$font-heading: $salon-font-heading;
+$font-body: $salon-font-body;
+
+$heading-h1-size: $salon-heading-h1-size;
+$heading-h2-size: $salon-heading-h2-size;
+$heading-h1-weight: 700;
+$heading-h2-weight: 700;
+
+$body-regular-size: 1rem;
+$body-regular-weight: 400;
+$body-regular-line: 1.6;
+
+$body-link-size: 1rem;
+$body-link-weight: 700;
+
+$breadcrumb-size: 1rem;
+$breadcrumb-weight: 500;
+
+$label-uppercase-size: 0.875rem;
+$label-uppercase-weight: 700;
+
+$button-label-size: 0.875rem;
+$button-label-weight: 700;
+$button-label-spacing: 0.35em;
+
+// ---------- Transitions & shadows ----------
+$salon-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+$salon-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+$salon-shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+$salon-shadow-primary: 0 10px 25px rgba(112, 59, 55, 0.2);
+*/
+
+// ==========================================================================
+// Salon design raw tokens — imported by _reset.scss, same role as abstracts
+// Source: figma.com/design/1laJDbp5lNPPMf1Y9VoZdm
+// ==========================================================================
+// ---------- Brand colors ----------
+$salon-navbar: #884b47;
+$salon-primary: #703b37;
+$salon-primary-hover: #5c3633;
+$salon-primary-light: #f3e8e6;
+$salon-accent: #b38c3c;
+$salon-accent-hover: #9a7630;
+$salon-accent-light: #f8f2e3;
+
+// ---------- Text colors ----------
+$salon-text-primary: #141414;
+$salon-text-secondary: #73706e;
+$salon-text-on-dark: #ffffff;
+
+// ---------- Background colors ----------
+$salon-bg-primary: #ffffff;
+$salon-bg-subtle: #f3f1ee;
+
+// ---------- UI colors ----------
+$salon-border: #e5e7eb;
+
+// ---------- Typography ----------
+$salon-font-heading: "Abril Fatface", Georgia, serif;
+$salon-font-body:
+  "Inter",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  sans-serif;
+
+$heading-h1-weight: 400;
+$heading-h2-weight: 400;
+$salon-heading-h1-size: 2.375rem;
+$salon-heading-h2-size: 2rem;
+
+$body-regular-size: 1rem;
+$body-regular-weight: 400;
+$body-regular-line: 1.6;
+
+$body-link-size: 1rem;
+$body-link-weight: 700;
+
+$breadcrumb-size: 1rem;
+$breadcrumb-weight: 500;
+
+$label-uppercase-size: 0.875rem;
+$label-uppercase-weight: 700;
+
+$button-label-size: 0.875rem;
+$button-label-weight: 700;
+$button-label-spacing: 0.35em;
+
+// ---------- Transitions & shadows ----------
+$salon-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+$salon-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+$salon-shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+$salon-shadow-primary: 0 10px 25px rgba(112, 59, 55, 0.2);
+
+// ---------- Spacing / Radius----------
+$salon-spacing-xs: 0.5rem;
+$salon-spacing-sm: 0.75rem;
+$salon-spacing-md: 1rem;
+$salon-spacing-lg: 1.5rem;
+$salon-spacing-xl: 2rem;
+$salon-spacing-2xl: 2.5rem;
+
+$salon-radius-md: 0.5rem;
+
+// ---------- Added: needed by the Figma pages, not previously defined ----------
+// radius-lg: used for the service-detail hero image (border-bottom-radius: 24px)
+$salon-radius-lg: 1.5rem;
+
+// price-* : "$20" / "Free" price text on service cards (list page + recommended
+// cards on the detail page). NOT a named Figma text style (no style-dictionary
+// entry for it) — this is a recurring visual pattern (18px bold), not an
+// official token, but appears in 3+ places so it's worth having one source.
+$salon-price-size: 1.125rem;
+$salon-price-weight: 700;

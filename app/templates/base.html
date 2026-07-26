@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     {% block head %}
@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Vision Hairsalon{% endblock %}</title>
 
-    <!-- Google Fonts: Playfair Display (headings) & Outfit (body) -->
+    <!-- Google Fonts: Playfair Display (headings) & Open Sans (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
       rel="stylesheet"
     />
 
@@ -89,7 +89,7 @@
             </li>
             <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
               <a
-                class="btn btn-pink px-4 py-2 rounded-pill shadow-sm"
+                class="btn btn-pink px-4 py-2 shadow-sm"
                 href="{{ url_for('book.book') }}"
                 >Book an Appointment</a
               >
@@ -279,20 +279,23 @@
           return dotsContainer.querySelectorAll(".testimonial-dot");
         }
 
+        if (cards.length > 0) cards[0].classList.add("active");
+
         function goTo(index) {
           current = (index + total) % total;
-          track.style.transform = "translateX(-" + current * 100 + "%)";
+          const isDesktop = window.innerWidth >= 992;
+          const slideWidth = isDesktop ? 50 : 100;
+          const offset = current * slideWidth;
+          track.style.transform = "translateX(-" + offset + "%)";
+          cards.forEach((card, i) =>
+            card.classList.toggle("active", i === current),
+          );
           getDots().forEach((d, i) =>
             d.classList.toggle("active", i === current),
           );
         }
 
-        document
-          .getElementById("testimonialPrev")
-          .addEventListener("click", () => goTo(current - 1));
-        document
-          .getElementById("testimonialNext")
-          .addEventListener("click", () => goTo(current + 1));
+        goTo(0);
 
         // Touch / swipe support
         let touchStartX = 0;
@@ -307,6 +310,8 @@
           const diff = touchStartX - e.changedTouches[0].clientX;
           if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
         });
+
+        window.addEventListener("resize", () => goTo(current));
       });
     </script>
   </body>

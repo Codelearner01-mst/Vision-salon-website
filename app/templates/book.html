@@ -13,116 +13,95 @@
 </div>
 
 <!-- Booking Wizard Container -->
-<div class="container pb-5">
-  <div class="row g-4 align-items-start">
+<div class="container pb-5 booking-flow">
+  <div class="row g-5 align-items-start">
     <!-- Left Column: Booking Steps -->
     <div class="col-lg-8">
       <!-- Step 1: Select Service -->
       <div class="booking-step-card reveal">
-        <div class="booking-header">
-          <h4 class="font-serif mb-1">
-            <span class="text-pink me-2">01.</span> Select Salon Service
-          </h4>
-          <p class="text-muted small mb-0">
-            Choose your premium treatment or hair design.
-          </p>
-        </div>
+        <h5 class="booking-step-title">Service</h5>
 
-        <div class="row g-3">
+        <div class="service-text-picker">
           {% for service in services %}
-          <div class="col-md-6">
-            <div
-              class="card p-3 border-secondary-subtle select-service-card cursor-pointer transition"
-              data-service-id="{{ service.id }}"
-              data-service-name="{{ service.name }}"
-              data-service-price="{{ service.price }}"
-              style="border-radius: 12px; border: 2px solid #e9ecef"
-            >
-              <div
-                class="d-flex justify-content-between align-items-center mb-2"
-              >
-                <h6 class="mb-0 fw-bold">{{ service.name }}</h6>
-                <span class="text-pink fw-bold">${{ service.price }}</span>
-              </div>
-              <p class="text-muted small mb-0">
-                {{ service.desc | truncate(80) }}
-              </p>
-            </div>
-          </div>
+          <button
+            type="button"
+            class="service-text-option"
+            data-service-id="{{ service.id }}"
+            data-service-name="{{ service.name }}"
+            data-service-price="{{ service.price }}"
+          >
+            <span class="service-text-name">{{ service.name }}</span>
+            <span class="service-text-price">${{ service.price }}</span>
+          </button>
           {% endfor %}
         </div>
       </div>
 
       <!-- Step 2: Select Stylist -->
       <div class="booking-step-card reveal reveal-delay-1">
-        <div class="booking-header">
-          <h4 class="font-serif mb-1">
-            <span class="text-pink me-2">02.</span> Choose Your Stylist
-          </h4>
-          <p class="text-muted small mb-0">
-            Select your preferred beauty artisan.
-          </p>
-        </div>
+        <h5 class="booking-step-title">Stylist</h5>
 
-        <div class="stylist-grid-picker">
-          <!-- Any Stylist option -->
-          <div
-            class="stylist-pick-card selected"
+        <div class="stylist-row-picker">
+          <button
+            type="button"
+            class="stylist-item selected"
             data-stylist-id="any"
             data-stylist-name="Any Available Stylist"
           >
-            <div
-              class="d-flex justify-content-center align-items-center bg-pink text-white rounded-circle border border-3 border-white shadow-sm mx-auto mb-2"
-              style="width: 80px; height: 80px; font-size: 1.5rem"
-            >
+            <span class="stylist-avatar stylist-avatar-any">
               <i class="fas fa-users"></i>
-            </div>
-            <h6 class="mb-0 small fw-bold">First Available</h6>
-            <span class="text-muted" style="font-size: 0.75rem"
-              >Stylist Team</span
-            >
-          </div>
+            </span>
+            <span class="stylist-item-name">Any</span>
+            <span class="stylist-tooltip" role="tooltip">
+              <strong>First Available</strong>
+              <span>All team schedules</span>
+              <span>Any available stylist</span>
+            </span>
+          </button>
 
           {% for member in team %}
-          <div
-            class="stylist-pick-card"
+          <button
+            type="button"
+            class="stylist-item"
             data-stylist-id="{{ member.id }}"
             data-stylist-name="{{ member.name }}"
           >
-            <img src="{{ member.image }}" alt="{{ member.name }}" />
-            <h6 class="mb-0 small fw-bold">{{ member.name }}</h6>
-            <span class="text-muted" style="font-size: 0.75rem"
-              >{{ member.role.split(' ')[-1] }}</span
+            <img
+              class="stylist-avatar"
+              src="{{ member.image }}"
+              alt="{{ member.name }}"
+            />
+            <span class="stylist-item-name"
+              >{{ member.name.split(' ')[0] }}</span
             >
-
-            <span class="text-muted d-block mt-1" style="font-size: 0.7rem">
-              {% if member.workdays %} {{ member.workdays[0].name[:3] }} - {{
-              member.workdays[-1].name[:3] }} {% endif %}
+            <span class="stylist-tooltip" role="tooltip">
+              <strong>{{ member.name }}</strong>
+              <span>{{ member.role }}</span>
+              <span>
+                {% if member.workdays %} {% for day in member.workdays %}{{
+                day.name[:3] }}{% if not loop.last %}, {% endif %}{% endfor %}
+                {% else %} Schedule TBD {% endif %}
+              </span>
+              <span>
+                {% if member.specialties %} {% for spec in member.specialties
+                %}{{ spec.name }}{% if not loop.last %}, {% endif %}{% endfor %}
+                {% else %} General stylist {% endif %}
+              </span>
             </span>
-          </div>
+          </button>
           {% endfor %}
         </div>
       </div>
 
       <!-- Step 3: Date & Time -->
       <div class="booking-step-card reveal reveal-delay-2">
-        <div class="booking-header">
-          <h4 class="font-serif mb-1">
-            <span class="text-pink me-2">03.</span> Date & Time
-          </h4>
-          <p class="text-muted small mb-0">
-            Select your date and preferred appointment slot.
-          </p>
-        </div>
+        <h5 class="booking-step-title">Date &amp; time</h5>
 
         <div class="row g-4">
-          <div class="col-md-6">
-            <label for="booking-date" class="form-label small fw-semibold"
-              >Choose Date</label
-            >
+          <div class="col-md-5">
             <input
               type="date"
-              class="form-control rounded-pill bg-light border-0 px-3 py-2.5"
+              class="form-control booking-input"
               id="booking-date"
               required
             />
@@ -133,9 +112,8 @@
               style="display: none"
             ></div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-7">
             {% if booking_times %}
-            <label class="form-label small fw-semibold">Select Time Slot</label>
             <div class="time-grid-picker">
               {% for bt in booking_times %}
               <div
@@ -154,61 +132,42 @@
 
       <!-- Step 4: Personal Details -->
       <div class="booking-step-card reveal reveal-delay-3">
-        <div class="booking-header">
-          <h4 class="font-serif mb-1">
-            <span class="text-pink me-2">04.</span> Guest Details
-          </h4>
-          <p class="text-muted small mb-0">
-            Confirm your name, email and special requests.
-          </p>
-        </div>
+        <h5 class="booking-step-title">Your details</h5>
 
         <div class="row g-3">
           <div class="col-md-6">
-            <label for="book-name" class="form-label small fw-semibold"
-              >Your Name</label
-            >
             <input
               type="text"
-              class="form-control rounded-pill bg-light border-0 px-3 py-2.5"
+              class="form-control booking-input"
               id="book-name"
-              placeholder="John Doe"
+              placeholder="Full name"
               required
             />
           </div>
           <div class="col-md-6">
-            <label for="book-phone" class="form-label small fw-semibold"
-              >Phone Number</label
-            >
             <input
               type="tel"
-              class="form-control rounded-pill bg-light border-0 px-3 py-2.5"
+              class="form-control booking-input"
               id="book-phone"
-              placeholder="(310) 555-0199"
+              placeholder="Phone number"
               required
             />
           </div>
           <div class="col-md-12">
-            <label for="book-email" class="form-label small fw-semibold"
-              >Email Address</label
-            >
             <input
               type="email"
-              class="form-control rounded-pill bg-light border-0 px-3 py-2.5"
+              class="form-control booking-input"
               id="book-email"
-              placeholder="john@example.com"
+              placeholder="Email address"
               required
             />
           </div>
           <div class="col-md-12">
-            <label for="book-notes" class="form-label small fw-semibold"
-              >Notes / Special Instructions</label
-            >
             <textarea
-              class="form-control bg-light border-0 px-3 py-2.5"
+              class="form-control booking-input"
               id="book-notes"
-              rows="3"
-              placeholder="Tell us if you have any sensitivities or specific requests..."
+              rows="2"
+              placeholder="Notes (optional)"
             ></textarea>
           </div>
         </div>
@@ -220,50 +179,26 @@
       class="col-lg-4 sticky-lg-top reveal reveal-delay-2"
       style="top: 100px; z-index: 10"
     >
-      <div class="book-summary-widget text-white">
-        <h4
-          class="font-serif border-bottom border-secondary pb-3 mb-4 text-white"
-        >
-          Booking Summary
-        </h4>
-
-        <div class="mb-3">
-          <span class="text-light-grey small d-block mb-1">SERVICE</span>
-          <h6 class="mb-0 text-white" id="summary-service-name">
-            None Selected
-          </h6>
-          <span class="text-pink fw-bold" id="summary-service-price">-</span>
-        </div>
-
-        <div class="mb-3">
-          <span class="text-light-grey small d-block mb-1">STYLIST</span>
-          <h6 class="mb-0 text-white" id="summary-stylist-name">
-            Any Available Stylist
-          </h6>
-        </div>
-
-        <div class="mb-4">
-          <span class="text-light-grey small d-block mb-1">DATE & TIME</span>
-          <h6 class="mb-0 text-white" id="summary-datetime">
-            Not Scheduled Yet
-          </h6>
-        </div>
-
-        <div
-          class="border-top border-secondary pt-3 mb-4 d-flex justify-content-between align-items-center"
-        >
-          <span class="text-light-grey">Total Cost</span>
-          <span class="fs-3 fw-bold text-pink" id="summary-total-price"
-            >$0</span
-          >
-        </div>
-
+      <div class="book-summary-widget">
+        <p class="book-summary-line" id="summary-service-line">
+          <span id="summary-service-name">No service yet</span>
+          <span class="text-pink" id="summary-service-price"></span>
+        </p>
+        <p class="book-summary-line text-muted" id="summary-stylist-name">
+          Any available stylist
+        </p>
+        <p class="book-summary-line text-muted mb-3" id="summary-datetime">
+          No date selected
+        </p>
+        <p class="book-summary-total mb-4">
+          <span id="summary-total-price">$0</span>
+        </p>
         <button
           type="submit"
-          class="btn btn-pink w-100 py-3 rounded-pill shadow-sm"
+          class="btn btn-pink w-100 py-2"
           id="confirm-booking-btn"
         >
-          Confirm Reservation
+          Confirm reservation
         </button>
       </div>
     </div>
@@ -307,7 +242,7 @@
       <div class="modal-footer border-0 pt-0">
         <button
           type="button"
-          class="btn btn-pink px-4 py-2 rounded-pill shadow-sm"
+          class="btn btn-pink px-4 py-2 shadow-sm"
           id="bookingModalCloseBtn"
           data-bs-dismiss="modal"
         >

@@ -37,31 +37,17 @@
             </div>
 
             <p class="text-secondary small mb-3">{{ service.description }}</p>
-
-            <!-- Sub-works / Sub-categories on the right -->
-            <div class="mb-4">
-              <h6
-                class="text-uppercase tracking-wider small fw-bold text-muted mb-2"
-              >
-                Sub Services & Focus Areas
-              </h6>
-              <ul class="sub-works-list">
-                {% for sub in service.sub_works %}
-                <li class="sub-work-tag">{{ sub }}</li>
-                {% endfor %}
-              </ul>
-            </div>
           </div>
 
           <div class="d-flex gap-3">
             <a
               href="{{ url_for('book.book', service_id=service.id) }}"
-              class="btn btn-pink px-4 py-2.5 rounded-pill shadow-sm small"
+              class="btn btn-pink px-4 py-2.5 shadow-sm small"
               >Book Now</a
             >
             <a
               href="{{ url_for('service.service_detail', service_id=service.id) }}"
-              class="btn btn-outline-dark px-4 py-2.5 rounded-pill small"
+              class="btn btn-outline-dark px-4 py-2.5 small"
               >View Service Details</a
             >
           </div>
