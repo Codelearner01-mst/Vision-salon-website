@@ -1,14 +1,13 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <!-- Minimal Page Header -->
 <div class="page-header text-center reveal">
   <div class="container">
     <span class="story-badge">About Vision</span>
     <h1 class="page-title">Our Heritage & Story</h1>
-    <p class="text-muted mx-auto mb-0" style="max-width: 600px;">
-      Discover the philosophy, team, and dedication to hair styling craftsmanship that drives us forward.
+    <p class="text-muted mx-auto mb-0" style="max-width: 600px">
+      Discover the philosophy, team, and dedication to hair styling
+      craftsmanship that drives us forward.
     </p>
   </div>
 </div>
@@ -16,53 +15,78 @@
 <!-- Story Content Block -->
 <div class="container pb-5">
   <div class="row mb-5">
-    <div class="col-12 reveal">
-      <div class="story-large-banner mb-5 rounded-4 overflow-hidden shadow-sm" style="height: 450px;">
-        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1200" alt="Vision Salon Space" class="w-100 h-100" style="object-fit: cover;">
-      </div>
-    </div>
+    <div class="col-12 reveal"></div>
   </div>
-  
+
   <div class="row g-5 align-items-start mb-5">
     <div class="col-lg-6 reveal">
       <h2 class="font-serif display-5 mb-4">Crafting Beauty with Intent</h2>
-      <p class="lead text-muted mb-4">Established with a passion for excellence, Vision Salon has been redefining luxury hair styling for over a decade in Beverly Hills.</p>
-      <p class="text-secondary">We believe that hair styling is an intimate form of self-expression. Our philosophy combines modern techniques, premium organic products, and personal consultation to discover and accentuate your unique vision. Every stylist in our space is a dedicated artisan, committed to continuous education and delivering a bespoke experience from the moment you step through our doors.</p>
+      <p class="lead text-muted mb-4">
+        Established with a passion for excellence, Vision Salon has been
+        redefining luxury hair styling for over a decade in Beverly Hills.
+      </p>
+      <p class="text-secondary">
+        We believe that hair styling is an intimate form of self-expression. Our
+        philosophy combines modern techniques, premium organic products, and
+        personal consultation to discover and accentuate your unique vision.
+        Every stylist in our space is a dedicated artisan, committed to
+        continuous education and delivering a bespoke experience from the moment
+        you step through our doors.
+      </p>
     </div>
-    
+
     <div class="col-lg-6 reveal reveal-delay-1">
       <h3 class="font-serif mb-3">Our Core Principles</h3>
       <div class="mb-4">
         <h5 class="font-serif text-pink mb-1">Tailored Consultations</h5>
-        <p class="text-secondary small">We never copy-paste. Every style is cut and colored to match your specific skin tone, face shape, and daily maintenance routine.</p>
+        <p class="text-secondary small">
+          We never copy-paste. Every style is cut and colored to match your
+          specific skin tone, face shape, and daily maintenance routine.
+        </p>
       </div>
       <div class="mb-4">
         <h5 class="font-serif text-pink mb-1">Sustainably Luxury</h5>
-        <p class="text-secondary small">We care about hair health and environment. All shampoos, dyes, and styling sprays are organic, sulfate-free, and vegan-friendly.</p>
+        <p class="text-secondary small">
+          We care about hair health and environment. All shampoos, dyes, and
+          styling sprays are organic, sulfate-free, and vegan-friendly.
+        </p>
       </div>
       <div class="mb-4">
         <h5 class="font-serif text-pink mb-1">Artistry & Technique</h5>
-        <p class="text-secondary small">Our team consists of certified master colorists and stylists who instruct globally and continuously refine their techniques backstage.</p>
+        <p class="text-secondary small">
+          Our team consists of certified master colorists and stylists who
+          instruct globally and continuously refine their techniques backstage.
+        </p>
       </div>
     </div>
   </div>
-  
-  <hr class="border-light my-5">
-  
+
+  <hr class="border-light my-5" />
+
   <!-- Our Team Section included at the bottom -->
   <div class="my-5 reveal">
     <div class="text-center mb-5">
       <span class="story-badge">Meet the Artisans</span>
       <h2 class="font-serif display-6">Our Creative Stylists</h2>
-      <p class="text-muted mx-auto" style="max-width: 500px;">Our collective of industry veterans dedicated to elevating your look.</p>
+      <p class="text-muted mx-auto" style="max-width: 500px">
+        Our collective of industry veterans dedicated to elevating your look.
+      </p>
     </div>
-    
+
     <div class="row g-4">
-      {% for member in team %}
+      {% if team|length == 0 %}
+      <div class="col-12 text-center">
+        <p class="text-muted">No stylists available at the moment.</p>
+      </div>
+      {% endif %} {% for member in team %}
       <div class="col-md-6 col-lg-4">
         <div class="team-card">
           <div class="team-img-wrapper">
-            <img src="{{ member.image }}" alt="{{ member.name }}" class="team-img">
+            <img
+              src="{{ member.image }}"
+              alt="{{ member.name }}"
+              class="team-img"
+            />
           </div>
           <h4 class="font-serif mb-1">{{ member.name }}</h4>
           <span class="text-pink small d-block mb-3">{{ member.role }}</span>
@@ -77,6 +101,145 @@
       {% endfor %}
     </div>
   </div>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-5 reveal">
+    <div class="container py-5">
+      <div class="text-center mb-5 max-w-600 mx-auto reveal">
+        <span class="story-badge">Testimonials</span>
+        <h2 class="font-serif display-6 mb-3">What Our Clients Say</h2>
+        <p class="text-muted">
+          Real stories from real people who've experienced the Vision
+          difference.
+        </p>
+      </div>
+
+      <div class="testimonial-slider-wrapper reveal reveal-delay-1">
+        <div class="testimonial-track-container">
+          <div class="testimonial-track" id="testimonialTrack">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card">
+              <div class="testimonial-card-inner">
+                <div class="testimonial-avatar-wrap">
+                  <img
+                    src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=200"
+                    alt="Jessica M."
+                    class="testimonial-avatar"
+                  />
+                </div>
+                <div class="testimonial-body">
+                  <div class="testimonial-meta-row">
+                    <div class="testimonial-stars">
+                      <i class="fas fa-star"></i><i class="fas fa-star"></i
+                      ><i class="fas fa-star"></i><i class="fas fa-star"></i
+                      ><i class="fas fa-star"></i>
+                    </div>
+                    <span class="testimonial-author">— Jessica M.</span>
+                  </div>
+                  <blockquote class="testimonial-quote">
+                    "Absolutely blown away by my balayage! Sarah understood
+                    exactly what I wanted — warm, dimensional, and effortless.
+                    I've never felt more confident leaving a salon. Vision is
+                    truly in a class of its own."
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card">
+              <div class="testimonial-card-inner">
+                <div class="testimonial-avatar-wrap">
+                  <img
+                    src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=200"
+                    alt="Priya S."
+                    class="testimonial-avatar"
+                  />
+                </div>
+                <div class="testimonial-body">
+                  <div class="testimonial-meta-row">
+                    <div class="testimonial-stars">
+                      <i class="fas fa-star"></i><i class="fas fa-star"></i
+                      ><i class="fas fa-star"></i><i class="fas fa-star"></i
+                      ><i class="fas fa-star"></i>
+                    </div>
+                    <span class="testimonial-author">— Priya S.</span>
+                  </div>
+                  <blockquote class="testimonial-quote">
+                    "Michael worked wonders on my color-damaged hair. The
+                    keratin treatment restored it to something I've never seen
+                    before — pure silk. The whole experience felt like a luxury
+                    spa, not just a salon."
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card">
+              <div class="testimonial-card-inner">
+                <div class="testimonial-avatar-wrap">
+                  <img
+                    src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=200"
+                    alt="Chloe R."
+                    class="testimonial-avatar"
+                  />
+                </div>
+                <div class="testimonial-body">
+                  <div class="testimonial-meta-row">
+                    <div class="testimonial-stars">
+                      <i class="fas fa-star"></i><i class="fas fa-star"></i
+                      ><i class="fas fa-star"></i><i class="fas fa-star"></i
+                      ><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="testimonial-author">— Chloe R.</span>
+                  </div>
+                  <blockquote class="testimonial-quote">
+                    "Amanda is a genius with natural curls. She gave me a cut
+                    that actually works with my texture, not against it. For the
+                    first time in years I love my natural hair. Vision Salon is
+                    a game-changer!"
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonial 4 -->
+            <div class="testimonial-card">
+              <div class="testimonial-card-inner">
+                <div class="testimonial-avatar-wrap">
+                  <img
+                    src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=200"
+                    alt="Rachel T."
+                    class="testimonial-avatar"
+                  />
+                </div>
+                <div class="testimonial-body">
+                  <div class="testimonial-meta-row">
+                    <div class="testimonial-stars">
+                      <i class="fas fa-star"></i><i class="fas fa-star"></i
+                      ><i class="fas fa-star"></i><i class="fas fa-star"></i
+                      ><i class="fas fa-star"></i>
+                    </div>
+                    <span class="testimonial-author">— Rachel T.</span>
+                  </div>
+                  <blockquote class="testimonial-quote">
+                    "From the moment I walked in, I felt truly cared for. The
+                    consultation was thorough and the results exceeded my
+                    wildest expectations. Hands down the best salon experience
+                    in Beverly Hills."
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dots -->
+      <div class="testimonial-dots" id="testimonialDots"></div>
+    </div>
+  </section>
 </div>
 
 {% endblock %}
