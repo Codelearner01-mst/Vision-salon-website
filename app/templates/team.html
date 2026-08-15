@@ -1,60 +1,84 @@
 {% extends "base.html" %} {% block content %}
 
-<div class="screen">
-  <!-- Hero -->
-  <section class="hero">
-    <p class="label label--brand">Our Team</p>
-    <h1 class="hero-title">Meet our stylists</h1>
-    <p class="hero-sub">
-      A talented team of professionals passionate about bringing out your best
-      look.
+<div class="page-header text-center reveal">
+  <div class="header-container">
+    <span class="story-badge">Our Team</span>
+    <h1 class="page-title">Meet our stylists</h1>
+    <p class="page-description">
+      A talented team of professionals passionate about bringing out your best look.
     </p>
-  </section>
+  </div>
+</div>
 
-  <!-- Breadcrumb -->
-  <nav class="breadcrumb" aria-label="Breadcrumb">
-    <span class="crumb">Home</span>
-    <span class="sep">/</span>
-    <span class="crumb crumb--active">Team</span>
-  </nav>
-
-  <!-- Team list -->
-  <main class="team-list">
-    {% for member in team %}
-    <article class="team-card">
-      <div class="team-image">
-        <img src="{{ member.image }}" alt="Marcus Chen" />
-        <div class="accent-strip"></div>
-      </div>
-      <div class="team-content">
-        <div class="title-row">
-          <h2>{{ member.name }}</h2>
-          <p class="role">{{member.role}}</p>
+<main class="pb-5">
+    <div class="team-list">
+      {% for member in team %}
+      <article class="team-card">
+        <div class="team-image">
+          {% if member.id==1 %}
+          <img src="{{ url_for('static', filename='images/20260524_124150.jpg')}}" alt="{{ member.name }}" />
+          {% endif %}
+           {% if member.id==2 %}
+          <img src="{{ url_for('static', filename='images/1719488443653.jpg')}}" alt="{{ member.name }}" />
+          {% endif %}
+           {% if member.id==3 %}
+          <img src="{{ url_for('static', filename='images/1723144725686.jpg')}}" alt="{{ member.name }}" />
+          {% endif %}
+          <div class="accent-strip"></div>
         </div>
-        <p class="bio">{{ member.bio[:120] }}...</p>
-        <div class="experience-social">
-          <p class="experience">
-            {{ member.years_of_experience }}+ years of experience
-          </p>
-          <div class="social-icons">
-            <span class="social-icon">In</span>
-            <span class="social-icon">Fb</span>
-            <span class="social-icon">Li</span>
+        <div class="team-content">
+          <div class="title-row">
+            <h2>{{ member.name }}</h2>
+            <p class="role">{{member.role}}</p>
+          </div>
+          <p class="bio">{{ member.bio[:120] }}...</p>
+          <div class="experience-social">
+            <p class="experience">
+              {{ member.years_of_experience }}+
+              <br />years of experience
+            </p>
+            <div class="social-icons">
+              <a
+                href="#"
+                class="social-icon"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                  <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a
+                href="#"
+                class="social-icon"
+                target="_blank"
+                rel="noreferrer noopener"
+               >
+                  <i class="fab fa-instagram"></i>
+               </a>
+               <a
+                href="#"
+                class="social-icon"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                  <i class="fab fa-tiktok"></i>
+              </a>
+           
+            </div>
+          </div>
+          <div class="actions">
+            <a href="{{ url_for('book.book') }}" class="full-profile"
+              >Full Profile</a
+            >
+            {% if member.stylist %}
+            <a href="{{ url_for('book.book') }}" class="book-link"
+              >Book with {{ member.name.split()[0] }}</a
+            >
+            {%endif%}
           </div>
         </div>
-        <div class="actions">
-          <a href="{{ url_for('book.book') }}" class="full-profile"
-            >Full Profile</a
-          >
-          {% if member.stylist %}
-          <a href="{{ url_for('book.book') }}" class="book-link"
-            >Book with {{ member.name.split()[0] }}</a
-          >
-          {%endif%}
-        </div>
-      </div>
-    </article>
-    {% endfor %}
+      </article>
+      {% endfor %}
+    </div>
   </main>
 </div>
 

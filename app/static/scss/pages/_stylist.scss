@@ -23,99 +23,15 @@ body {
   background: $salon-bg-primary;
 }
 
-// ---------- Navbar ----------
-.navbar {
-  height: 96px;
-  padding: $salon-spacing-lg;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: $salon-navbar;
-
-  @include respond-to("md-up") {
-    padding: 0 40px;
-  }
-
-  @include respond-to("lg-up") {
-    padding: 0 80px;
-  }
-}
-
 .logo {
   @include heading-h1;
   color: $salon-text-on-dark;
   margin: 0;
 }
 
-.nav-links {
-  display: none;
-
-  @include respond-to("md-up") {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-  }
-
-  @include respond-to("lg-up") {
-    gap: 40px;
-  }
-}
-
-.nav-link {
-  font-family: $salon-font-body;
-  font-size: 16px;
-  color: $salon-text-on-dark;
-  text-decoration: none;
-
-  &--active {
-    font-weight: 700;
-    color: $salon-accent;
-  }
-}
-
-.nav-book-btn {
-  @include button-label;
-  background: $salon-primary;
-  color: $salon-text-on-dark;
-  text-decoration: none;
-  text-transform: uppercase;
-  padding: 10px 20px;
-
-  @include respond-to("lg-up") {
-    padding: 12px 24px;
-  }
-}
-
-.hamburger {
-  width: 24px;
-  height: 18px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-
-  @include respond-to("md-up") {
-    display: none;
-  }
-
-  span {
-    display: block;
-    width: 100%;
-    height: 2px;
-    border-radius: 1px;
-    background: $salon-text-on-dark;
-  }
-}
-
 // ---------- Hero ----------
 .hero {
   background: $salon-bg-subtle;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
   padding: 24px 24px 28px;
 
   @include respond-to("md-up") {
@@ -127,29 +43,6 @@ body {
     gap: 24px;
     padding: 64px 80px;
   }
-}
-
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: $salon-font-body;
-  font-weight: $breadcrumb-weight;
-  font-size: $breadcrumb-size;
-  order: -1; // mobile puts breadcrumb before the label; wider screens too
-}
-
-.crumb {
-  color: $salon-text-secondary;
-}
-
-.crumb--active {
-  font-weight: 700;
-  color: $salon-primary;
-}
-
-.sep {
-  color: $salon-text-secondary;
 }
 
 .label {
@@ -184,7 +77,7 @@ body {
 
 // ---------- Team ----------
 .team-list {
-  display: flex;
+  @include flex-center;
   flex-direction: column;
   gap: 24px;
   padding: 20px 24px 40px;
@@ -193,47 +86,72 @@ body {
   // Tablet: horizontal scroll-snap carousel — Figma's tablet frame has each
   // card at full container width, not a grid, so this matches the source
   @include respond-to("md-up") {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 0;
-    padding: 48px 40px;
-
-    .team-card {
-      flex: 0 0 100%;
-      scroll-snap-align: start;
-    }
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 20px 2rem 40px;
   }
 
+  @include respond-to("lg") {
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 20px 4rem 40px;
+  }
   // Desktop: real 3-column grid
   @include respond-to("lg-up") {
     display: grid;
+    justify-items: center;
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    overflow-x: visible;
-    padding: 80px;
+    padding: 24px 4.6rem 36px;
+    gap: 18px;
+  }
 
-    .team-card {
-      flex: initial;
-    }
+  @include respond-to("xl") {
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 24px 6rem 36px;
+    gap: 28px;
   }
 }
 
 .team-card {
-  @include card-base;
+  text-align: left;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  margin-inline: auto;
+  width: 100%;
+
+  @include respond-to("sm-extra") {
+    width: 88%;
+  }
+
+  @include respond-to("md-up") {
+    width: 98%;
+  }
+
+  @include respond-to("lg-up") {
+    width: 100%;
+  }
+  @include respond-to("xl") {
+  }
 }
 
 .team-image {
-  position: relative;
   width: 100%;
-  height: 320px;
+  height: 250px;
+  padding: 5px 8px;
   overflow: hidden;
 
+  @include respond-to("sm-extra") {
+    height: 300px;
+  }
   @include respond-to("lg-up") {
-    height: 420px;
+    height: 280px;
   }
 
   img {
@@ -244,28 +162,20 @@ body {
   }
 }
 
-.accent-strip {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: $salon-primary;
-}
-
 .team-content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 32px;
+  gap: 16px;
+  margin-top: 8px;
+  padding: 16px;
 
   @include respond-to("md-up") {
-    gap: 24px;
-    padding: 24px;
+    gap: 16px;
+    padding: 18px;
   }
 
   @include respond-to("lg-up") {
-    padding: 32px; // Figma: desktop goes back to 32px, tablet is the odd one at 24px
+    padding: 18px;
   }
 }
 
@@ -275,12 +185,19 @@ body {
   gap: 8px;
 
   h2 {
-    @include heading-h1; // Figma: 38px on mobile
+    @include heading-h2;
     color: $salon-text-primary;
     margin: 0;
 
+    @include respond-to("sm-extra") {
+      font-size: 38px; // Figma: tablet/desktop card names are H2 size (38px)
+    }
+
     @include respond-to("md-up") {
       font-size: 32px; // Figma: tablet/desktop card names are H2 size (32px)
+    }
+    @include respond-to("lg-up") {
+      font-size: 26px;
     }
   }
 
@@ -288,30 +205,54 @@ body {
     @include body-link;
     color: $salon-primary;
     margin: 0;
+
+    @include respond-to("sm-extra") {
+      font-size: 0.92rem;
+    }
+    @include respond-to("md-up") {
+      font-size: 0.9rem;
+    }
   }
 }
 
 .bio {
   font-family: $salon-font-body;
-  font-size: 16px; // Figma: 16px on tablet/desktop (mobile-only version used 15px)
+  font-size: 14px; // Figma: 16px on tablet/desktop (mobile-only version used 15px)
   font-weight: 400;
   line-height: 1.5;
   color: $salon-text-secondary;
   margin: 0;
+
+  @include respond-to("sm-extra") {
+    font-size: 14.8px;
+  }
+
+  @include respond-to("md-up") {
+    font-size: 14px;
+  }
 }
 
 .experience-social {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  flex-direction: row;
+  gap: 28px;
+
+  @include respond-to("sm-extra") {
+    gap: 4rem;
+  }
 }
 
 .experience {
   font-family: $salon-font-body;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
   color: $salon-text-secondary;
   margin: 0;
+
+  @include respond-to("sm-extra") {
+    font-size: 14px;
+  }
 
   @include respond-to("md-up") {
     font-size: 12px; // Figma: smaller specifically on tablet
@@ -324,65 +265,81 @@ body {
 
 .social-icons {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 
   @include respond-to("md-up") {
-    gap: 6px; // Figma: tighter specifically on tablet
+    gap: 8px;
   }
 
   @include respond-to("lg-up") {
-    gap: 8px; // Figma: desktop back to 8px
+    gap: 10px;
   }
 }
 
 .social-icon {
-  @include badge-circle(28px);
-  font-family: $salon-font-body;
-  font-size: 11px;
-  font-weight: 700;
+  @include badge-circle(24px);
+  background: $salon-bg-subtle;
+  color: $salon-text-primary;
+  font-size: 0;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+
+  i {
+    font-size: 0.9rem;
+  }
+
+  &:hover {
+    background: $salon-primary;
+    color: $salon-text-on-dark;
+    transform: translateY(-2px);
+  }
+
+  @include respond-to("sm-extra") {
+    @include badge-circle(26px);
+  }
 
   @include respond-to("md-up") {
-    font-size: 10px; // Figma: slightly smaller specifically on tablet
+    @include badge-circle(20px);
+  }
+
+  @include respond-to("lg") {
+    @include badge-circle(24px);
   }
 
   @include respond-to("lg-up") {
-    @include badge-circle(36px);
-    font-size: 13px;
+    @include badge-circle(24px);
   }
 }
 
 .actions {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  flex-direction: row;
+  gap: 14px;
+  margin-top: 8px;
 
-  @include respond-to("lg-up") {
-    flex-direction: row;
-    gap: 16px;
-
-    .full-profile,
-    .book-link {
-      flex: 1 0 0;
-    }
+  @include respond-to("sm-extra") {
+    gap: 2.8rem;
   }
 }
 
 .full-profile,
 .book-link {
-  @include button-label;
-  text-transform: uppercase;
   text-align: center;
   text-decoration: none;
-  padding: 10px 16px;
+  padding: 14px;
   cursor: pointer;
 
-  @include respond-to("lg-up") {
-    padding: 12px 24px;
+  @include respond-to("sm-extra") {
+    padding: 18px;
+  }
+
+  @include respond-to("md-up") {
+    padding: 14px;
   }
 }
 
 .full-profile {
-  border: 1px solid $salon-primary;
   color: $salon-primary;
   background: transparent;
 }
@@ -464,119 +421,4 @@ body {
   line-height: 1.5;
   color: $salon-text-secondary;
   margin: 0;
-}
-
-// ---------- Footer ----------
-.site-footer {
-  display: none; // not part of the mobile design
-
-  @include respond-to("md-up") {
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-    background: $salon-primary-hover;
-    padding: 56px 40px 40px;
-  }
-
-  @include respond-to("lg-up") {
-    padding: 80px 80px 48px;
-  }
-}
-
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-
-  @include respond-to("md-up") {
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 24px; // safety gap for wrapping; real Figma uses justify-between with no explicit gap
-  }
-}
-
-.footer-brand {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-width: 280px;
-
-  @include respond-to("lg-up") {
-    gap: 16px;
-    max-width: 320px;
-  }
-}
-
-.footer-logo {
-  @include heading-h1;
-  color: $salon-text-on-dark;
-  margin: 0;
-}
-
-.footer-tagline {
-  font-family: $salon-font-body;
-  font-size: 16px;
-  line-height: 1.5;
-  color: $salon-bg-subtle;
-  margin: 0;
-}
-
-.footer-col {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  @include respond-to("lg-up") {
-    gap: 12px;
-  }
-}
-
-.footer-heading {
-  @include label-uppercase;
-  letter-spacing: 0.7px;
-  color: $salon-accent;
-  margin: 0;
-}
-
-.footer-text {
-  font-family: $salon-font-body;
-  font-size: 16px;
-  line-height: 1.5;
-  color: $salon-bg-subtle;
-  margin: 0;
-}
-
-.footer-bottom {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  border-top: 1px solid $salon-primary;
-  padding-top: 20px;
-  font-family: $salon-font-body;
-  font-size: 16px;
-  color: $salon-bg-subtle;
-
-  @include respond-to("md-up") {
-    flex-direction: row;
-    justify-content: space-between;
-    // padding-top stays 20px here — matches real Figma tablet value
-  }
-
-  @include respond-to("lg-up") {
-    padding-top: 24px; // Figma: desktop bumps to 24px
-  }
-
-  p {
-    margin: 0;
-  }
-}
-
-.footer-socials {
-  display: flex;
-  gap: 16px;
-
-  a {
-    color: $salon-bg-subtle;
-    text-decoration: none;
-  }
 }
