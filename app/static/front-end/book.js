@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   // Service select logic
-  const serviceCards = document.querySelectorAll(".select-service-card");
+  const serviceCards = document.querySelectorAll(".service-text-option");
   serviceCards.forEach((card) => {
     card.addEventListener("click", function () {
       serviceCards.forEach((c) => (c.style.borderColor = "#e9ecef"));
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Stylist select logic
-  const stylistCards = document.querySelectorAll(".stylist-pick-card");
+  const stylistCards = document.querySelectorAll(".stylist-item");
   stylistCards.forEach((card) => {
     card.addEventListener("click", function () {
       stylistCards.forEach((c) => c.classList.remove("selected"));
