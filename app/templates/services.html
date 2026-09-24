@@ -5,7 +5,7 @@
   <div class="container">
     <span class="story-badge">Our Offerings</span>
     <h1 class="page-title">Curated Salon Services</h1>
-    <p class="text-muted mx-auto mb-0" style="max-width: 600px">
+    <p class="page-description">
       Explore our menu of precision haircuts, bespoke coloring, dynamic
       blowouts, and advanced therapeutic hair treatments.
     </p>
@@ -14,8 +14,8 @@
 
 <!-- Services List Section -->
 <div class="container pb-5">
-  <div class="row">
-    <div class="col-lg-10 mx-auto">
+  <div>
+    <div class="service-cards-container">
       {% for service in services %}
       <!-- Horizontal Service Card -->
       <div class="service-card-horizontal reveal">
@@ -26,29 +26,20 @@
 
         <!-- Right Content -->
         <div class="card-content-side">
-          <div>
-            <div
-              class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2"
-            >
-              <h3 class="font-serif mb-0">{{ service.name }}</h3>
-              <span class="fs-4 fw-bold text-pink"
-                >From ${{ service.price }}</span
-              >
-            </div>
+          <div class="mb-3 mt-3">
+            <h4 class="font-serif mb-1.5">{{ service.name }}</h4>
+            <p class="fs-4 fw-bold text-pink">
+              <span class="fw-normal small">From</span> ${{ service.price }}
+            </p>
 
-            <p class="text-secondary small mb-3">{{ service.description }}</p>
+            <p class="text-secondary small">{{ service.description }}</p>
           </div>
 
           <div class="d-flex gap-3">
             <a
-              href="{{ url_for('book.book', service_id=service.id) }}"
-              class="btn btn-pink px-4 py-2.5 shadow-sm small"
-              >Book Now</a
-            >
-            <a
               href="{{ url_for('service.service_detail', service_id=service.id) }}"
-              class="btn btn-outline-dark px-4 py-2.5 small"
-              >View Service Details</a
+              class="btn fw-bold small"
+              >View Details</a
             >
           </div>
         </div>
