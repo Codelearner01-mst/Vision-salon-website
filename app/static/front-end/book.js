@@ -103,22 +103,20 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Time slot picker logic
-  const timeSlots = document.querySelectorAll(".time-slot-btn");
-  timeSlots.forEach((slot) => {
-    slot.addEventListener("click", function () {
-      if (this.classList.contains("disabled")) {
-        return; // Prevent selecting booked or unavailable time slots
-      }
-      timeSlots.forEach((s) => s.classList.remove("selected"));
-      this.classList.add("selected");
+  const timeSelect = document.getElementById("booking-time");
+  const timeSlots = timeSelect
+    ? Array.from(timeSelect.options).filter((option) => option.value)
+    : [];
 
-      selectedTime = {
-        time: this.getAttribute("data-time"),
-        id: this.getAttribute("data-time-id"),
-      };
+  if (timeSelect) {
+    timeSelect.addEventListener("change", function () {
+      const selectedOption = this.options[this.selectedIndex];
+      selectedTime = selectedOption.value
+        ? { time: selectedOption.dataset.time, id: selectedOption.value }
+        : null;
       updateSummary();
     });
-  });
+  }
 
   // Fetch availability status from backend
   function checkAvailability() {
@@ -133,8 +131,8 @@ document.addEventListener("DOMContentLoaded", function () {
     availabilityMessage = "";
 
     timeSlots.forEach((slot) => {
-      slot.classList.remove("disabled", "booked");
-      slot.textContent = slot.getAttribute("data-time");
+      slot.disabled = false;
+      slot.textContent = slot.dataset.time;
     });
 
     if (!selectedDate) {
@@ -166,9 +164,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
           // Disable all time slots and mark as unavailable (N/A)
           timeSlots.forEach((slot) => {
-            slot.classList.add("disabled");
-            slot.classList.remove("selected");
-            slot.textContent = slot.getAttribute("data-time") + " (N/A)";
+            slot.disabled = true;
+            slot.textContent = slot.dataset.time + " (N/A)";
           });
           selectedTime = null;
           updateSummary();
@@ -178,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else if (data.success) {
           // Stylist is available, enable times except booked ones
           timeSlots.forEach((slot) => {
-            slot.classList.remove("disabled");
+            slot.disabled = false;
           });
 
           // Disable already booked slots
@@ -186,13 +183,13 @@ document.addEventListener("DOMContentLoaded", function () {
           const bookedIds = bookedTimes.map((bt) => parseInt(bt.id));
 
           timeSlots.forEach((slot) => {
-            const timeId = parseInt(slot.getAttribute("data-time-id"));
+            const timeId = parseInt(slot.value);
             if (bookedIds.includes(timeId)) {
-              slot.classList.add("disabled", "booked");
-              slot.textContent = slot.getAttribute("data-time") + " (Booked)";
+              slot.disabled = true;
+              slot.textContent = slot.dataset.time + " (Booked)";
               // If the currently selected slot gets booked/disabled, deselect it
-              if (slot.classList.contains("selected")) {
-                slot.classList.remove("selected");
+              if (selectedTime && selectedTime.id === slot.value) {
+                timeSelect.value = "";
                 selectedTime = null;
               }
             }
