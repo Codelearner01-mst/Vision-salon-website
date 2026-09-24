@@ -104,10 +104,10 @@
             protect.
           </p>
           <div class="hero-slide-buttons">
-            <a href="#book" class="btn btn-pink px-5 py-3 shadow-sm"
+            <a href="#book" class="btn btn-pink px-2 py-3 shadow-sm"
               >Book an Appointment</a
             >
-            <a href="#services" class="btn btn-outline-light-custom px-5 py-3"
+            <a href="#services" class="btn btn-outline-light-custom px-2 py-3"
               >View Our Services</a
             >
           </div>
@@ -204,11 +204,8 @@
               <img src="{{ s.image }}" alt="Signature Cuts" />
             </div>
             <div class="service-body">
-              <div class="service-icon-box">
-                <i class="fas fa-scissors"></i>
-              </div>
               <h4 class="font-serif mb-3">{{s.name}}</h4>
-              <p class="text-muted small mb-4">{{s.decription}}</p>
+              <p class="text-muted small mb-4">{{s.description}}</p>
               <hr class="border-light-grey mb-3" />
               <div class="d-flex justify-content-between align-items-center">
                 <span class="fw-bold text-pink">${{s.price}}+</span>
@@ -290,70 +287,6 @@
       </div>
     </div>
   </div>
-</section>
-
-<!-- Gallery section -->
-<section id="gallery" class="section-gallery-redesign">
-  <div class="gallery-section-header container reveal">
-    <div>
-      <span class="story-badge">Our Gallery</span>
-      <h2 class="font-serif display-6 mb-0">Visual Inspirations</h2>
-    </div>
-    <p class="text-muted gallery-header-desc">
-      Explore our recent hair transformations, balayage masterworks, and modern
-      cuts.
-    </p>
-  </div>
-
-  <!-- Gallery Grid -->
-  {%if gallery|length == 0%}
-  <!-- -->
-  {{ empty_state("No gallery available at the moment.") }}
-  <!-- -->
-  {%endif%} {%if gallery %}
-  <div class="gallery-mosaic container-fluid px-0">
-    <div class="row g-0">
-      {% set a = gallery[0] if gallery|length > 0 else None %}
-      <div class="col-md-6 gallery-col d-flex flex-column reveal">
-        <div class="gallery-item gallery-left-top">
-          <img src="{{a.image}}" alt="{{a.headline}}" class="gallery-img" />
-          <div class="gallery-overlay">
-            <h4 class="font-serif">{{a.headline}}</h4>
-            <p>{{a.subheadline}}</p>
-          </div>
-        </div>
-        {% set b = gallery[1] if gallery|length > 1 else None %} {# Second image
-        #} {% if b %}
-        <div class="gallery-item gallery-left-bottom">
-          <img src="{{b.image}}" alt="{{b.headline}}" class="gallery-img" />
-          <div class="gallery-overlay">
-            <h4 class="font-serif">{{b.headline}}</h4>
-            <p>{{b.subheadline}}</p>
-          </div>
-        </div>
-        {% endif %}
-      </div>
-      {%set c = gallery[2] if gallery|length > 2 else None%} {# Third image #}
-      {% if c %}
-      <div class="col-md-6 gallery-col reveal reveal-delay-1">
-        <div class="gallery-item gallery-right-tall">
-          <img src="{{c.image}}" alt="Precision Styling" class="gallery-img" />
-          <div class="gallery-overlay">
-            <h4 class="font-serif">{{c.headline}}</h4>
-            <p>{{c.subheadline}}</p>
-          </div>
-        </div>
-      </div>
-      {% endif %}
-    </div>
-  </div>
-
-  <div class="container text-center pb-5 pt-4 reveal">
-    <a href="/gallery" class="btn btn-pink px-5 py-3 shadow-sm"
-      >View Full Gallery</a
-    >
-  </div>
-  {%endif%}
 </section>
 
 <!-- Testimonials Section -->
@@ -522,22 +455,24 @@
           <div class="team-img-wrapper">
             <img src="{{t.image}}" alt="{{t.name}}" class="team-img" />
           </div>
-          <h4 class="font-serif mb-1">{{t.name}}</h4>
-          <span class="text-pink small d-block mb-3">{{t.role}}</span>
-          <p class="text-muted small">{{t.bio}}</p>
-          <div class="team-socials">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <div class="team-content">
+            <h4 class="font-serif mb-1">{{t.name}}</h4>
+            <span class="text-pink small d-block mb-3">{{t.role}}</span>
+            <p class="text-muted small">{{t.bio}}</p>
+            <div class="team-socials">
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            {% if t.stylist %}
+            <a
+              href="{{ url_for('book.book', user_id=t.id) }}"
+              class="btn btn-pink w-100 mt-3 shadow-sm"
+            >
+              Book Now
+            </a>
+            {% endif %}
           </div>
-          {% if t.stylist %}
-          <a
-            href="{{ url_for('book.book', user_id=t.id) }}"
-            class="btn btn-pink w-100 mt-3 shadow-sm"
-          >
-            Book Now
-          </a>
-          {% endif %}
         </div>
       </div>
       {%endfor%}
