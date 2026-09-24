@@ -1,85 +1,64 @@
 {% extends "base.html" %} {% block content %}
 
 <div class="page-header text-center reveal">
-  <div class="header-container">
+  <div class="container">
     <span class="story-badge">Our Team</span>
     <h1 class="page-title">Meet our stylists</h1>
     <p class="page-description">
-      A talented team of professionals passionate about bringing out your best look.
+      A talented team of professionals passionate about bringing out your best
+      look.
     </p>
   </div>
 </div>
 
 <main class="pb-5">
+  <div class="container">
     <div class="team-list">
       {% for member in team %}
-      <article class="team-card">
-        <div class="team-image">
-          {% if member.id==1 %}
-          <img src="{{ url_for('static', filename='images/20260524_124150.jpg')}}" alt="{{ member.name }}" />
-          {% endif %}
-           {% if member.id==2 %}
-          <img src="{{ url_for('static', filename='images/1719488443653.jpg')}}" alt="{{ member.name }}" />
-          {% endif %}
-           {% if member.id==3 %}
-          <img src="{{ url_for('static', filename='images/1723144725686.jpg')}}" alt="{{ member.name }}" />
-          {% endif %}
-          <div class="accent-strip"></div>
+      <div class="team-card">
+        <div class="team-img-wrapper">
+          <img
+            src="{{ member.image }}"
+            alt="{{ member.name }}"
+            class="team-img"
+          />
         </div>
         <div class="team-content">
-          <div class="title-row">
-            <h2>{{ member.name }}</h2>
-            <p class="role">{{member.role}}</p>
-          </div>
-          <p class="bio">{{ member.bio[:120] }}...</p>
-          <div class="experience-social">
-            <p class="experience">
-              {{ member.years_of_experience }}+
-              <br />years of experience
-            </p>
-            <div class="social-icons">
-              <a
-                href="#"
-                class="social-icon"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                  <i class="fab fa-linkedin-in"></i>
-              </a>
-              <a
-                href="#"
-                class="social-icon"
-                target="_blank"
-                rel="noreferrer noopener"
-               >
-                  <i class="fab fa-instagram"></i>
-               </a>
-               <a
-                href="#"
-                class="social-icon"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                  <i class="fab fa-tiktok"></i>
-              </a>
-           
-            </div>
-          </div>
-          <div class="actions">
-            <a href="{{ url_for('book.book') }}" class="full-profile"
-              >Full Profile</a
-            >
-            {% if member.stylist %}
-            <a href="{{ url_for('book.book') }}" class="book-link"
-              >Book with {{ member.name.split()[0] }}</a
-            >
-            {%endif%}
+          <h4 class="title font-serif mb-1">{{ member.name }}</h4>
+          <span class="role text-pink small d-block mb-3"
+            >{{ member.role }}</span
+          >
+          <p class="bio text-muted small mb-4">
+            {{ member.bio | truncate(110) }}
+          </p>
+          <div class="team-socials">
+            <a
+              href="#"
+              class="social-icon"
+              target="_blank"
+              rel="noreferrer noopener"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a
+              href="#"
+              class="social-icon"
+              target="_blank"
+              rel="noreferrer noopener"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a
+              href="#"
+              class="social-icon"
+              target="_blank"
+              rel="noreferrer noopener"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
           </div>
         </div>
-      </article>
+      </div>
       {% endfor %}
     </div>
-  </main>
-</div>
+  </div>
+</main>
 
 {% endblock %}
