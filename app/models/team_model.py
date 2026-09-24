@@ -45,8 +45,15 @@ class TeamModel(db.Model):
             'about': self.about,
             'stylist': self.stylist,
             "specialties": [s.name for s in self.specialties],
-             "workdays":[d.name for d in self.workdays]
-           
+            "workdays": [d.name for d in self.workdays],
+            "social_links": [
+                {
+                    "name": link.social.name,
+                    "logo": getattr(link.social, 'logo', None),
+                    "link": link.link,
+                }
+                for link in self.social_links
+            ],
         }
 
 
