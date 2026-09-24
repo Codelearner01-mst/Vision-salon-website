@@ -1,32 +1,45 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
 // ==========================================
 // Inner Page Header Banners
 // ==========================================
 
 .page-header {
-  padding: 5rem 0;
-  background-color: var(--salon-bg-subtle);
-  border-bottom: 1px solid rgba(24, 24, 27, 0.05);
-  margin-bottom: 4rem;
+  background: $salon-bg-subtle;
+  border-bottom: 1px solid rgba($salon-border, 0.12);
+  margin-bottom: 3rem;
+  padding: 36px 12px 30px;
 
   .story-badge {
-    margin-bottom: 0.75rem;
+    color: var(--salon-accent);
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 13px;
+
+    &--light {
+      color: rgba(255, 74, 139, 0.85);
+    }
   }
-}
 
-.page-header-compact {
-  padding: 2.5rem 0 2rem;
-  margin-bottom: 2rem;
-
-  .page-title {
-    font-size: 2rem;
-    font-weight: 700;
+  @include respond-to("md-up") {
+    padding: 5.5rem 0 3.5rem;
   }
 }
 
 .page-title {
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 3.2rem;
-  letter-spacing: -0.02em;
-  color: var(--salon-text-primary);
+  font-family: $salon-font-heading;
+  font-weight: 600;
+  font-size: $salon-heading-h1-size;
+  letter-spacing: -0.03em;
+  color: $salon-text-primary;
+}
+
+.page-description {
+  color: $salon-text-secondary;
+  font-family: $salon-font-body;
+  font-size: clamp(13.6px, 2vw, 15px);
+  line-height: 1.8;
+  opacity: 0.92;
 }

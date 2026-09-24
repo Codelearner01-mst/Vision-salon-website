@@ -1,26 +1,50 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
 // ==========================================
 // Booking Page SCSS Module
 // ==========================================
 
 .booking-flow {
-  max-width: 960px;
+  max-width: 760px;
+  padding-top: 1rem;
+
+  @include respond-to("md-up") {
+    width: 95%;
+    max-width: none;
+  }
+
+  @include respond-to("lg") {
+    max-width: 1180px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: start;
+    gap: 2rem;
+  }
 }
 
+.booking-left {
+  background: $salon-bg-subtle;
+  padding: 1.5rem;
+  flex: 1;
+  margin-bottom: 1.5rem;
+  padding-bottom: 2rem;
+}
 .booking-step-card {
-  background: transparent;
-  border: none;
-  padding: 2rem 0 0;
-  margin-bottom: 0;
+  background: var(--salon-bg-primary);
+  border: 1px solid rgba(24, 24, 27, 0.08);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.04);
 
   &:first-child {
-    padding-top: 0.5rem;
+    padding-top: 1.25rem;
   }
 }
 
 .booking-step-title {
-  font-family: var(--font-heading, serif);
-  font-size: 1rem;
-  font-weight: 500;
+  @include heading-h2;
   color: var(--salon-text-primary);
   margin-bottom: 1rem;
   letter-spacing: 0.02em;
@@ -29,15 +53,32 @@
 .booking-input {
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(24, 24, 27, 0.12);
-  border-radius: 0;
+  border-bottom: 1px solid rgba(221, 221, 224, 0.918);
+  border-radius: 8px;
   padding: 0.65rem 0;
-  font-size: 0.95rem;
+  font-size: 0.94rem;
 
   &:focus {
     background: transparent;
     border-color: var(--salon-primary);
     box-shadow: none;
+  }
+}
+
+.date-input {
+  width: 100%;
+}
+
+.stylists-service {
+  @include respond-to("md-up") {
+    display: flex;
+    flex-direction: row;
+    gap: 4.3rem;
+    align-items: center;
+  }
+
+  @include respond-to("lg") {
+    display: block;
   }
 }
 
@@ -54,13 +95,21 @@
   align-items: baseline;
   gap: 2rem;
   width: 100%;
-  max-width: 420px;
+  max-width: 320px;
   padding: 0;
   border: none;
   background: transparent;
   text-align: left;
   cursor: pointer;
   transition: color 0.2s ease;
+
+  @include respond-to("md-up") {
+    max-width: 250px;
+  }
+
+  @include respond-to("md-up") {
+    max-width: 320px;
+  }
 
   &:hover .service-text-name,
   &.selected .service-text-name {
@@ -91,8 +140,15 @@
 .stylist-row-picker {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.25rem 1.5rem;
+  gap: 1.25rem;
   padding: 0.15rem 0;
+
+  @include respond-to("md-up") {
+    gap: 1.2rem;
+  }
+  @include respond-to("lg") {
+    gap: 1.25rem;
+  }
 }
 
 .stylist-item {
@@ -121,8 +177,13 @@
   }
 
   &.selected {
-    .stylist-avatar { border-color: var(--salon-accent); }
-    .stylist-item-name { color: var(--salon-text-primary); font-weight: 600; }
+    .stylist-avatar {
+      border-color: var(--salon-accent);
+    }
+    .stylist-item-name {
+      color: var(--salon-text-primary);
+      font-weight: 600;
+    }
   }
 
   &.show-tooltip .stylist-tooltip {
@@ -133,13 +194,18 @@
 }
 
 .stylist-avatar {
-  width: 48px;
-  height: 48px;
+  width: 4.1rem;
+  height: 4.1rem;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 0.35rem;
   border: 2px solid transparent;
   transition: border-color 0.2s ease;
+
+  @include respond-to("md-up") {
+    width: 3.7rem;
+    height: 3.7rem;
+  }
 
   &-any {
     display: flex;
@@ -203,71 +269,113 @@
   }
 }
 
-// Time Grid Slots
-.time-grid-picker {
+.time-date {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-  margin-top: 0;
+  flex-direction: column;
+  gap: 1rem;
+
+  @include respond-to("md-up") {
+    flex-direction: row;
+    align-items: end;
+    gap: 1.25rem;
+
+    > div {
+      flex: 1;
+    }
+  }
 }
 
-.time-slot-btn {
-  background: transparent;
-  color: rgba(24, 24, 27, 0.65);
-  border: 1px solid rgba(24, 24, 27, 0.1);
-  border-radius: 999px;
-  padding: 0.35rem 0.75rem;
+.booking-field-label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--salon-text-secondary);
   font-size: 0.78rem;
-  font-weight: 500;
-  text-align: center;
-  cursor: pointer;
-  transition: var(--salon-transition);
+  font-weight: 600;
+}
 
-  &:hover {
-    border-color: rgba(92, 37, 44, 0.25);
-    color: var(--salon-primary);
+.booking-select {
+  min-height: 44px;
+  border: 1px solid rgba(24, 24, 27, 0.12);
+  border-radius: 0.5rem;
+  color: var(--salon-text-primary);
+  background-color: var(--salon-bg-primary);
+
+  &:focus {
+    border-color: var(--salon-primary);
+    box-shadow: 0 0 0 0.2rem rgba(112, 59, 55, 0.12);
   }
+}
 
-  &.selected {
-    background-color: var(--salon-accent);
-    color: var(--salon-bg-primary);
-    border-color: var(--salon-accent);
+.personal-details {
+  @include respond-to("lg") {
+    width: 50%;
   }
+}
 
-  &.disabled {
-    background-color: #e9ecef !important;
-    color: var(--salon-text-secondary) !important;
-    border-color: #dee2e6 !important;
-    cursor: not-allowed !important;
-    pointer-events: none !important;
-    opacity: 0.5;
-    text-decoration: line-through;
+.booking-summary {
+  min-width: 0;
+
+  @include respond-to("lg") {
+    min-width: 300px;
   }
 }
 
 // Booking Summary Widget
 .book-summary-widget {
-  background: transparent;
+  background: var(--salon-primary-light);
   color: var(--salon-text-primary);
-  border: none;
-  border-top: 1px solid rgba(24, 24, 27, 0.08);
-  border-radius: 0;
-  padding: 1.5rem 0 0;
+  border: 1px solid rgba(24, 24, 27, 0.08);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  min-height: 360px;
   position: sticky;
   top: 100px;
+
+  @include respond-to("lg") {
+    padding: 2.25rem;
+  }
 }
 
 .book-summary-line {
-  margin: 0 0 0.35rem;
-  font-size: 0.88rem;
-  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0 0 1.25rem;
+  font-size: 1.05rem;
+  line-height: 1.45;
   color: var(--salon-text-primary);
 }
 
+.book-summary-label {
+  display: block;
+  color: var(--salon-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.book-summary-value {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-weight: 600;
+}
+
 .book-summary-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
   margin: 0;
-  padding-top: 0.85rem;
-  font-size: 1.1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(24, 24, 27, 0.1);
+  font-size: 1.65rem;
   font-weight: 600;
   color: var(--salon-primary);
+
+  .book-summary-label {
+    color: var(--salon-text-primary);
+    font-size: 0.8rem;
+  }
 }

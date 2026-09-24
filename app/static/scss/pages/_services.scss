@@ -1,15 +1,40 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
 // ==========================================
 // Services & Service Detail Page SCSS
 // ==========================================
+.service-cards-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: 0 0.75rem 2rem;
+
+  @include respond-to("md-up") {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    padding: 0 0.5rem 2.5rem;
+  }
+
+  @include respond-to("lg-up") {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.25rem;
+    padding: 0 0 3rem;
+  }
+}
 
 .service-card-horizontal {
   display: flex;
+  flex-direction: column;
   background-color: var(--salon-bg-primary);
   border: 1px solid rgba(24, 24, 27, 0.08);
-  border-radius: 20px;
+  border-radius: 0.5rem;
   overflow: hidden;
   transition: var(--salon-transition);
-  margin-bottom: 2.5rem;
+  min-width: 0;
+  margin: 0;
+  height: 100%;
 
   &:hover {
     transform: translateY(-4px);
@@ -21,10 +46,18 @@
   }
 
   .card-img-side {
-    width: 40%;
-    min-width: 320px;
+    width: 100%;
+    height: 190px;
     position: relative;
     overflow: hidden;
+
+    @include respond-to("md-up") {
+      height: 210px;
+    }
+
+    @include respond-to("lg-up") {
+      height: 220px;
+    }
 
     img {
       width: 100%;
@@ -35,25 +68,35 @@
   }
 
   .card-content-side {
-    width: 60%;
-    padding: 3rem;
     display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: space-between;
-  }
+    gap: 1rem;
+    padding: 1.25rem;
 
-  @media (max-width: 991px) {
-    flex-direction: column;
-
-    .card-img-side {
-      width: 100%;
-      height: 280px;
-      min-width: 100%;
+    @include respond-to("md-up") {
+      padding: 1.5rem;
     }
 
-    .card-content-side {
-      width: 100%;
-      padding: 2rem;
+    @include respond-to("lg-up") {
+      padding: 1.5rem 1.35rem 1.65rem;
+    }
+
+    h4,
+    p {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    h4 {
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+
+    .fs-4 {
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem !important;
     }
   }
 }

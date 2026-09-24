@@ -51,7 +51,7 @@
   z-index: 10;
 
   h1 {
-    font-size: 3rem;
+    font-size: clamp(2.5rem, 4vw, 4rem);
     font-weight: 700;
     line-height: 1.4;
     margin-bottom: 1.5rem;
@@ -73,8 +73,12 @@
   @include respond-to("md") {
     padding: 0 1.5rem;
 
-    h1 { font-size: 2rem; }
-    p { font-size: 0.95rem; }
+    h1 {
+      font-size: 2rem;
+    }
+    p {
+      font-size: 0.95rem;
+    }
   }
 }
 
@@ -88,7 +92,9 @@
     width: 100%;
     max-width: 300px;
 
-    .btn { width: 100%; }
+    .btn {
+      width: 100%;
+    }
   }
 }
 
@@ -138,7 +144,11 @@
   &-1 {
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(255, 74, 139, 0.12) 0%, transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgba(255, 74, 139, 0.12) 0%,
+      transparent 70%
+    );
     top: -150px;
     right: -200px;
   }
@@ -146,7 +156,11 @@
   &-2 {
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(255, 74, 139, 0.07) 0%, transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgba(255, 74, 139, 0.07) 0%,
+      transparent 70%
+    );
     bottom: -100px;
     left: -150px;
   }
@@ -203,7 +217,11 @@
   width: 60px;
   height: 4px;
   border-radius: 4px;
-  background: linear-gradient(90deg, var(--salon-accent), rgba(201, 169, 97, 0.3));
+  background: linear-gradient(
+    90deg,
+    var(--salon-accent),
+    rgba(201, 169, 97, 0.3)
+  );
   margin-bottom: 1.75rem;
 }
 
@@ -267,7 +285,10 @@
     }
     .gallery-overlay {
       opacity: 1;
-      h4, p { transform: translateY(0); }
+      h4,
+      p {
+        transform: translateY(0);
+      }
     }
   }
 }
@@ -275,12 +296,16 @@
 .gallery-left-top,
 .gallery-left-bottom {
   height: 300px;
-  @include respond-to("md") { height: 250px; }
+  @include respond-to("md") {
+    height: 250px;
+  }
 }
 
 .gallery-right-tall {
   height: 600px;
-  @include respond-to("md") { height: 400px; }
+  @include respond-to("md") {
+    height: 400px;
+  }
 }
 
 .gallery-img {
@@ -296,7 +321,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(24, 24, 27, 0.8), rgba(24, 24, 27, 0.2));
+  background: linear-gradient(
+    to top,
+    rgba(24, 24, 27, 0.8),
+    rgba(24, 24, 27, 0.2)
+  );
   opacity: 0;
   display: flex;
   flex-direction: column;
@@ -391,7 +420,9 @@
   padding: 6rem 0;
   background: #ffffff;
 
-  @include respond-to("sm") { padding: 4rem 0; }
+  @include respond-to("sm") {
+    padding: 4rem 0;
+  }
 }
 
 .why-inset-container {
@@ -399,12 +430,20 @@
   border-radius: 36px;
   overflow: hidden;
 
-  @include respond-to("sm") { border-radius: 24px; }
+  @include respond-to("sm") {
+    border-radius: 24px;
+  }
 
   .why-bg-layer {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #0c0c0e 0%, #18181b 40%, #1f1118 75%, #200d15 100%);
+    background: linear-gradient(
+      135deg,
+      #0c0c0e 0%,
+      #18181b 40%,
+      #1f1118 75%,
+      #200d15 100%
+    );
     z-index: 0;
     border-radius: 36px;
 
@@ -416,7 +455,11 @@
       width: 500px;
       height: 500px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 74, 139, 0.18) 0%, transparent 65%);
+      background: radial-gradient(
+        circle,
+        rgba(255, 74, 139, 0.18) 0%,
+        transparent 65%
+      );
       pointer-events: none;
     }
   }
@@ -427,8 +470,12 @@
   z-index: 1;
   padding: 4.5rem 4rem;
 
-  @include respond-to("lg") { padding: 3rem 2rem; }
-  @include respond-to("sm") { padding: 2.5rem 1.5rem; }
+  @include respond-to("lg") {
+    padding: 3rem 2rem;
+  }
+  @include respond-to("sm") {
+    padding: 2.5rem 1.5rem;
+  }
 }
 
 // CTA Section
@@ -485,7 +532,9 @@
   @include respond-to("lg-up") {
     min-width: 50%;
     max-width: 50%;
-    &.active { opacity: 1; }
+    &.active {
+      opacity: 1;
+    }
   }
 }
 
@@ -518,7 +567,9 @@
 
 .testimonial-avatar-wrap {
   flex-shrink: 0;
-  @include respond-to("md-up") { padding-top: 0.25rem; }
+  @include respond-to("md-up") {
+    padding-top: 0.25rem;
+  }
 }
 
 .testimonial-avatar {
@@ -619,12 +670,16 @@
 
 .testimonial-prev {
   margin-right: 1rem;
-  @include respond-to("sm") { margin-right: 0.5rem; }
+  @include respond-to("sm") {
+    margin-right: 0.5rem;
+  }
 }
 
 .testimonial-next {
   margin-left: 1rem;
-  @include respond-to("sm") { margin-left: 0.5rem; }
+  @include respond-to("sm") {
+    margin-left: 0.5rem;
+  }
 }
 
 .testimonial-dots {
