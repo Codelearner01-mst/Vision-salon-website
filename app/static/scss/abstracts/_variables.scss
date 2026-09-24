@@ -5,78 +5,6 @@
 @forward "../base/salons-tokens";
 @use "../base/salons-tokens" as *;
 
-// ==========================================================================
-// Convenience aliases used by components/layout/pages.
-// These map the old variable names to the new salon tokens so the rest of
-// the codebase keeps working without changing every file.
-// ==========================================================================
-
-// ---------- Brand colors ----------
-/*
-$brand-navbar: $salon-navbar;
-$brand-primary: $salon-primary;
-$brand-primary-dark: $salon-primary-hover;
-$brand-accent: $salon-accent;
-
-// ---------- Text colors ----------
-$text-primary: $salon-text-primary;
-$text-secondary: $salon-text-secondary;
-$text-on-dark: $salon-text-on-dark;
-
-// ---------- Background colors ----------
-$background-primary: $salon-bg-primary;
-$background-subtle: $salon-bg-subtle;
-
-// ---------- UI colors ----------
-$border-default: $salon-border;
-
-// ---------- Spacing / radius ----------
-$spacing-xs: $salon-spacing-xs;
-$spacing-sm: $salon-spacing-sm;
-$spacing-md: $salon-spacing-md;
-$spacing-lg: $salon-spacing-lg;
-$spacing-xl: $salon-spacing-xl;
-$spacing-2xl: $salon-spacing-2xl;
-
-$radius-md: $salon-radius-md;
-
-// ---------- Typography ----------
-$font-heading: $salon-font-heading;
-$font-body: $salon-font-body;
-
-$heading-h1-size: $salon-heading-h1-size;
-$heading-h2-size: $salon-heading-h2-size;
-$heading-h1-weight: 700;
-$heading-h2-weight: 700;
-
-$body-regular-size: 1rem;
-$body-regular-weight: 400;
-$body-regular-line: 1.6;
-
-$body-link-size: 1rem;
-$body-link-weight: 700;
-
-$breadcrumb-size: 1rem;
-$breadcrumb-weight: 500;
-
-$label-uppercase-size: 0.875rem;
-$label-uppercase-weight: 700;
-
-$button-label-size: 0.875rem;
-$button-label-weight: 700;
-$button-label-spacing: 0.35em;
-
-// ---------- Transitions & shadows ----------
-$salon-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-$salon-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-$salon-shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
-$salon-shadow-primary: 0 10px 25px rgba(112, 59, 55, 0.2);
-*/
-
-// ==========================================================================
-// Salon design raw tokens — imported by _reset.scss, same role as abstracts
-// Source: figma.com/design/1laJDbp5lNPPMf1Y9VoZdm
-// ==========================================================================
 // ---------- Brand colors ----------
 $salon-navbar: #884b47;
 $salon-primary: #703b37;
@@ -87,19 +15,19 @@ $salon-accent-hover: #9a7630;
 $salon-accent-light: #f8f2e3;
 
 // ---------- Text colors ----------
-$salon-text-primary: #141414;
+$salon-text-primary: #2b2b2b;
 $salon-text-secondary: #73706e;
 $salon-text-on-dark: #ffffff;
 
 // ---------- Background colors ----------
 $salon-bg-primary: #ffffff;
-$salon-bg-subtle: #f3f1ee;
+$salon-bg-subtle: #e9e7e0d3;
 
 // ---------- UI colors ----------
-$salon-border: #e5e7eb;
+$salon-border: #f4f4f5;
 
 // ---------- Typography ----------
-$salon-font-heading: "Abril Fatface", Georgia, serif;
+$salon-font-heading: "Helvetica", "sans-serif";
 $salon-font-body:
   "Inter",
   -apple-system,
@@ -110,14 +38,14 @@ $salon-font-body:
 
 $heading-h1-weight: 400;
 $heading-h2-weight: 400;
-$salon-heading-h1-size: 2.375rem;
+$salon-heading-h1-size: clamp(2rem, 3vw, 2.5rem);
 $salon-heading-h2-size: 2rem;
 
 $body-regular-size: 1rem;
 $body-regular-weight: 400;
 $body-regular-line: 1.6;
 
-$body-link-size: 1rem;
+$body-link-size: 0.9rem;
 $body-link-weight: 700;
 
 $breadcrumb-size: 1rem;
@@ -128,7 +56,7 @@ $label-uppercase-weight: 700;
 
 $button-label-size: 0.875rem;
 $button-label-weight: 700;
-$button-label-spacing: 0.35em;
+$button-label-spacing: 1px;
 
 // ---------- Transitions & shadows ----------
 $salon-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
