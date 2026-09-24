@@ -2,10 +2,13 @@
 
 <!-- Minimal Page Header -->
 <div class="page-header text-center reveal">
-  <div class="container">
+  <div class="header-container">
     <span class="story-badge">Reservation</span>
-    <h1 class="page-title">Book an Appointment</h1>
-    <p class="text-muted mx-auto mb-0" style="max-width: 600px">
+    <h1 class="page-title">Appointment</h1>
+    <p
+      class="page-description text-muted mx-auto mb-0"
+      style="max-width: 600px"
+    >
       Schedule a personalized styling or color session with our master stylists
       in a few simple steps.
     </p>
@@ -14,9 +17,10 @@
 
 <!-- Booking Wizard Container -->
 <div class="container pb-5 booking-flow">
-  <div class="row g-5 align-items-start">
+  <div class="booking-left">
     <!-- Left Column: Booking Steps -->
-    <div class="col-lg-8">
+
+    <div class="stylists-service">
       <!-- Step 1: Select Service -->
       <div class="booking-step-card reveal">
         <h5 class="booking-step-title">Service</h5>
@@ -92,115 +96,126 @@
           {% endfor %}
         </div>
       </div>
+    </div>
 
-      <!-- Step 3: Date & Time -->
-      <div class="booking-step-card reveal reveal-delay-2">
-        <h5 class="booking-step-title">Date &amp; time</h5>
+    <!-- Step 3: Date & Time -->
+    <div class="booking-step-card reveal reveal-delay-2">
+      <h5 class="booking-step-title">Date &amp; time</h5>
 
-        <div class="row g-4">
-          <div class="col-md-5">
-            <input
-              type="date"
-              class="form-control booking-input"
-              id="booking-date"
-              required
-            />
-            <!-- Status message container under date input -->
-            <div
-              id="date-status-message"
-              class="booking-status-alert booking-status-alert-danger"
-              style="display: none"
-            ></div>
-          </div>
-          <div class="col-md-7">
-            {% if booking_times %}
-            <div class="time-grid-picker">
-              {% for bt in booking_times %}
-              <div
-                class="time-slot-btn"
-                data-time-id="{{ bt.id }}"
-                data-time="{{ bt.time }}"
-              >
-                {{bt.time}}
-              </div>
-              {% endfor %}
-            </div>
-            {% endif %}
-          </div>
+      <div class="time-date">
+        <div>
+          <input
+            type="date"
+            class="form-control date-input"
+            id="booking-date"
+            required
+          />
+          <!-- Status message container under date input -->
+          <div
+            id="date-status-message"
+            class="booking-status-alert booking-status-alert-danger"
+            style="display: none"
+          ></div>
         </div>
-      </div>
-
-      <!-- Step 4: Personal Details -->
-      <div class="booking-step-card reveal reveal-delay-3">
-        <h5 class="booking-step-title">Your details</h5>
-
-        <div class="row g-3">
-          <div class="col-md-6">
-            <input
-              type="text"
-              class="form-control booking-input"
-              id="book-name"
-              placeholder="Full name"
-              required
-            />
-          </div>
-          <div class="col-md-6">
-            <input
-              type="tel"
-              class="form-control booking-input"
-              id="book-phone"
-              placeholder="Phone number"
-              required
-            />
-          </div>
-          <div class="col-md-12">
-            <input
-              type="email"
-              class="form-control booking-input"
-              id="book-email"
-              placeholder="Email address"
-              required
-            />
-          </div>
-          <div class="col-md-12">
-            <textarea
-              class="form-control booking-input"
-              id="book-notes"
-              rows="2"
-              placeholder="Notes (optional)"
-            ></textarea>
-          </div>
+        <div class="time-picker-field">
+          {% if booking_times %}
+          <label class="booking-field-label" for="booking-time"
+            >Appointment time</label
+          >
+          <select class="form-select booking-select" id="booking-time" required>
+            <option value="">Select a time</option>
+            {% for bt in booking_times %}
+            <option value="{{ bt.id }}" data-time="{{ bt.time }}">
+              {{ bt.time }}
+            </option>
+            {% endfor %}
+          </select>
+          {% endif %}
         </div>
       </div>
     </div>
 
-    <!-- Right Column: Sticky Summary Widget -->
-    <div
-      class="col-lg-4 sticky-lg-top reveal reveal-delay-2"
-      style="top: 100px; z-index: 10"
-    >
-      <div class="book-summary-widget">
-        <p class="book-summary-line" id="summary-service-line">
+    <!-- Step 4: Personal Details -->
+    <div class="booking-step-card reveal reveal-delay-3">
+      <h5 class="booking-step-title">Your details</h5>
+
+      <div class="personal-details row g-3">
+        <div class="col-md-6">
+          <input
+            type="text"
+            class="form-control booking-input"
+            id="book-name"
+            placeholder="Full name"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <input
+            type="tel"
+            class="form-control booking-input"
+            id="book-phone"
+            placeholder="Phone number"
+            required
+          />
+        </div>
+        <div class="col-md-12">
+          <input
+            type="email"
+            class="form-control booking-input"
+            id="book-email"
+            placeholder="Email address"
+            required
+          />
+        </div>
+        <div class="col-md-12">
+          <textarea
+            class="form-control booking-input"
+            id="book-notes"
+            rows="2"
+            placeholder="Notes (optional)"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Column: Sticky Summary Widget -->
+  <div
+    class="booking-summary sticky-lg-top reveal reveal-delay-2"
+    style="top: 100px; z-index: 10"
+  >
+    <div class="book-summary-widget">
+      <h5 class="booking-step-title">Booking Summary</h5>
+      <div class="book-summary-line" id="summary-service-line">
+        <span class="book-summary-label">Service</span>
+        <span class="book-summary-value">
           <span id="summary-service-name">No service yet</span>
           <span class="text-pink" id="summary-service-price"></span>
-        </p>
-        <p class="book-summary-line text-muted" id="summary-stylist-name">
-          Any available stylist
-        </p>
-        <p class="book-summary-line text-muted mb-3" id="summary-datetime">
-          No date selected
-        </p>
-        <p class="book-summary-total mb-4">
-          <span id="summary-total-price">$0</span>
-        </p>
-        <button
-          type="submit"
-          class="btn btn-pink w-100 py-2"
-          id="confirm-booking-btn"
-        >
-          Confirm reservation
-        </button>
+        </span>
       </div>
+      <div class="book-summary-line">
+        <span class="book-summary-label">Stylist</span>
+        <span class="book-summary-value text-muted" id="summary-stylist-name">
+          Any available stylist
+        </span>
+      </div>
+      <div class="book-summary-line mb-3">
+        <span class="book-summary-label">Date &amp; time</span>
+        <span class="book-summary-value text-muted" id="summary-datetime">
+          No date selected
+        </span>
+      </div>
+      <div class="book-summary-total mb-4">
+        <span class="book-summary-label">Total</span>
+        <span id="summary-total-price">$0</span>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-pink w-100 py-2"
+        id="confirm-booking-btn"
+      >
+        Confirm reservation
+      </button>
     </div>
   </div>
 </div>
