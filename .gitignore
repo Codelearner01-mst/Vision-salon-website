@@ -2,3 +2,4 @@ __pycache__
 app/__pycache__
 .env
 app/instance
+schema_utf8.sql
