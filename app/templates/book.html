@@ -72,7 +72,7 @@
           >
             <img
               class="stylist-avatar"
-              src="{{ member.image }}"
+              src="{{ url_for('static', filename=member.image) }}"
               alt="{{ member.name }}"
             />
             <span class="stylist-item-name"

@@ -205,7 +205,6 @@
             </div>
             <div class="service-body">
               <h4 class="font-serif mb-3">{{s.name}}</h4>
-              <p class="text-muted small mb-4">{{s.description}}</p>
               <hr class="border-light-grey mb-3" />
               <div class="d-flex justify-content-between align-items-center">
                 <span class="fw-bold text-pink">${{s.price}}+</span>
@@ -453,7 +452,11 @@
       <div class="col-md-6 col-lg-4 reveal reveal-delay-1">
         <div class="team-card">
           <div class="team-img-wrapper">
-            <img src="{{t.image}}" alt="{{t.name}}" class="team-img" />
+            <img
+              src="{{ url_for('static', filename=t.image) }}"
+              alt="{{t.name}}"
+              class="team-img"
+            />
           </div>
           <div class="team-content">
             <h4 class="font-serif mb-1">{{t.name}}</h4>
@@ -493,9 +496,7 @@
 <section
   id="book"
   class="cta-section reveal"
-  style="
-    background-image: url(&quot;https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1200&quot;);
-  "
+  style="background-image: url('{{ url_for('static', filename='images/vision_hairsalon_workplace.png') }}');"
 >
   <div class="cta-overlay"></div>
   <div class="container text-center cta-content">

@@ -83,7 +83,7 @@
         <div class="team-card">
           <div class="team-img-wrapper">
             <img
-              src="{{ member.image }}"
+              src="{{ url_for('static', filename=member.image) }}"
               alt="{{ member.name }}"
               class="team-img"
             />
