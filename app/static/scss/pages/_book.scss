@@ -24,7 +24,6 @@
 }
 
 .booking-left {
-  background: $salon-bg-subtle;
   padding: 1.5rem;
   flex: 1;
   margin-bottom: 1.5rem;
@@ -36,7 +35,7 @@
   border-radius: 0.75rem;
   padding: 1.25rem;
   margin-bottom: 1rem;
-  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.04);
+  box-shadow: 0 8px 24px rgba(17, 24, 39, 0.04);
 
   &:first-child {
     padding-top: 1.25rem;
