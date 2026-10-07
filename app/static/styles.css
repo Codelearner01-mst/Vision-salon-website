@@ -15,7 +15,8 @@
   --salon-bg-subtle: rgba(233, 231, 224, 0.8274509804);
   --salon-border: #f4f4f5;
   --font-heading: Helvetica, sans-serif;
-  --font-body: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+  --font-body:
+    Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
   --salon-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   --salon-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   --salon-shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
@@ -86,7 +87,9 @@ h6,
 .reveal {
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 }
 .reveal.active {
@@ -271,10 +274,12 @@ h6,
   transition: var(--salon-transition);
   transform: translateX(-50%);
 }
-.navbar-nav .nav-link:hover::after, .navbar-nav .nav-link.active-link::after {
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active-link::after {
   width: 70%;
 }
-.navbar-nav .nav-link:hover, .navbar-nav .nav-link.active-link {
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active-link {
   color: var(--salon-bg-primary) !important;
 }
 
@@ -344,7 +349,13 @@ footer {
 
 .page-description {
   color: #73706e;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   font-size: clamp(13.6px, 2vw, 15px);
   line-height: 1.8;
   opacity: 0.92;
@@ -464,14 +475,22 @@ footer {
 .story-blob-1 {
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(255, 74, 139, 0.12) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 74, 139, 0.12) 0%,
+    transparent 70%
+  );
   top: -150px;
   right: -200px;
 }
 .story-blob-2 {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(255, 74, 139, 0.07) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 74, 139, 0.07) 0%,
+    transparent 70%
+  );
   bottom: -100px;
   left: -150px;
 }
@@ -521,7 +540,11 @@ footer {
   width: 60px;
   height: 4px;
   border-radius: 4px;
-  background: linear-gradient(90deg, var(--salon-accent), rgba(201, 169, 97, 0.3));
+  background: linear-gradient(
+    90deg,
+    var(--salon-accent),
+    rgba(201, 169, 97, 0.3)
+  );
   margin-bottom: 1.75rem;
 }
 
@@ -601,7 +624,11 @@ footer {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(24, 24, 27, 0.8), rgba(24, 24, 27, 0.2));
+  background: linear-gradient(
+    to top,
+    rgba(24, 24, 27, 0.8),
+    rgba(24, 24, 27, 0.2)
+  );
   opacity: 0;
   display: flex;
   flex-direction: column;
@@ -706,7 +733,13 @@ footer {
 .why-inset-container .why-bg-layer {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #0c0c0e 0%, #18181b 40%, #1f1118 75%, #200d15 100%);
+  background: linear-gradient(
+    135deg,
+    #0c0c0e 0%,
+    #18181b 40%,
+    #1f1118 75%,
+    #200d15 100%
+  );
   z-index: 0;
   border-radius: 36px;
 }
@@ -718,7 +751,11 @@ footer {
   width: 500px;
   height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 74, 139, 0.18) 0%, transparent 65%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 74, 139, 0.18) 0%,
+    transparent 65%
+  );
   pointer-events: none;
 }
 
@@ -1140,7 +1177,8 @@ footer {
   transition: var(--salon-transition);
   cursor: pointer;
 }
-.filter-btn:hover, .filter-btn.active {
+.filter-btn:hover,
+.filter-btn.active {
   background-color: var(--salon-accent);
   border-color: var(--salon-accent);
   color: var(--salon-bg-primary);
@@ -1148,7 +1186,9 @@ footer {
 }
 
 .gallery-grid-item {
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
 }
 .gallery-grid-item.hide {
   display: none !important;
@@ -1177,7 +1217,6 @@ footer {
 }
 
 .booking-left {
-  background: rgba(233, 231, 224, 0.8274509804);
   padding: 1.5rem;
   flex: 1;
   margin-bottom: 1.5rem;
@@ -1190,7 +1229,7 @@ footer {
   border-radius: 0.75rem;
   padding: 1.25rem;
   margin-bottom: 1rem;
-  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.04);
+  box-shadow: 0 8px 24px rgba(17, 24, 39, 0.04);
 }
 .booking-step-card:first-child {
   padding-top: 1.25rem;
@@ -1268,7 +1307,8 @@ footer {
     max-width: 320px;
   }
 }
-.service-text-option:hover .service-text-name, .service-text-option.selected .service-text-name {
+.service-text-option:hover .service-text-name,
+.service-text-option.selected .service-text-name {
   color: var(--salon-text-primary);
   font-weight: 500;
 }
@@ -1320,10 +1360,12 @@ footer {
   text-align: center;
   cursor: pointer;
 }
-.stylist-item:hover .stylist-avatar, .stylist-item:focus-visible .stylist-avatar {
+.stylist-item:hover .stylist-avatar,
+.stylist-item:focus-visible .stylist-avatar {
   border-color: rgba(92, 37, 44, 0.25);
 }
-.stylist-item:hover .stylist-tooltip, .stylist-item:focus-visible .stylist-tooltip {
+.stylist-item:hover .stylist-tooltip,
+.stylist-item:focus-visible .stylist-tooltip {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(0);
@@ -1395,7 +1437,10 @@ footer {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s;
 }
 .stylist-tooltip::after {
   content: "";
@@ -1529,7 +1574,13 @@ footer {
 body {
   margin: 0;
   background: #ffffff;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   color: #2b2b2b;
 }
 
@@ -1566,7 +1617,13 @@ body {
 }
 
 .label {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   font-size: 0.875rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -1590,7 +1647,13 @@ body {
 }
 
 .hero-sub {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
@@ -1706,7 +1769,9 @@ body {
   background: rgba(233, 231, 224, 0.8274509804);
   color: #2b2b2b;
   font-size: 0;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
 }
 .social-icon i {
   font-size: 0.9rem;
@@ -1849,7 +1914,13 @@ body {
 }
 
 .prop-desc {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #73706e;
@@ -1876,14 +1947,22 @@ body {
 .error-blob-1 {
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(255, 74, 139, 0.14) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 74, 139, 0.14) 0%,
+    transparent 70%
+  );
   top: -180px;
   right: -160px;
 }
 .error-blob-2 {
   width: 450px;
   height: 450px;
-  background: radial-gradient(circle, rgba(255, 74, 139, 0.08) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 74, 139, 0.08) 0%,
+    transparent 70%
+  );
   bottom: -120px;
   left: -100px;
 }
@@ -2001,7 +2080,8 @@ body {
 }
 
 @keyframes error-float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
