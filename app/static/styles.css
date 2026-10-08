@@ -1,21 +1,21 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Inter:wght@400;500;700&display=swap");
 :root {
-  --salon-navbar: #884b47;
-  --salon-primary: #703b37;
-  --salon-primary-hover: #5c3633;
-  --salon-primary-light: #f3e8e6;
-  --salon-accent: #b38c3c;
-  --salon-accent-hover: #9a7630;
+  --salon-navbar: #f30aa8;
+  --salon-primary: #a79277;
+  --salon-primary-hover: #af8e76;
+  --salon-primary-light: #f1e2ce;
+  --salon-accent: #3d271f;
+  --salon-accent-hover: #5c443b;
   --salon-accent-light: #f8f2e3;
-  --salon-text-primary: #2b2b2b;
-  --salon-text-secondary: #73706e;
+  --salon-text-primary: #292522;
+  --salon-text-secondary: #766d65;
   --salon-text-on-dark: #ffffff;
-  --salon-bg-primary: #ffffff;
-  --salon-bg-subtle: #e9e7e0;
-  --salon-border: #f4f4f5;
-  --font-heading: Helvetica, sans-serif;
-  --font-body: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+  --salon-bg-primary: #f7f4ef;
+  --salon-bg-subtle: #ede7df;
+  --salon-border: #ded7cf;
+  --font-heading: Haiton, sans-serif, marcellus;
+  --font-body: Haiton, sans-serif, marcellus, Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto;
   --salon-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   --salon-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   --salon-shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
@@ -313,8 +313,8 @@ footer {
 }
 
 .page-header {
-  background: #e9e7e0;
-  border-bottom: 1px solid rgba(244, 244, 245, 0.12);
+  background: #ede7df;
+  border-bottom: 1px solid rgba(222, 215, 207, 0.12);
   margin-bottom: 3rem;
   padding: 36px 12px 30px;
 }
@@ -335,16 +335,16 @@ footer {
 }
 
 .page-title {
-  font-family: "Helvetica", "sans-serif";
+  font-family: "Haiton", "sans-serif", "marcellus";
   font-weight: 600;
   font-size: clamp(2rem, 3vw, 2.5rem);
   letter-spacing: -0.03em;
-  color: #2b2b2b;
+  color: #292522;
 }
 
 .page-description {
-  color: #73706e;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #766d65;
+  font-family: "Haiton", "sans-serif", "marcellus", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
   font-size: clamp(13.6px, 2vw, 15px);
   line-height: 1.8;
   opacity: 0.92;
@@ -1181,6 +1181,9 @@ footer {
   flex: 1;
   margin-bottom: 1.5rem;
   padding-bottom: 2rem;
+  border: var(--salon-border) 1px solid;
+  border-radius: var(--salon-radius-md);
+  padding: var(--salon-spacing-lg);
 }
 
 .booking-step-card {
@@ -1196,7 +1199,7 @@ footer {
 }
 
 .booking-step-title {
-  font-family: "Helvetica", "sans-serif";
+  font-family: "Haiton", "sans-serif", "marcellus";
   font-size: 2rem;
   font-weight: 400;
   line-height: 1;
@@ -1527,19 +1530,19 @@ footer {
 
 body {
   margin: 0;
-  background: #ffffff;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: #2b2b2b;
+  background: #f7f4ef;
+  font-family: "Haiton", "sans-serif", "marcellus", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+  color: #292522;
 }
 
 .screen {
   display: flex;
   flex-direction: column;
-  background: #ffffff;
+  background: #f7f4ef;
 }
 
 .logo {
-  font-family: "Helvetica", "sans-serif";
+  font-family: "Haiton", "sans-serif", "marcellus";
   font-size: clamp(2rem, 3vw, 2.5rem);
   font-weight: 400;
   line-height: 1;
@@ -1548,7 +1551,7 @@ body {
 }
 
 .hero {
-  background: #e9e7e0;
+  background: #ede7df;
   padding: 24px 24px 28px;
 }
 @media (min-width: 768px) {
@@ -1565,21 +1568,21 @@ body {
 }
 
 .label {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Haiton", "sans-serif", "marcellus", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
   font-size: 0.875rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.7px;
-  color: #b38c3c;
+  color: #3d271f;
   margin: 0;
 }
 
 .hero-title {
-  font-family: "Helvetica", "sans-serif";
+  font-family: "Haiton", "sans-serif", "marcellus";
   font-size: 2rem;
   font-weight: 400;
   line-height: 1;
-  color: #2b2b2b;
+  color: #292522;
   margin: 0;
 }
 @media (min-width: 768px) {
@@ -1589,11 +1592,11 @@ body {
 }
 
 .hero-sub {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Haiton", "sans-serif", "marcellus", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
-  color: #73706e;
+  color: #766d65;
   margin: 0;
 }
 @media (min-width: 1280px) {
@@ -1607,7 +1610,7 @@ body {
   grid-template-columns: 1fr;
   gap: 1.5rem;
   padding: 1rem 1rem 3rem;
-  background: #ffffff;
+  background: #f7f4ef;
 }
 @media (min-width: 768px) {
   .team-list {
@@ -1667,17 +1670,17 @@ body {
 }
 
 .team-content .title {
-  font-family: "Helvetica", "sans-serif";
+  font-family: "Haiton", "sans-serif", "marcellus";
   font-size: 2rem;
   font-weight: 400;
   line-height: 1;
-  color: #2b2b2b;
+  color: #292522;
   margin: 0;
   font-size: 1.6rem;
 }
 
 .team-content .role {
-  color: #703b37;
+  color: #a79277;
   font-size: 0.9rem;
   margin: 0 0 0.5rem;
 }
@@ -1700,10 +1703,10 @@ body {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #703b37;
+  background: #a79277;
   color: #ffffff;
-  background: #e9e7e0;
-  color: #2b2b2b;
+  background: #ede7df;
+  color: #292522;
   font-size: 0;
   transition: background 0.3s ease, transform 0.3s ease;
 }
@@ -1711,7 +1714,7 @@ body {
   font-size: 0.9rem;
 }
 .social-icon:hover {
-  background: #703b37;
+  background: #a79277;
   color: #ffffff;
   transform: translateY(-2px);
 }
@@ -1723,7 +1726,7 @@ body {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: #703b37;
+    background: #a79277;
     color: #ffffff;
   }
 }
@@ -1761,12 +1764,12 @@ body {
 }
 
 .full-profile {
-  color: #703b37;
+  color: #a79277;
   background: transparent;
 }
 
 .book-link {
-  background: #703b37;
+  background: #a79277;
   color: #ffffff;
 }
 
@@ -1778,7 +1781,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 32px;
-    background: #e9e7e0;
+    background: #ede7df;
     padding: 48px 40px;
   }
 }
@@ -1801,11 +1804,11 @@ body {
 }
 
 .section-title {
-  font-family: "Helvetica", "sans-serif";
+  font-family: "Haiton", "sans-serif", "marcellus";
   font-size: clamp(2rem, 3vw, 2.5rem);
   font-weight: 400;
   line-height: 1;
-  color: #2b2b2b;
+  color: #292522;
   margin: 0;
 }
 
@@ -1839,19 +1842,19 @@ body {
 }
 
 .prop-title {
-  font-family: "Helvetica", "sans-serif";
+  font-family: "Haiton", "sans-serif", "marcellus";
   font-size: 2rem;
   font-weight: 400;
   line-height: 1;
-  color: #703b37;
+  color: #a79277;
   margin: 0;
 }
 
 .prop-desc {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Haiton", "sans-serif", "marcellus", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
   font-size: 16px;
   line-height: 1.5;
-  color: #73706e;
+  color: #766d65;
   margin: 0;
 }
 

@@ -28,6 +28,9 @@
   flex: 1;
   margin-bottom: 1.5rem;
   padding-bottom: 2rem;
+  border: var(--salon-border) 1px solid;
+  border-radius: var(--salon-radius-md);
+  padding: var(--salon-spacing-lg);
 }
 .booking-step-card {
   background: var(--salon-bg-primary);
